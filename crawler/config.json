@@ -1,0 +1,45 @@
+{
+  "city": "杭州",
+  "max_pages": 3,
+  "keywords": [
+    "API网关开发",
+    "安全架构师",
+    "WAF开发工程师",
+    "Web安全开发",
+    "API安全工程师",
+    "信息安全专家",
+    "Nginx开发",
+    "高性能网关开发",
+    "HIDS开发",
+    "主机安全开发",
+    "安全风控工程师",
+    "风控系统开发"
+  ],
+  "match_keywords": [
+    "安全",
+    "网关",
+    "WAF",
+    "API",
+    "C++",
+    "Golang",
+    "Go",
+    "架构",
+    "风控",
+    "后端",
+    "服务端",
+    "高性能",
+    "分布式"
+  ],
+  "exclude_keywords": [
+    "实习",
+    "外包",
+    "派遣"
+  ],
+  "delay": {
+    "page_min": 4,
+    "page_max": 8,
+    "keyword_min": 8,
+    "keyword_max": 15
+  },
+  "_note": "keywords 为空时自动从简历分析生成，运行 keyword_advisor.py 可刷新"
+}

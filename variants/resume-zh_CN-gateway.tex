@@ -1,0 +1,39 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+% ============================================================
+% 网关/基础架构方向简历入口 - 适用岗位：API网关/后端架构/分布式
+% ============================================================
+\documentclass{resume}
+\usepackage{zh_CN-systemfonts}
+\usepackage{linespacing_fix}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black
+}
+
+\newcommand{\datedsubsection}[3]{%
+  \subsection*{%
+    \begin{tabularx}{\textwidth}{@{}lXr@{}}
+    \textbf{#1} & \textit{#2} & \textit{#3} \\
+    \end{tabularx}%
+  }%
+}
+
+\begin{document}
+
+\input{content/base}
+\vspace{0.3cm}
+\input{content/exp_security}
+
+% TODO: 替换为 exp_gateway.tex（网关/架构侧重版本的工作经历）
+% \input{content/exp_gateway}
+
+\end{document}
