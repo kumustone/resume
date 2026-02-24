@@ -1,7 +1,7 @@
 % !TEX TS-program = xelatex
 % !TEX encoding = UTF-8 Unicode
 % ============================================================
-% 安全方向简历入口 - 适用岗位：安全开发/API安全/WAF/HIDS
+% 单一简历入口：内容尽量来自 content/resume_dev.md 的提炼版
 % ============================================================
 \documentclass{resume}
 \usepackage{zh_CN-systemfonts}
@@ -19,18 +19,8 @@
     urlcolor=black
 }
 
-\newcommand{\datedsubsection}[3]{%
-  \subsection*{%
-    \begin{tabularx}{\textwidth}{@{}lXr@{}}
-    \textbf{#1} & \textit{#2} & \textit{#3} \\
-    \end{tabularx}%
-  }%
-}
-
 \begin{document}
 
-\input{content/base}
-\vspace{0.3cm}
-\input{content/exp_security}
+\input{content/resume}
 
 \end{document}
