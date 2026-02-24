@@ -1,59 +1,50 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{zh_CN-systemfonts}[2026/02/18 zh_CN system fonts (macOS modern)]
+\ProvidesPackage{zh_CN-systemfonts}[2026/02/24 zh_CN system fonts (macOS Hiragino)]
 
 \RequirePackage{fontspec}
 \RequirePackage{xeCJK}
 
-% Cross-platform resume-friendly fonts with predictable output.
-% Main text: Noto Serif CJK SC (Source Han Serif)
-% Headings: Noto Sans CJK SC (Source Han Sans)
-% Emphasis: Kaiti SC if available, otherwise fall back to main.
+% macOS 现代简历字体方案：
+% - 正文：PingFang SC（更现代）
+% - 标题/强调：PingFang SC Semibold
+% - 回退：Heiti SC
+% - 辅助：Kaiti SC / STFangsong
 
-\newcommand*{\ResumeCJKMainFont}{}
-\newcommand*{\ResumeCJKSansFont}{}
-\newcommand*{\ResumeCJKMonoFont}{}
-
-\IfFontExistsTF{Noto Serif CJK SC}{
-  \renewcommand*{\ResumeCJKMainFont}{Noto Serif CJK SC}
+\IfFontExistsTF{PingFang SC}{
+  \setCJKmainfont[BoldFont={PingFang SC Semibold}]{PingFang SC}
+  \setCJKsansfont[BoldFont={PingFang SC Semibold}]{PingFang SC}
+  \setCJKmonofont{Heiti SC}
 }{
-  \renewcommand*{\ResumeCJKMainFont}{Noto Sans CJK SC}
+  \setCJKmainfont{Heiti SC}
+  \setCJKsansfont{Heiti SC}
+  \setCJKmonofont{Heiti SC}
 }
 
-\IfFontExistsTF{Noto Sans CJK SC Bold}{
-  \setCJKmainfont[BoldFont=Noto Sans CJK SC Bold]{\ResumeCJKMainFont}
+\IfFontExistsTF{PingFang SC}{
+  \setCJKfamilyfont{zhsong}[BoldFont={PingFang SC Semibold}]{PingFang SC}
+  \setCJKfamilyfont{zhhei}[BoldFont={PingFang SC Semibold}]{PingFang SC}
 }{
-  \setCJKmainfont{\ResumeCJKMainFont}
+  \setCJKfamilyfont{zhsong}{Heiti SC}
+  \setCJKfamilyfont{zhhei}{Heiti SC}
 }
 
-\renewcommand*{\ResumeCJKSansFont}{Noto Sans CJK SC}
-
-\IfFontExistsTF{Noto Sans CJK SC Bold}{
-  \setCJKsansfont[BoldFont=Noto Sans CJK SC Bold]{\ResumeCJKSansFont}
+\IfFontExistsTF{STFangsong}{
+  \setCJKfamilyfont{zhfs}{STFangsong}
 }{
-  \setCJKsansfont{\ResumeCJKSansFont}
+  \IfFontExistsTF{PingFang SC}{
+    \setCJKfamilyfont{zhfs}{PingFang SC}
+  }{
+    \setCJKfamilyfont{zhfs}{Heiti SC}
+  }
 }
-
-\IfFontExistsTF{Noto Sans Mono CJK SC}{
-  \renewcommand*{\ResumeCJKMonoFont}{Noto Sans Mono CJK SC}
-}{
-  \renewcommand*{\ResumeCJKMonoFont}{Noto Sans CJK SC}
-}
-
-\IfFontExistsTF{Noto Sans Mono CJK SC Bold}{
-  \setCJKmonofont[BoldFont=Noto Sans Mono CJK SC Bold]{\ResumeCJKMonoFont}
-}{
-  \setCJKmonofont{\ResumeCJKMonoFont}
-}
-
-\setCJKfamilyfont{zhsong}{\ResumeCJKMainFont}
-
-\setCJKfamilyfont{zhhei}{\ResumeCJKSansFont}
-
-\setCJKfamilyfont{zhfs}{\ResumeCJKMainFont}
 \IfFontExistsTF{Kaiti SC}{
-  \setCJKfamilyfont{zhkai}{Kaiti SC}
+  \setCJKfamilyfont{zhkai}{Kaiti SC}[AutoFakeBold=2]
 }{
-  \setCJKfamilyfont{zhkai}{\ResumeCJKMainFont}
+  \IfFontExistsTF{PingFang SC}{
+    \setCJKfamilyfont{zhkai}{PingFang SC}
+  }{
+    \setCJKfamilyfont{zhkai}{Heiti SC}
+  }
 }
 
 \newcommand*{\songti}{\CJKfamily{zhsong}}

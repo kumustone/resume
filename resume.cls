@@ -147,7 +147,7 @@
 %   想让标题更紧凑：减小 {前间距}/{后间距}
 % ------------------------------
 \titleformat{\section}
-  {\Large\scshape\raggedright}
+  {\Large\heiti\raggedright}
   {}{0em}
   {}
   [\titlerule]
@@ -156,7 +156,7 @@
 % 二级标题（\subsection）样式：在本模板里主要给 datedsubsection 使用
 % - 想让公司/职位行更紧凑：减小后间距 {*0.5}
 \titleformat{\subsection}
-  {\large\raggedright}
+  {\large\heiti\raggedright}
   {}{0em}
   {}
 \titlespacing*{\subsection}{0cm}{*1}{*0.5}
@@ -183,7 +183,7 @@
 
 \newcommand{\thirdheading}[1]{%
   \vspace{0.2ex}%
-  {\par\noindent{\kaishu\bfseries\normalsize #1}\par}%
+  {\par\noindent{\heiti\bfseries\normalsize #1}\par}%
   \vspace{0.2ex}%
 }
 

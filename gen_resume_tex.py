@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 import re
 import sys
 from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Union
 
 
-def parse_front_matter(md: str) -> tuple[dict, str]:
+def parse_front_matter(md: str) -> Tuple[Dict, str]:
     lines = md.splitlines()
     if not lines or lines[0].strip() != "---":
         return {}, md
@@ -62,7 +65,7 @@ def inline_md_to_tex(s: str) -> str:
     if not s:
         return ""
 
-    out: list[str] = []
+    out: List[str] = []
     last = 0
     for m in re.finditer(r"\*\*(.+?)\*\*", s):
         if m.start() > last:
@@ -79,7 +82,7 @@ def extract_year(birth: str) -> str:
     return m.group(1) if m else birth
 
 
-def extract_edu_parts(edu: str) -> tuple[str, str]:
+def extract_edu_parts(edu: str) -> Tuple[str, str]:
     # e.g. "硕士（中国海洋大学 · 通信与信息系统）"
     degree = edu
     university = ""
@@ -101,22 +104,32 @@ def normalize_dates(s: str) -> str:
     return s
 
 
-def parse_job_heading(line: str) -> tuple[str, str, str]:
-    # "## 闪捷信息 ｜ 安全技术专家 | 2022.04 – 至今"
+def parse_job_heading(line: str) -> Tuple[str, str, str]:
+    # "## 闪捷信息 | 安全技术专家 | 2022.04 – 至今"
+    # or "## 闪捷信息 ｜ 安全技术专家 | 2022.04 – 至今"
     s = line.lstrip("#").strip()
+    # Normalize full-width ｜ to half-width | first
+    s = s.replace("｜", "|")
     parts = [p.strip() for p in s.split("|")]
-    left = parts[0] if parts else s
-    dates = normalize_dates(parts[1]) if len(parts) >= 2 else ""
 
-    # left: "公司 ｜ 职位"
-    left_parts = [p.strip() for p in left.split("｜")]
-    company = left_parts[0] if left_parts else left
-    title = left_parts[1] if len(left_parts) >= 2 else ""
+    # Last part is dates, everything before is company / title
+    if len(parts) >= 3:
+        company = parts[0]
+        title = parts[1]
+        dates = normalize_dates(parts[2])
+    elif len(parts) == 2:
+        company = parts[0]
+        title = ""
+        dates = normalize_dates(parts[1])
+    else:
+        company = parts[0] if parts else s
+        title = ""
+        dates = ""
 
     return company, title, dates
 
 
-def parse_kv_bullet(line: str) -> tuple[str, str] | None:
+def parse_kv_bullet(line: str) -> Optional[Tuple[str, str]]:
     # "* **挑战**：xxx" or "- **挑战**：xxx"
     m = re.match(r"^\s*[*-]\s*\*\*(.+?)\*\*[:：]\s*(.+)$", line.strip())
     if not m:
@@ -124,8 +137,8 @@ def parse_kv_bullet(line: str) -> tuple[str, str] | None:
     return m.group(1).strip(), m.group(2).strip()
 
 
-def collect_list(lines: list[str], start: int) -> tuple[list[str], int]:
-    items: list[str] = []
+def collect_list(lines: List[str], start: int) -> Tuple[List[str], int]:
+    items: List[str] = []
     i = start
     while i < len(lines):
         line = lines[i]
@@ -178,7 +191,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
                 return idx
         return -1
 
-    def find_heading_any(headings: list[str]) -> int:
+    def find_heading_any(headings: List[str]) -> int:
         for h in headings:
             idx = find_heading(h)
             if idx != -1:
@@ -202,7 +215,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
             position_title = lines[i].strip()
             i += 1
         # paragraph until separator/heading
-        paras: list[str] = []
+        paras: List[str] = []
         while i < len(lines):
             ln = lines[i].strip()
             if not ln:
@@ -214,7 +227,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
             i += 1
         position_para = "".join(paras)
 
-    core_items: list[tuple[str, str]] = []
+    core_items: List[Tuple[str, str]] = []
     if idx_core != -1:
         i = idx_core + 1
         while i < len(lines):
@@ -263,7 +276,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
             i += 1
 
     # Work experiences
-    jobs: list[dict] = []
+    jobs: List[dict] = []
     if idx_exp != -1:
         i = idx_exp + 1
         while i < len(lines):
@@ -326,7 +339,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
                         
                         list_lines, i2 = collect_list(lines, i)
                         i = i2
-                        bullets: list[tuple[str, str] | str] = []
+                        bullets: List[Union[Tuple[str, str], str]] = []
                         for bl in list_lines:
                             kv = parse_kv_bullet(bl)
                             if kv:
@@ -339,7 +352,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
                     if re.match(r"^\s*[*-]\s+", lines[i]):
                         list_lines, i2 = collect_list(lines, i)
                         i = i2
-                        bullets: list[tuple[str, str] | str] = []
+                        bullets: List[Union[Tuple[str, str], str]] = []
                         for bl in list_lines:
                             kv = parse_kv_bullet(bl)
                             if kv:
@@ -357,7 +370,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
 
             i += 1
 
-    stack_items: list[tuple[str, str]] = []
+    stack_items: List[Tuple[str, str]] = []
     if idx_stack != -1:
         i = idx_stack + 1
         while i < len(lines):
@@ -373,7 +386,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
             i += 1
 
     # ---- Emit LaTeX ----
-    out: list[str] = []
+    out: List[str] = []
     out.append(r"\pagenumbering{gobble}")
     out.append("")
     if name:
