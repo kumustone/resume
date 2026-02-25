@@ -1,0 +1,20 @@
+# Fdb version 4
+["pdflatex"] 1772026980.31733 "/Users/liubo/code/kumu_work/resume/resume_security.tex" "resume_security.pdf" "resume_security" 1772026980.49846 2
+  "/Users/liubo/code/kumu_work/resume/resume_security.tex" 1771907874.44287 571 32d564f3631d74d3facf772cbbcd2599 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifluatex.sty" 1572645307 492 1994775aa15b0d1289725a0b1bbc2d4c ""
+  "/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty" 1644112042 7237 bdd120a32c8fdb4b433cf9ca2e7cd98a ""
+  "/usr/local/texlive/2024/texmf-dist/tex/generic/iftex/ifxetex.sty" 1572645307 488 4565444a3e75e59cb2702dc42e18f482 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls" 1705352648 20144 147463a6a579f4597269ef9565205cfe ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/base/size10.clo" 1705352648 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/xelatex/xltxtra/xltxtra.sty" 1546294187 5686 8a29af4ad9d707b5280738995d050842 ""
+  "/usr/local/texlive/2024/texmf-dist/web2c/texmf.cnf" 1708706663 41649 5d6ae549fbbcb850a863f69aa41f3d10 ""
+  "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1719847616 8221439 04326921c6536b995d6fd1d40c7d7a0f ""
+  "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
+  "resume.cls" 1772023411.66806 10213 446cf88e79a1a47ee63a9f09b605c03c ""
+  "resume_security.aux" 1772026980.3168 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "resume_security.tex" 1771907874.44287 571 32d564f3631d74d3facf772cbbcd2599 ""
+  (generated)
+  "resume_security.aux"
+  "resume_security.log"
+  "resume_security.pdf"
+  (rewritten before read)

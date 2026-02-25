@@ -198,24 +198,28 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
                 return idx
         return -1
 
-    idx_position = find_heading("# 职业定位")
+    idx_profile = find_heading_any(["# 个人简介", "# 职业定位"])
     idx_core = find_heading("# 核心能力")
     idx_exp = find_heading("# 工作经历")
     idx_stack = find_heading_any(["# 技术栈 & 证书", "# 技术栈 & 资质"])
     idx_achieve = find_heading("# 代表性安全体系成果")
 
-    position_title = ""
-    position_para = ""
-    if idx_position != -1:
-        # title is next non-empty line, usually bold
-        i = idx_position + 1
+    profile_section_title = ""
+    profile_title = ""
+    profile_para = ""
+    if idx_profile != -1:
+        profile_section_title = lines[idx_profile].strip().lstrip("#").strip() or "个人简介"
+        # title is next non-empty line only when it is explicitly bold (wrapped with ** **)
+        i = idx_profile + 1
         while i < len(lines) and not lines[i].strip():
             i += 1
         if i < len(lines):
-            position_title = lines[i].strip()
-            i += 1
+            first_line = lines[i].strip()
+            if re.match(r"^\*\*.+\*\*$", first_line):
+                profile_title = first_line
+                i += 1
         # paragraph until separator/heading
-        paras: List[str] = []
+        paras: list[str] = []
         while i < len(lines):
             ln = lines[i].strip()
             if not ln:
@@ -225,7 +229,7 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
                 break
             paras.append(ln)
             i += 1
-        position_para = "".join(paras)
+        profile_para = "".join(paras)
 
     core_items: List[Tuple[str, str]] = []
     if idx_core != -1:
@@ -424,18 +428,18 @@ def generate_tex(md_path: Path, out_path: Path) -> None:
         )
         out.append("")
 
-    # 职业定位
-    out.append(r"\section{职业定位}")
+    # 简介（职业定位 / 个人简介）
+    out.append(r"\section{" + escape_latex(profile_section_title or "个人简介") + "}")
     out.append("")
     out.append(r"\sloppy")
-    if position_title:
+    if profile_title:
         # strip ** **
-        t = position_title
+        t = profile_title
         t = re.sub(r"^\*\*(.+)\*\*$", r"\1", t)
         out.append(r"\textbf{" + escape_latex(t) + "}")
         out.append("")
-    if position_para:
-        out.append(inline_md_to_tex(position_para))
+    if profile_para:
+        out.append(inline_md_to_tex(profile_para))
         out.append("")
 
     out.append(vspace_block)

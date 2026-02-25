@@ -84,8 +84,8 @@
 % ------------------------------
 \RequirePackage[
 	a4paper,
-	left=0.7in,
-	right=0.7in,
+	left=0.65in,
+	right=0.65in,
 	top=0.50in,
 	bottom=0.5in,
 	nohead
