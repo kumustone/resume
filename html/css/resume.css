@@ -1,0 +1,240 @@
+@charset "UTF-8";
+
+/* ============================================================
+   简历打印样式 — 中文经典排版
+   字体：正文 宋体(Adobe Song Std) / 标题 黑体(Adobe Heiti Std) / 简介 楷体(Adobe Kaiti Std)
+   字号：20pt(姓名) → 13pt(section) → 12pt(公司) → 11pt(项目) → 10.5pt(正文) → 9.5pt(页眉)
+   行高：正文 1.4 / 列表 1.4 / 标题 1.15–1.25
+   间距：list-item 0.3em / experience-item 0.6em / section 0.6em
+   边距：Playwright page.pdf() 控制（top:0.50in, right:0.65in, bottom:0.50in, left:0.65in）
+   ============================================================ */
+
+/* ---- 页面设置 ---- */
+@page {
+  size: A4;
+}
+
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  .resume-page {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* ---- 基础重置 ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---- 全局 ---- */
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 10.5pt;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #1a1a1a;
+  background: white;
+}
+
+/* ---- 简历页面容器 ---- */
+.resume-page {
+  width: 100%;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 0;
+  background: white;
+}
+
+/* ---- 页眉：个人信息 ---- */
+.resume-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.3em;
+}
+
+.header-info {
+  flex: 1;
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+
+.header-info .info-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.15em;
+}
+
+.header-info .icon {
+  font-family: "FontAwesome", sans-serif;
+  display: inline-block;
+  width: 1.4em;
+  text-align: center;
+  color: #555;
+}
+
+.header-info .sep {
+  margin: 0 0.5em;
+  color: #999;
+}
+
+.header-name {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.header-name h1 {
+  font-size: 20pt;
+  font-weight: 600;
+  letter-spacing: 0.3pt;
+  line-height: 1.15;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Section 标题 ---- */
+.resume-section {
+  margin-bottom: 0.6em;
+}
+
+.resume-section h2 {
+  font-size: 13pt;
+  font-weight: 600;
+  border-bottom: 1pt solid #000;
+  padding-bottom: 2pt;
+  margin-bottom: 0.5em;
+  margin-top: 0.3em;
+  line-height: 1.25;
+}
+
+/* ---- 个人简介 — 楷体，区分正文 ---- */
+.summary-content p {
+  font-family: "Adobe Kaiti Std", "Adobe Kaiti Std R", "Adobe 楷体 Std", "STKaiti", "Kaiti SC", serif;
+  font-size: 10.5pt;
+  font-weight: 400;
+  font-synthesis: none;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  hyphens: auto;
+  margin-bottom: 0.3em;
+}
+
+.summary-title-line {
+  margin-bottom: 0.3em;
+}
+
+/* ---- 核心能力 / 技术栈 / 项目亮点 列表 ---- */
+.skill-list,
+.tech-list,
+.highlight-list {
+  list-style: disc;
+  padding-left: 1.5pc;
+  margin: 0;
+}
+
+.skill-list li,
+.tech-list li,
+.highlight-list li {
+  margin-bottom: 0.3em;
+  line-height: 1.4;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+/* ---- 工作经验 ---- */
+.experience-item {
+  margin-bottom: 0.6em;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25em;
+  font-size: 12pt;
+  font-weight: 600;
+}
+
+.exp-company {
+  flex: 1;
+  font-weight: 600;
+}
+
+.exp-role {
+  flex: 1;
+  text-align: center;
+  font-weight: 400;
+}
+
+.exp-period {
+  flex: 1;
+  text-align: right;
+  font-weight: 400;
+}
+
+/* ---- 项目子标题 ---- */
+.project {
+  margin-bottom: 0.3em;
+}
+
+.project-name {
+  font-size: 11pt;
+  font-weight: 600;
+  margin: 0.25em 0 0.1em 0;
+  line-height: 1.35;
+}
+
+/* ---- 教育背景表格 ---- */
+.edu-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5pt;
+}
+
+.edu-table td {
+  padding: 0.1em 0.5em;
+  text-align: left;
+}
+
+.edu-table td:nth-child(1) { width: 25%; }
+.edu-table td:nth-child(2) { width: 30%; }
+.edu-table td:nth-child(3) { width: 15%; }
+.edu-table td:nth-child(4) { width: 30%; text-align: right; }
+
+/* ---- 打印优化 ---- */
+@media print {
+  .resume-section h2,
+  .exp-header,
+  .project-name {
+    break-after: avoid;
+  }
+
+  .highlight-list li {
+    break-inside: avoid;
+  }
+}
+
+/* ---- 安全方向特殊调整（更紧凑） ---- */
+body.security .resume-section {
+  margin-bottom: 0.4em;
+}
+
+body.security .resume-section h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.35em;
+}
+
+body.security .skill-list li,
+body.security .tech-list li,
+body.security .highlight-list li {
+  line-height: 1.35;
+}

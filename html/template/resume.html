@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{name}} - 简历</title>
+  <link rel="stylesheet" href="../css/resume.css">
+</head>
+<body>
+  <div class="resume-page">
+    <!-- 页眉：个人信息 -->
+    <header class="resume-header">
+      <div class="header-info">
+        <div class="info-row">
+          <span class="icon">&#xf041;</span>
+          <span>{{location}}</span>
+          <span class="sep">|</span>
+          <span>{{experience_summary}}</span>
+          <span class="sep">|</span>
+          <span>{{tech_stack}}</span>
+        </div>
+        <div class="info-row">
+          <span class="icon">&#xf0e0;</span>
+          <span>{{email}}</span>
+          <span class="sep">|</span>
+          <span class="icon">&#xf095;</span>
+          <span>{{phone}}</span>
+        </div>
+        <div class="info-row">
+          <span class="icon">&#xf19d;</span>
+          <span>{{education}}</span>
+        </div>
+      </div>
+      <div class="header-name">
+        <h1>{{name}}</h1>
+      </div>
+    </header>
+
+    <!-- 个人简介 -->
+    <section class="resume-section">
+      <h2>{{summary_title}}</h2>
+      <div class="summary-content">
+        {{#summary_has_title}}
+        <p class="summary-title-line"><strong>{{summary_title_line}}</strong></p>
+        {{/summary_has_title}}
+        <p>{{summary_body}}</p>
+      </div>
+    </section>
+
+    <!-- 核心能力 -->
+    <section class="resume-section">
+      <h2>核心能力</h2>
+      <ul class="skill-list">
+        {{#core_skills}}
+        <li><strong>{{title}}</strong>：{{details}}</li>
+        {{/core_skills}}
+      </ul>
+    </section>
+
+    <!-- 工作经验 -->
+    <section class="resume-section">
+      <h2>工作经验</h2>
+      {{#experiences}}
+      <div class="experience-item">
+        <div class="exp-header">
+          <span class="exp-company"><strong>{{company}}</strong></span>
+          <span class="exp-role"><strong>{{role}}</strong></span>
+          <span class="exp-period"><strong>{{period}}</strong></span>
+        </div>
+        {{#projects}}
+        <div class="project">
+          <h4 class="project-name">{{name}}</h4>
+          <ul class="highlight-list">
+            {{#highlights}}
+            <li>{{{.}}}</li>
+            {{/highlights}}
+          </ul>
+        </div>
+        {{/projects}}
+      </div>
+      {{/experiences}}
+    </section>
+
+    <!-- 技术栈 & 证书 -->
+    <section class="resume-section">
+      <h2>技术栈 &amp; 证书</h2>
+      <ul class="tech-list">
+        <li><strong>核心语言</strong>：<strong>{{tech_languages}}</strong></li>
+        <li><strong>系统底座</strong>：{{tech_systems}}</li>
+        <li><strong>AI / LLM</strong>：{{tech_ai_llm}}</li>
+        <li><strong>数据组件</strong>：{{tech_data}}</li>
+        <li><strong>专业资质</strong>：<strong>{{tech_certifications}}</strong></li>
+        <li><strong>荣誉奖励</strong>：{{tech_honors}}</li>
+      </ul>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="resume-section">
+      <h2>教育背景</h2>
+      <table class="edu-table">
+        {{#education_list}}
+        <tr>
+          <td><strong>{{school}}</strong></td>
+          <td><em>{{major}}</em></td>
+          <td><em>{{degree}}</em></td>
+          <td><em>{{period}}</em></td>
+        </tr>
+        {{/education_list}}
+      </table>
+    </section>
+  </div>
+</body>
+</html>

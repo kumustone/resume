@@ -1,0 +1,16 @@
+{
+  "name": "resume-html-generator",
+  "version": "1.0.0",
+  "description": "YAML → HTML → PDF 简历生成器",
+  "private": true,
+  "scripts": {
+    "build": "node js/yaml-to-html.js && node js/generate-pdf.js",
+    "html": "node js/yaml-to-html.js",
+    "pdf": "node js/generate-pdf.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "mustache": "^4.2.0",
+    "playwright": "^1.40.0"
+  }
+}

@@ -1,0 +1,17 @@
+# 构建输出
+output/
+html/output/
+
+# npm 依赖
+html/node_modules/
+
+# LaTeX 构建中间文件
+build/
+*.aux
+*.log
+*.out
+*.fdb_latexmk
+*.fls
+
+# YAML → LaTeX 生成的内容文件
+content/resume_gateway.tex
