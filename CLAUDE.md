@@ -175,6 +175,23 @@ make clean-all # 清理全部含 LaTeX
 
 ---
 
+## 工作进展（截至 2026-06-22）
+
+### ✅ 已完成
+- 简历内容：YAML 数据源完成，gateway/security 双方向
+- 排版：PingFang SC + Adobe Kaiti Std，字号层级稳定，3页不超限
+- 语言：去互联网安全黑话，定位为"资深系统研发+安全+AI实践"
+- 构建：`make all` → HTML + PDF 一键生成
+- 目录：LaTeX 文件归入 `latex/`，career/ 拆分重组
+- Git tag: `v2.0.0`
+
+### 🔲 待办
+- [ ] LaTeX 构建验证（fontawesome 字体路径需修复，低优先级）
+- [ ] `interview-prep/` 面试题内容补充
+- [ ] `market-research/` 职位数据更新
+
+---
+
 ## 版本
 
 | Tag | 说明 |
