@@ -51,7 +51,7 @@ def render_profile(data: dict) -> str:
         f"{{{p['email']}}}"
         f"{{{p['phone']}}}"
         f"{{{p['education']}}}"
-        f"{{{p['birth_year']}}}"
+        f"{{}}"
     )
 
 
@@ -170,7 +170,8 @@ def render_tech_stack(data: dict, direction: str) -> str:
     lines.append(f"  \\item \\textbf{{数据组件}}: {escape_latex(ts['data'])}")
     lines.append(f"  \\item \\textbf{{专业资质}}: \\textbf{{{escape_latex(ts['certifications'])}}}")
     lines.append(f"  \\item \\textbf{{荣誉奖励}}: {escape_latex(ts['honors'])}")
-    lines.append(f"  \\item \\textbf{{核心标签}}: {escape_latex(ts['tags'])}")
+    if ts.get('ai_llm'):
+        lines.append(f"  \\item \\textbf{{AI / LLM}}: {escape_latex(ts['ai_llm'])}")
 
     lines.append("\\end{itemize}")
 

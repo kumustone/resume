@@ -12,7 +12,7 @@ DATA_DIR     = data
 SCRIPTS_DIR  = scripts
 
 # ---- LaTeX 配置 ----
-XELATEX      = xelatex -interaction=nonstopmode -halt-on-error -output-directory=$(BUILD_DIR)
+XELATEX      = TEXINPUTS=latex: xelatex -interaction=nonstopmode -halt-on-error -output-directory=$(BUILD_DIR)
 
 # ---- 数据源 ----
 YAML_DATA    = $(DATA_DIR)/resume.yaml
@@ -23,8 +23,8 @@ YAML_TO_HTML_SCRIPT  = $(HTML_DIR)/js/yaml-to-html.js
 HTML_TO_PDF_SCRIPT   = $(HTML_DIR)/js/generate-pdf.js
 
 # ---- LaTeX 入口文件 ----
-ENTRY_GATEWAY  = resume.tex
-ENTRY_SECURITY = resume_security.tex
+ENTRY_GATEWAY  = latex/resume.tex
+ENTRY_SECURITY = latex/resume_security.tex
 
 # ---- LaTeX 内容文件（由 YAML 生成）----
 LATEX_CONTENT_GATEWAY  = $(CONTENT_DIR)/resume.tex
@@ -41,8 +41,8 @@ HTML_GATEWAY  = $(HTML_DIR)/output/resume_gateway.html
 HTML_SECURITY = $(HTML_DIR)/output/resume_security.html
 
 # ---- 样式文件依赖 ----
-RESUME_CLASS = resume.cls
-STYLE_FILES  = zh_CN-systemfonts.sty linespacing_fix.sty fontawesome.sty
+RESUME_CLASS = latex/resume.cls
+STYLE_FILES  = latex/zh_CN-systemfonts.sty latex/linespacing_fix.sty latex/fontawesome.sty
 
 # ---- 跨平台命令 ----
 ifeq ($(OS),Windows_NT)
