@@ -187,8 +187,8 @@ make clean-all # 清理全部含 LaTeX
 
 ### 🔲 待办
 - [ ] LaTeX 构建验证（fontawesome 字体路径需修复，低优先级）
-- [ ] `interview-prep/` 面试题内容补充
-- [ ] `market-research/` 职位数据更新
+- [ ] `interview/data/` 面试题内容补充
+- [ ] `interview/data/market/` 职位数据更新
 
 ---
 

@@ -7,8 +7,7 @@ YAML → LaTeX 转换脚本
     python scripts/yaml-to-latex.py
 
 输出:
-    resume/latex/content/resume.tex
-    resume/latex/content/resume_security.tex
+    resume/content/resume.tex
 """
 
 import yaml
@@ -55,37 +54,19 @@ def render_profile(data: dict) -> str:
     )
 
 
-def render_summary(summary_text: str, direction: str) -> str:
-    """渲染个人简介/职业定位"""
-    if direction == "security":
-        title = "职业定位"
-        # 安全方向有标题行和段落
-        lines = summary_text.strip().split("\n")
-        title_line = lines[0].strip()
-        body = "\\n".join(lines[2:]).strip() if len(lines) > 2 else ""
-        return (
-            f"\\section{{{title}}}\n\n"
-            f"\\sloppy\n"
-            f"\\textbf{{{escape_latex(title_line)}}}\n\n"
-            f"{escape_latex(body)}"
-        )
-    else:
-        title = "个人简介"
-        return (
-            f"\\section{{{title}}}\n\n"
-            f"\\sloppy\n"
-            f"{escape_latex(summary_text.strip())}"
-        )
+def render_summary(summary_text: str) -> str:
+    """渲染个人简介"""
+    return (
+        "\\section{个人简介}\n\n"
+        "\\sloppy\n"
+        f"{escape_latex(summary_text.strip())}"
+    )
 
 
-def render_core_skills(skills: list, direction: str) -> str:
+def render_core_skills(skills: list) -> str:
     """渲染核心能力"""
     lines = ["\\section{核心能力}", "\\begin{itemize}[parsep=0.2ex]"]
-
-    if direction == "gateway":
-        lines.append("    \\setstretch{1.1}")
-    else:
-        lines.append("    \\setstretch{1.05}")
+    lines.append("    \\setstretch{1.1}")
 
     for skill in skills:
         title = escape_latex(skill["title"])
@@ -96,37 +77,26 @@ def render_core_skills(skills: list, direction: str) -> str:
     return "\n".join(lines)
 
 
-def render_experience(experiences: list, direction: str) -> str:
+def render_experience(experiences: list) -> str:
     """渲染工作经历"""
-    lines = ["\\section{工作经验}"]
-
-    if direction == "gateway":
-        lines.append("\\vspace{0.2cm}")
-    else:
-        lines.append("\\vspace{0.10cm}")
+    lines = ["\\section{工作经验}", "\\vspace{0.2cm}"]
 
     for exp in experiences:
-        role_key = f"role_{direction}"
-        role = exp.get(role_key, exp["role_gateway"])
+        role = exp["role"]
 
         lines.append("")
         lines.append(f"\\datedsubsection{{{escape_latex(exp['company'])}}}{{{escape_latex(role)}}}{{{exp['period']}}}")
 
-        # 过滤出该方向的项目
-        direction_projects = [
-            p for p in exp["projects"]
-            if direction in p.get("direction", ["gateway"])
-        ]
+        # 公司工作概要
+        if exp.get("summary"):
+            lines.append("")
+            lines.append(f"\\sloppy {escape_latex(exp['summary'])}")
 
-        for proj in direction_projects:
+        for proj in exp["projects"]:
             lines.append("")
             lines.append(f"\\thirdheading{{{escape_latex(proj['name'])}}}")
             lines.append("\\begin{itemize}")
-
-            if direction == "gateway":
-                lines.append("    \\setstretch{1.1}")
-            else:
-                lines.append("    \\setstretch{1.05}")
+            lines.append("    \\setstretch{1.1}")
 
             for highlight in proj["highlights"]:
                 # 处理 "标题：内容" 格式
@@ -140,30 +110,18 @@ def render_experience(experiences: list, direction: str) -> str:
 
             lines.append("\\end{itemize}")
 
-        if direction == "gateway":
-            lines.append("\\vspace{0.2cm}")
-        else:
-            lines.append("\\vspace{0.10cm}")
+        lines.append("\\vspace{0.2cm}")
 
     return "\n".join(lines)
 
 
-def render_tech_stack(data: dict, direction: str) -> str:
+def render_tech_stack(data: dict) -> str:
     """渲染技术栈与证书"""
     ts = data["tech_stack"]
 
     lines = ["\\section{技术栈 \\& 证书}"]
-
-    if direction == "security":
-        lines.append("")
-        lines.append("\\vspace{0.10cm}")
-
     lines.append("\\begin{itemize}[parsep=0.2ex]")
-
-    if direction == "gateway":
-        lines.append("    \\setstretch{1.1}")
-    else:
-        lines.append("    \\setstretch{1.05}")
+    lines.append("    \\setstretch{1.1}")
 
     lines.append(f"  \\item \\textbf{{核心语言}}: \\textbf{{{escape_latex(ts['languages'])}}}")
     lines.append(f"  \\item \\textbf{{系统底座}}: {escape_latex(ts['systems'])}")
@@ -174,9 +132,7 @@ def render_tech_stack(data: dict, direction: str) -> str:
         lines.append(f"  \\item \\textbf{{AI / LLM}}: {escape_latex(ts['ai_llm'])}")
 
     lines.append("\\end{itemize}")
-
-    if direction == "gateway":
-        lines.append("\\vspace{0.2cm}")
+    lines.append("\\vspace{0.2cm}")
 
     return "\n".join(lines)
 
@@ -199,26 +155,26 @@ def render_education(education: list) -> str:
     return "\n".join(lines)
 
 
-def generate_latex(data: dict, direction: str) -> str:
+def generate_latex(data: dict) -> str:
     """生成完整 LaTeX 内容文件"""
     parts = [
         "\\pagenumbering{gobble}",
         "",
         render_profile(data),
         "",
-        render_summary(data["summary"][direction], direction),
+        render_summary(data["summary"]["gateway"]),
         "",
-        "\\vspace{0.2cm}" if direction == "gateway" else "\\vspace{0.10cm}",
+        "\\vspace{0.2cm}",
         "",
-        render_core_skills(data["core_skills"][direction], direction),
+        render_core_skills(data["core_skills"]["gateway"]),
         "",
-        "\\vspace{0.2cm}" if direction == "gateway" else "\\vspace{0.10cm}",
+        "\\vspace{0.2cm}",
         "",
-        render_experience(data["experience"], direction),
+        render_experience(data["experience"]),
         "",
-        render_tech_stack(data, direction),
+        render_tech_stack(data),
         "",
-        "\\vspace{0.2cm}" if direction == "gateway" else "",
+        "\\vspace{0.2cm}",
         "",
         render_education(data["education"]),
     ]
@@ -234,26 +190,14 @@ def main():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
-    # 生成两个方向的 LaTeX 内容
-    for direction in ["gateway", "security"]:
-        output_file = LATEX_CONTENT_DIR / f"resume_{direction}.tex"
-        content = generate_latex(data, direction)
+    # 生成 LaTeX 内容
+    output_file = LATEX_CONTENT_DIR / "resume.tex"
+    content = generate_latex(data)
 
-        with open(output_file, "w", encoding="utf-8") as f:
-            f.write(content)
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(content)
 
-        print(f"Generated: {output_file}")
-
-    # 同时生成兼容旧命名的文件
-    # resume.tex → gateway, resume_security.tex → security
-    (LATEX_CONTENT_DIR / "resume.tex").write_text(
-        generate_latex(data, "gateway"), encoding="utf-8"
-    )
-    (LATEX_CONTENT_DIR / "resume_security.tex").write_text(
-        generate_latex(data, "security"), encoding="utf-8"
-    )
-    print(f"Generated: {LATEX_CONTENT_DIR / 'resume.tex'}")
-    print(f"Generated: {LATEX_CONTENT_DIR / 'resume_security.tex'}")
+    print(f"Generated: {output_file}")
 
 
 if __name__ == "__main__":

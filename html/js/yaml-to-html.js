@@ -7,8 +7,7 @@
  *   node js/yaml-to-html.js
  *
  * 输出:
- *   html/output/resume_gateway.html
- *   html/output/resume_security.html
+ *   html/output/resume.html
  */
 
 const fs = require('fs');
@@ -47,39 +46,22 @@ function processHighlight(text) {
 }
 
 /**
- * 为指定方向生成 HTML
+ * 生成 HTML
  */
-function generateHTML(direction) {
+function generateHTML() {
   const profile = data.profile;
-  const summary = data.summary[direction];
-  const skills = data.core_skills[direction];
+  const summary = data.summary.gateway;
+  const skills = data.core_skills.gateway;
   const experiences = data.experience;
 
   // 处理摘要
-  const summaryLines = summary.trim().split('\n').filter(l => l.trim());
-  let summaryTitle = direction === 'security' ? '职业定位' : '个人简介';
-  let summaryHasTitle = false;
-  let summaryTitleLine = '';
-  let summaryBody = '';
+  const summaryBody = summary.trim();
 
-  if (direction === 'security' && summaryLines.length > 0) {
-    summaryHasTitle = true;
-    summaryTitleLine = summaryLines[0].trim();
-    summaryBody = summaryLines.slice(2).join('\n').trim();
-  } else {
-    summaryBody = summary.trim();
-  }
-
-  // 处理工作经历：过滤该方向的项目
+  // 处理工作经历
   const processedExperiences = experiences.map(exp => {
-    const role = exp[`role_${direction}`] || exp.role_gateway;
+    const role = exp.role;
 
-    // 过滤项目
-    const directionProjects = exp.projects.filter(
-      p => p.direction && p.direction.includes(direction)
-    );
-
-    const processedProjects = directionProjects.map(proj => ({
+    const processedProjects = exp.projects.map(proj => ({
       name: proj.name,
       highlights: proj.highlights.map(h => processHighlight(h))
     }));
@@ -88,6 +70,7 @@ function generateHTML(direction) {
       company: exp.company,
       role: role,
       period: exp.period,
+      summary: exp.summary || '',
       projects: processedProjects
     };
   }).filter(exp => exp.projects.length > 0);
@@ -105,9 +88,9 @@ function generateHTML(direction) {
     birth_year: '',
 
     // 摘要
-    summary_title: summaryTitle,
-    summary_has_title: summaryHasTitle,
-    summary_title_line: summaryTitleLine,
+    summary_title: '个人简介',
+    summary_has_title: false,
+    summary_title_line: '',
     summary_body: summaryBody.replace(/\n/g, '<br>'),
 
     // 核心能力
@@ -132,22 +115,18 @@ function generateHTML(direction) {
   let html = Mustache.render(template, view);
 
   // 内联 CSS
-  const bodyClass = direction === 'security' ? 'security' : 'gateway';
   html = html.replace(
     '<link rel="stylesheet" href="../css/resume.css">',
     `<style>\n${cssContent}\n</style>`
   );
-  html = html.replace('<body>', `<body class="${bodyClass}">`);
+  html = html.replace('<body>', '<body class="gateway">');
 
   return html;
 }
 
-// 生成两个方向
-for (const direction of ['gateway', 'security']) {
-  const html = generateHTML(direction);
-  const outputFile = path.join(OUTPUT_DIR, `resume_${direction}.html`);
-  fs.writeFileSync(outputFile, html, 'utf-8');
-  console.log(`Generated: ${outputFile}`);
-}
-
+// 生成 HTML
+const html = generateHTML();
+const outputFile = path.join(OUTPUT_DIR, 'resume.html');
+fs.writeFileSync(outputFile, html, 'utf-8');
+console.log(`Generated: ${outputFile}`);
 console.log('HTML generation complete!');

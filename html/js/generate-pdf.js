@@ -6,12 +6,10 @@
  *   node js/generate-pdf.js
  *
  * 输入:
- *   html/output/resume_gateway.html
- *   html/output/resume_security.html
+ *   html/output/resume.html
  *
  * 输出:
- *   output/resume_gateway.pdf
- *   output/resume_security.pdf
+ *   output/resume.pdf
  */
 
 const { chromium } = require('playwright');
@@ -29,8 +27,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 const files = [
-  { html: 'resume_gateway.html', pdf: 'resume_gateway.pdf' },
-  { html: 'resume_security.html', pdf: 'resume_security.pdf' },
+  { html: 'resume.html', pdf: 'resume.pdf' },
 ];
 
 async function generatePDF() {

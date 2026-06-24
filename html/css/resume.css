@@ -181,6 +181,17 @@ body {
   font-weight: 400;
 }
 
+/* ---- 公司工作概要 ---- */
+.exp-summary {
+  font-size: 10.5pt;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 0.3em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
 /* ---- 项目子标题 ---- */
 .project {
   margin-bottom: 0.3em;
