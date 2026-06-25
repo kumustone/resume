@@ -1,0 +1,214 @@
+# ============================================================
+# 项目详情扩展 — 仅用于 materials 生成，简历构建不读取
+# key 与 resume.yaml 中的 project.name 对应
+# 包含：架构图/技术决策/性能数据/踩坑记录 等简历放不下的内容
+# ============================================================
+
+projects:
+
+  - name: 企业级 AI 安全网关平台 (Rust/Pingora) — 核心开发 / 架构设计
+    role_description: |
+      作为技术负责人和核心开发者，主导从 C++ Nginx 模块到 Rust Pingora 异步网关的完整架构迁移，
+      承担异步 proxy 层与安全策略引擎核心模块编码，推动产品在金融、政企客户的规模化交付。
+    architecture: |
+      六层插件化架构（Core→Gateway→Platform→Proxy→Service→Support），每层职责清晰、接口稳定。
+      Core 层封装 Pingora 生命周期与 async runtime；Gateway 层按产品形态分派（WebProxy/AiGateway/Dify/LlmProxy）；
+      Platform 层提供 ZK 配置热更新、Kafka 审计日志、Redis 缓存等基础设施；
+      Proxy 层负责 upstream 路由、负载均衡、TLS 终结、请求/响应 body 读写；
+      Service 层承载安全策略（WAF/脱敏/水印/访问控制/账号发现）；
+      Support 层提供 metrics、tracing、健康检查等运维能力。
+      全程 async trait 异步化，消除 C 模块时代的 block_in_place 阻塞点，修复 chunked transfer 死锁。
+    tech_decisions:
+      - 为什么选 Pingora 而不是继续 Nginx C 模块：Nginx C 模块开发效率低，内存管理易出错，无法利用 Rust 生态的 async/await 和类型安全。Pingora 原生支持 async Rust，且与 Cloudflare 生产环境打磨多年。选择 Pingora 的另一关键原因是解决多进程模块缓存占用高的问题，并支持在 Http Resp 阶段异步接入三方业务（如脱敏水印服务下移）。
+      - 为什么拆六层而不是单体：产品形态（Web 代理 / AI 网关 / Dify 代理）需要共享安全引擎但路由逻辑不同。六层拆开后，Gateway 层按类型分派，Service 层统一复用，新增产品形态只需实现 Gateway trait。
+      - ZK 热更新 vs 配置文件：安全策略（规则、开关、路由表）需要秒级生效，不能重启。ZK watch 机制天然支持增量推送，规则变更→推送→`Arc::swap` 原子替换，零停机。
+    performance_details: |
+      纯代理模式（无安全规则）QPS 15w/s，开启全量安全规则（80+ 敏感数据类型检测 + WAF 规则链）QPS 10w+。
+      相比 C++ Nginx 版本 QPS +138%，RT -63%。
+      自研零拷贝 JSON 解析器：利用 Pingora 的 `bytes::Bytes` 零拷贝特性，直接在 HTTP body 字节切片上做
+      字段提取和正则匹配，避免 `serde_json::Value` 的完整解析和内存分配，解决高并发下正则 CPU 瓶颈。
+      交叉编译链：macOS 开发 → cross + Docker → Linux x86_64/ARM64 可执行文件，一键构建部署。
+      业务成果：账号发现覆盖度从 70% 提升至 90%+；新增 DOC/PPT/EXCEL/TXT 文件脱敏支持；
+      完成 AI 防火墙开发，集成大模型防护与聊天聚合脱敏能力。
+    challenges:
+      - block_in_place 阻塞：Pingora 的 response_body_filter 是同步回调，早期通过 `block_in_place` 桥接 async 代码，导致 worker 线程池耗尽。最终通过重构 Processor trait 的 Stage 枚举，将需要 body 的阶段改为 Pingora async 回调直接 await。
+      - chunked transfer 死锁：上游返回 chunked 编码时，某些 chunk 边界恰好落在 SSE event 中间，导致 JSON 解析失败。通过实现 chunk 拼接缓冲区 + event 边界检测解决。
+      - async trait object safety：Rust 的 `async fn` 在 trait 中默认不是 object-safe 的，无法放入 `Vec<dyn Trait>`。通过 `#[async_trait]` 宏 + `Pin<Box<dyn Future>>` 解决。
+
+  - name: nginx_merry 高性能 C++ Nginx 安全网关模块 — 核心开发 / 架构设计
+    role_description: |
+      独立设计并实现 C 模块 + C++ 动态库分离架构，承担 bridge 层、body filter 链、跨阶段数据传递等
+      核心模块编码。151 源文件 / 25K+ 行 C/C++ 代码，11 个安全策略模块。
+    architecture: |
+      C 模块层（ngx_merry_module）负责 nginx hook 注册和生命周期管理：
+      - NGX_HTTP_ACCESS_PHASE → merry_on_request
+      - header filter → merry_on_resp_header
+      - body filter → merry_on_resp_body
+      C++ 动态库层（libmerry.so）通过 dlopen 加载，包含 bridge（数据转换）、service（Handler 链编排）、
+      strategy（11 个安全策略实现）、common（ZK/Kafka/Redis 集成）。
+      两层的边界通过 6 个 `extern "C"` 函数指针（dlsym）连接，bridge 层负责 nginx C 类型 ↔ C++ STL 类型的双向转换。
+    tech_decisions:
+      - 为什么 C + C++ 分离：nginx 模块必须是 C 且使用 nginx 内存池，但安全策略逻辑复杂（正则编译、JSON 解析、HTTP 调用），C 开发效率低。分离后 C 层只管 hook 注册和数据搬运，C++ 层用 STL/nlohmann 做业务。
+      - 为什么 dlopen 而不是静态链接：libmerry.so 可以独立升级（替换 .so + reload nginx），不重新编译 nginx。线上紧急修复安全规则 BUG 只需替换 .so。
+      - body filter 缓冲策略：不在每个 chunk 到达时立即处理（部分内容无法做完整检测），通过 `ngx_chain_add_copy_ex` 深拷贝拼接，检测 `last_buf` 标志 + chunked 终止符 `0\r\n\r\n` 后才触发完整处理。
+    performance_details: |
+      body filter 链式缓冲 + last_buf 触发机制，避免了对每个 chunk 做无效的部分检测。gzip 透明解压/重压缩保证了对压缩响应的安全检测覆盖率。跨阶段数据传递使用 JSON 序列化 + ngx pool 分配，避免 C/C++ 跨边界内存泄漏。
+    challenges:
+      - 内存管理边界：nginx pool 的内存随请求结束自动释放，但 C++ 侧的 STL 对象（std::string、std::vector）在堆上分配。在 bridge 层必须将所有 C++ 数据显式复制到 ngx pool 中才能跨阶段存活。
+      - chunked 尾部检测：`last_buf` 在 chunked 编码下不可靠（nginx 可能提前设置），需要额外检测 chunked 终止符 `0\r\n\r\n`，处理边界情况（终止符跨 chunk 分片）。
+      - AI 应用快速路径：AI 聊天消息如果不涉及越权和脱敏策略，直接 bypass 响应体处理，避免对数十 KB 流式响应的不必要缓冲。通过在 ctx 中设置 `is_ai_model`/`is_ai_chat_message`/`has_over_read_strategy`/`has_data_mask_strategy` 四个标志实现零拷贝快速路径。
+
+  - name: r_data_service 多形态数据安全引擎 (Rust) — 核心开发 / 架构设计
+    role_description: |
+      主导 Workspace 多 crate 架构设计，承担识别引擎（Segment→Recognize→Mask 三阶段流水线）和
+      脱敏模块核心编码。四种服务形态覆盖不同接入场景。
+    architecture: |
+      Workspace 多 crate 拆分：rds-infra（基础设施：配置/ZK/日志）、rds-runtime（服务编排：HTTP Server/
+      请求调度/插件管理）、rds-jni（JNI 绑定：Java 侧通过 JNI 调用 Rust 引擎）。
+      无状态引擎层：输入 bytes → 输出识别结果，纯函数，可独立测试和 benchmark。
+      有状态编排层：管理规则加载、策略路由、结果聚合。
+      四种服务形态：Rust 库（embedded）、Java SDK（JNI）、HTTP Server（独立部署）、Web 管理端（规则配置）。
+    tech_decisions:
+      - 为什么拆无状态+有状态：无状态引擎可以独立 benchmark（吞吐/延迟/内存），性能优化聚焦在纯算法层。有状态编排层负责规则热更新、策略路由，变更不影响引擎层。
+      - 为什么用 JNI 而不是 gRPC：Java 业务方的核心诉求是低延迟（毫秒级），gRPC 的序列化/反序列化开销不可接受。JNI 直接内存传递，零拷贝。
+      - 为什么四种形态：Rust 库给内部 Rust 服务用，Java SDK 给 Java 业务方，HTTP Server 给异构语言，Web 管理端给运营人员配规则——同一套引擎代码，不同接入层。
+    performance_details: |
+      核心引擎性能较旧版提升 10x（通过 SIMD 加速正则匹配 + Trie 树优化字典查找 + Luhn 算法预计算）。
+      2026 年度完成代际升级：核心识别与脱敏能力性能提升 5x+，整体链路吞吐 1x+ 以上；
+      显著提升对复杂数据场景（多标签、半结构化/非结构化数据）的覆盖能力。
+      核心能力实现多场景统一复用（网关 / Web / HttpParse / 离线 SDK / AI 大模型网关），
+      减少重复建设与维护成本。
+      Java SDK 强类型 API 替代 TLV 字符串协议，消除运行时类型错误和序列化开销。
+      兼容多平台动态库自动加载（macOS ARM64 / Linux x86_64 / ARM64）。
+    challenges:
+      - JNI 内存管理：Rust 侧分配的内存需要在 Java 侧显式释放，否则内存泄漏。通过 Rust 的 `Drop` trait + JNI 的 `DeleteGlobalRef` 实现自动回收。
+      - TLV 协议迁移：旧版 Java SDK 使用 TLV 字符串协议，字段顺序和类型依赖隐式约定，迁移到强类型 API 需要同时兼容旧协议。通过版本号协商 + 双协议共存过渡期解决。
+      - 敏感数据误识别：80+ 种类型中，部分类型（如身份证号 18 位纯数字）与业务 ID 冲突。通过上下文规则（前后缀白名单、字段名语义分析）降低误报率。
+
+  - name: 业务风险控制平台从 0-1 建设
+    role_description: |
+      作为安全风控团队创始人，从 0 到 1 搭建业务风控中台，覆盖注册/登录/支付/提现全链路风险检测。
+    architecture: |
+      分层风控架构：流量接入层（API 网关集成）→ 特征提取层（设备指纹/行为序列/IP 画像）→
+      规则引擎层（实时规则判断 + 离线模型训练）→ 处置层（拦截/验证码/人工审核）。
+      对接多家第三方风控能力（设备指纹、人机识别、IP 黑名单），通过统一接口实现可插拔式接入。
+    tech_decisions:
+      - 为什么自建而不是全用第三方：第三方 SaaS 服务的规则灵活性不足，且业务定制成本高。自研平台可以实现业务特有的风控规则（如 IM 诈骗检测、私域导流识别），同时通过对接第三方补足通用能力。
+      - 为什么实时 + 离线双模式：支付/提现等高危操作必须实时决策（<100ms），而用户行为分析和黑产团伙挖掘可以离线批量处理（分钟级）。
+    performance_details: |
+      支撑 10w+ QPS 实时风险决策，平均决策延迟 <50ms。
+      IM 反诈规则命中率 85%+，年拦截欺诈金额 500w+。
+    challenges:
+      - 规则冲突管理：多条规则可能同时命中同一请求，需要定义优先级和冲突解决策略（取最严/取最早命中/自定义排序）。
+      - 冷启动问题：新业务上线时缺乏历史行为数据，初期依赖 IP 黑名单和基础规则兜底，逐步积累样本后启用机器学习模型。
+
+  - name: 高性能文本反垃圾系统 (自研)
+    role_description: |
+      设计并实现基于 DFA 的文本反垃圾引擎，替代第三方 SaaS 服务，年度安全成本降低 60%。
+    architecture: |
+      DFA 多模式匹配引擎（预编译敏感词库为状态机）+ 正则规则引擎（处理变体/混淆文本）+
+      自定义规则引擎（业务特定逻辑，如 IM 场景的消息频率关联分析）。
+      多级缓存：词库热加载到内存、正则编译缓存、匹配结果缓存（相同文本不重复检测）。
+    tech_decisions:
+      - 为什么 DFA 而不是纯正则：DFA 时间复杂度 O(n)（n 为文本长度），与词库大小无关。纯正则匹配 O(n*m)（m 为规则数量），在万级词库下性能差距明显。
+      - 为什么替代商业服务：第三方服务年费高昂，且规则更新依赖对方排期（通常 T+1）。自研引擎可以在发现新型垃圾内容后分钟内上线规则。
+    performance_details: |
+      单机吞吐量提升 3 倍（相比第三方服务），年度安全成本降低 60%。
+      核心场景覆盖 IM、评论、社区、昵称、商品描述等 5+ 个业务线。
+    challenges:
+      - 变体/混淆文本检测：用户通过繁体字、谐音、特殊符号等方式绕过检测。通过字形归一化 + 相似度匹配 + 多粒度窗口扫描解决。
+      - 多语言支持：商品描述中常混入英文/日文/韩文垃圾内容。通过 Unicode 字符集检测 + 语言独立词库解决。
+
+  - name: 蘑菇街 自研 IM (C++) — 核心开发
+    role_description: |
+      独立开发 C++ 跨平台长连接 SDK，负责 IM2.0 接入服务器、登录鉴权、会话管理等核心模块
+      从架构设计到上线的全流程开发。
+    architecture: |
+      长连接 SDK：基于 epoll（Linux）/kqueue（macOS）的异步非阻塞 I/O 引擎，提供分包组包（自定义二进制协议）、
+      状态机（连接→鉴权→就绪→断开）、自动重连（指数退避）、加密（TLS + 自定义加密层）、网络诊断（心跳+超时检测）。
+      IM2.0 服务端：接入服务器（长连接管理 + 消息路由）、登录鉴权（Token/OAuth）、会话管理（多端同步 + 消息队列）、
+      AppServer（业务逻辑 + 推送）。
+    tech_decisions:
+      - 为什么自研而不直接用 XMPP/MQTT：业务需要强定制（如消息撤回、多端同步语义、自定义加密），标准协议的表层扩展无法满足。自研协议可以精确控制包格式和握手流程，减少冗余开销。
+      - 为什么跨平台 SDK：公司同时有 iOS/Android/Web/PC 四个客户端，统一 SDK 避免多端重复开发和协议不一致。
+    performance_details: |
+      SDK 推广为全公司通用长连接基础组件，降低多端接入成本。
+      IM2.0 支撑亿级消息规模，高并发下长连接稳定性 >99.9%。
+    challenges:
+      - 向前兼容：IM1.0 协议正在服役，IM2.0 需要在同一端口上同时支持新旧协议。通过协议版本号协商 + 握手阶段判断版本 + 双协议栈共存过渡解决。
+      - 无法灰度：长连接服务无法像 HTTP 服务一样通过 LB 按比例分流。通过客户端分批升级（版本号策略） + 服务端双栈兼容实现平滑迁移。
+
+  - name: 蘑菇街 WAF 网关 (Go/tcpstream) — 核心开发 / 架构设计
+    role_description: |
+      设计并实现 waf-gate + waf-server 进程分离架构的全站 WAF 网关，自研 tcpstream 长连接库
+      作为进程间通信层，支撑全站 HTTP/HTTPS 流量接入。
+    architecture: |
+      waf-gate：基于 Go 标准库 `httputil.ReverseProxy` 最小化修改的极简 HTTP/HTTPS 反向代理，
+      负责流量接入、TLS 终结、upstream 路由、waf-server 健康检查。对业务链路完全透明。
+      waf-server：WAF 检测引擎，包括 IP 黑白名单、多字段正则规则引擎（Host/Referer/URL/
+      User-Agent/Content-Type）、JSON 配置驱动规则管理。
+      通信层（tcpstream）：自研 TCP 长连接库，Gate 与 Server 之间多对多连接 + 轮询负载均衡。
+      20ms 超时自动放行，Server 崩溃或不可用时全流量 bypass——网关稳定性与检测能力完全解耦。
+    tech_decisions:
+      - 为什么 Gate/Server 进程分离：①稳定性隔离——waf-server 崩溃不影响用户请求；②资源隔离——检测计算密集（正则匹配）不争抢代理层的 CPU；③独立扩缩——Server 可以独立横向扩展。
+      - 为什么 20ms 超时：HTTP 请求的整体延迟预算通常在 100-200ms，WAF 检测占 20ms 是可接受上限。超过即判定 Server 异常，放行保证业务可用。
+      - 为什么用 easyjson：Go 标准 `encoding/json` 使用反射，每次序列化都有分配开销。easyjson 在编译期生成序列化代码，零分配，对高 QPS 场景的 GC 压力降低显著。
+      - 为什么正则预编译：每个请求都要做规则匹配，如果每次 `regexp.MatchString` 都重新编译正则，CPU 开销不可接受。启动时一次性编译，运行时直接 `FindString`。
+    performance_details: |
+      单机峰值 QPS 20K+，检测链路开销毫秒级。
+      爬虫高峰期超时率从 10% 压至 0.01%（三个数量级改善），通过 easyjson 零分配 + 正则预编译 + 多 Server 轮询实现。
+      tcpstream 自研库：支持多对多长连接、自动重连、连接池、超时控制，在 waf-gate 和 waf-server 之间实现 <1ms 的进程间通信延迟。
+    challenges:
+      - 正则 ReDoS 攻击：恶意请求构造特殊的字符串触发正则回溯爆炸。通过正则复杂度分析 + 执行超时熔断（100μs）解决。
+      - 大 Body 内存控制：请求体超过 100KB 不发送 waf-server 检测（避免内存攻击），但需要在 gate 层做协议完整性校验。
+      - TLS 证书热加载：HTTPS 多个二级域名使用不同证书，证书变更不能重启服务。通过文件监听 + 证书缓存实现热加载。
+
+  - name: 核心服务研发
+    role_description: |
+      主导车联网核心服务集群化改造，遵循开放进化型设计原则，自研 epoll 异步网络库与一致性哈希 Redis 客户端。
+      拥有 1 项国家发明专利。
+    architecture: |
+      集群化演进路线：单机 → 多机负载均衡 → 服务自发现 + 连接自调度 + 自动负载均衡 + 服务热扩展。
+      数据一致性方案：静态数据广播（配置类）+ 动态数据扩散（状态类）+ 多级缓存管理（热点数据），
+      平衡性能与一致性矛盾。
+      基础组件：自研 epoll 异步网络库（替换 libevent）、一致性哈希 Redis 客户端（借鉴 jedis 设计）、
+      事件驱动数据透传服务（获国家发明专利）。
+    tech_decisions:
+      - 为什么自研异步网络库：libevent 的 C 接口在 C++ 项目中使用不便（回调函数无法绑定成员方法），自研库利用 C++11 的 lambda 和 std::function 实现类型安全的异步回调。
+      - 为什么一致性哈希而不是取模：车机设备频繁上下线会导致集群节点变化，取模哈希会导致大量缓存失效。一致性哈希将影响范围控制在相邻节点，缓存命中率更高。
+    performance_details: |
+      系统集群化程度从 30% 提升至 80%。
+      车机上线异常从 1 例/周降至 <1 例/3 月（数据一致性方案效果）。
+      单进程并发从 5w 提升至 25w（锁优化），消息转发能力 7w/s。
+    challenges:
+      - 集群数据一致性：多节点之间的设备状态同步延迟导致车机上线失败。通过静态数据广播 + 动态数据扩散 + 缓存管理三策略组合解决。
+      - 锁竞争瓶颈：早期使用全局互斥锁，高并发下锁竞争成为瓶颈。通过锁粒度拆分（per-connection mutex）+ 无锁队列解决。
+
+  - name: 虚拟文件管理模块（VRPV8 电信级路由器）
+    role_description: |
+      负责华为 VRPV8 电信级路由器虚拟文件管理（VFM）模块研发，深入 Linux 内核与 C 语言底层，
+      保障文件系统在电信级严苛环境下的高稳定性。在此建立的高可靠软件工程理念贯穿后续 15 年工程实践。
+    architecture: |
+      VRPV8 是华为电信级路由器操作系统，基于 Linux 内核裁剪。VFM 模块负责虚拟文件系统管理，
+      为上层路由协议（OSPF/RIP/BGP）和配置管理提供文件存储与读写服务。
+    tech_decisions: N/A（初级工程师，以执行和定位问题为主）
+    performance_details: N/A
+    challenges:
+      - 内存泄漏定位：电信设备运行周期以年计，微小的内存泄漏累积会导致 OOM。通过阅读内核源码理解内存分配链路，使用 kmemleak + 自定义 debug 工具定位并修复多个隐蔽泄漏点。
+      - 死锁分析：多进程并发访问文件系统时偶发死锁。通过分析内核锁依赖链，调整锁获取顺序解决。
+      - 调试能力提升：阅读大量 Linux 内核 VFS 层和文件系统源码，建立对操作系统底层机制的深刻理解。
+
+  - name: 高并发接入模块
+    role_description: |
+      独立承担 GPS 终端网关接入模块的设计、开发与测试上线，支撑交通部全国车辆监管平台的海量 TCP 长连接接入。
+    architecture: |
+      基于 Socket + epoll 的高并发 TCP 接入服务，深度解析 GPS 808/809 国标协议（二进制协议，含分包组包、
+      校验、重传机制）。通过线程池 + 非阻塞 I/O 实现高并发处理，LVS 做四层负载均衡。
+      覆盖从终端接入 → 协议解析 → 数据分发 → 入库的全流程。
+    tech_decisions: N/A（职业生涯早期，以独立交付为主）
+    performance_details: N/A
+    challenges:
+      - GPS 协议复杂度：808/809 国标协议是二进制协议，字段众多（100+），含嵌套结构体和变长字段。
+        通过协议状态机 + 位域解析器实现高效解析。
+      - 稳定性考验：对接广州亚运会"两客一危"车辆 GPS 监控系统，国家级项目不允许出错。
+        多次赴实地运维，积累了生产环境排障经验。荣获优秀实习生、优秀员工。
