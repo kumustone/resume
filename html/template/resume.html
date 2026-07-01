@@ -12,14 +12,6 @@
     <header class="resume-header">
       <div class="header-info">
         <div class="info-row">
-          <span class="icon">&#xf041;</span>
-          <span>{{location}}</span>
-          <span class="sep">|</span>
-          <span>{{experience_summary}}</span>
-          <span class="sep">|</span>
-          <span>{{tech_stack}}</span>
-        </div>
-        <div class="info-row">
           <span class="icon">&#xf0e0;</span>
           <span>{{email}}</span>
           <span class="sep">|</span>
@@ -29,6 +21,8 @@
         <div class="info-row">
           <span class="icon">&#xf19d;</span>
           <span>{{education}}</span>
+          <span class="sep">|</span>
+          <span>{{birth_year}}</span>
         </div>
       </div>
       <div class="header-name">
@@ -44,6 +38,7 @@
         <p class="summary-title-line"><strong>{{summary_title_line}}</strong></p>
         {{/summary_has_title}}
         <p>{{summary_body}}</p>
+        <p class="job-target-line"><strong>求职意向：</strong>{{job_target}}</p>
       </div>
     </section>
 
@@ -88,12 +83,12 @@
     <section class="resume-section">
       <h2>技术栈 &amp; 证书</h2>
       <ul class="tech-list">
-        <li><strong>核心语言</strong>：<strong>{{tech_languages}}</strong></li>
-        <li><strong>系统底座</strong>：{{tech_systems}}</li>
-        <li><strong>AI / LLM</strong>：{{tech_ai_llm}}</li>
-        <li><strong>数据组件</strong>：{{tech_data}}</li>
-        <li><strong>专业资质</strong>：<strong>{{tech_certifications}}</strong></li>
-        <li><strong>荣誉奖励</strong>：{{tech_honors}}</li>
+        <li><strong>专业资质</strong>：<strong>{{professional_certs}}</strong></li>
+        <li><strong>编程语言</strong>：<strong>{{languages}}</strong></li>
+        <li><strong>系统 &amp; 网关</strong>：{{systems_gateways}}</li>
+        <li><strong>数据 &amp; 基础设施</strong>：{{data_infrastructure}}</li>
+        <li><strong>AI / LLM 安全</strong>：{{ai_llm_security}}</li>
+        <li><strong>荣誉奖励</strong>：{{honors}}</li>
       </ul>
     </section>
 

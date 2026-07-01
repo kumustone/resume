@@ -50,8 +50,8 @@ function processHighlight(text) {
  */
 function generateHTML() {
   const profile = data.profile;
-  const summary = data.summary.gateway;
-  const skills = data.core_skills.gateway;
+  const summary = data.summary;
+  const skills = data.core_skills;
   const experiences = data.experience;
 
   // 处理摘要
@@ -80,12 +80,11 @@ function generateHTML() {
     // 个人资料
     name: profile.name,
     location: profile.location,
-    experience_summary: profile.experience_summary,
-    tech_stack: profile.tech_stack,
     email: profile.email,
     phone: profile.phone,
     education: profile.education,
-    birth_year: '',
+    birth_year: profile.birth_year || '',
+    job_target: profile.job_target || '',
 
     // 摘要
     summary_title: '个人简介',
@@ -100,12 +99,12 @@ function generateHTML() {
     experiences: processedExperiences,
 
     // 技术栈
-    tech_languages: data.tech_stack.languages,
-    tech_systems: data.tech_stack.systems,
-    tech_ai_llm: data.tech_stack.ai_llm || '',
-    tech_data: data.tech_stack.data,
-    tech_certifications: data.tech_stack.certifications,
-    tech_honors: data.tech_stack.honors,
+    professional_certs: data.tech_stack.professional_certs,
+    languages: data.tech_stack.languages,
+    systems_gateways: data.tech_stack['systems_&_gateways'],
+    data_infrastructure: data.tech_stack['data_&_infrastructure'],
+    ai_llm_security: data.tech_stack.ai_llm_security,
+    honors: data.tech_stack.honors,
 
     // 教育背景列表
     education_list: data.education
@@ -119,8 +118,6 @@ function generateHTML() {
     '<link rel="stylesheet" href="../css/resume.css">',
     `<style>\n${cssContent}\n</style>`
   );
-  html = html.replace('<body>', '<body class="gateway">');
-
   return html;
 }
 

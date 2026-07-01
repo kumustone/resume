@@ -1,55 +1,50 @@
 # ============================================================
-# 简历统一数据源 — 开发方向（Gateway/系统研发）
-# 安全方向内容已抽离至 resume-security.yaml
+# 简历统一数据源
 # ============================================================
 
 profile:
   name: 刘波
+  birth_year: 1985.8
   location: 杭州
-  experience_summary: 15 年系统研发经验 · 高性能网络服务 / 企业安全平台
-  tech_stack: Rust / C++ / Go
+  job_target: 资深研发工程师 / 安全开发 / 架构师
   email: kumustone@gmail.com
   phone: "18143431580"
   education: 硕士（中国海洋大学 · 通信与信息系统）
 
 
-summary:
+summary: |
 
-  gateway: |
-
-    15 年系统研发经验，专注高性能网络服务、网关系统和企业安全平台建设。熟练掌握 C++/Rust/Go，具备 Linux 网络编程、高并发服务架构与分布式系统设计经验。曾负责 API 网关、AI 网关、数据安全引擎、电商风控平台、甲乙方安全体系等建设，持有CISSP证书。主导完成数据识别引擎 Rust 化代际升级（核心性能 5x+），基于 Pingora 构建新一代网关（QPS +138%，RT -63%）。具备电信级软件研发背景，重视系统可靠性、性能优化和长期可维护性。
+    专注高性能网关、API 安全与企业安全平台方向，具备从核心编码到系统架构的完整交付能力。在复杂安全规则处理、高并发流量治理及大模型应用安全（Prompt 注入检测、SSE 流式内容审计）等场景有丰富一线实践。持有 CISSP 认证。
 
 core_skills:
 
-  gateway:
+  - title: 技术栈与系统基础
+    details: 熟练 C/C++、Go 高并发服务开发，具备 Rust 工程实践经验；深入 TCP/IP 协议栈、Linux 网络编程及异步 IO 模型（epoll/kqueue）。具备 Nginx C Module 开发、自研异步网络库及高性能后端系统构建能力。
 
-    - title: 高性能网络与网关系统研发（C++ / Rust / Linux）
-      details: 精通 TCP/IP 网络编程与高并发服务架构，具备自研异步网络库与 Nginx C 模块扩展经验。主导基于 Rust/Pingora 的网关架构演进，实现策略动态编排与分布式热更新；完成从 C++ Nginx 到 Rust Pingora 的完整代际迁移，QPS +138%，RT -63%，稳定支撑 10w+ QPS 复杂安全规则实时处理。核心架构模式（Handler 插件链 / 三阶段分派 / 统一处置结果）在跨语言迁移中延续复用，体现跨语言架构设计能力。
+  - title: 高性能网关与流量安全
+    details: 专注 API Gateway、企业级安全网关及流量治理系统研发。涵盖高并发请求处理、TCP 长连接管理、动态策略编排、服务路由与安全规则执行，具备从网络层到业务层的完整系统设计与编码能力。
 
-    - title: 企业安全平台建设（Go / WAF / 风控 / 数据安全）
-      details: 基于 Go/Rust 构建企业级安全与风控平台核心服务，具备高并发 API 服务与规则引擎设计经验。实现全站 WAF 网关自研与规则引擎解耦，支持动态策略编排与高性能流量处理。主导 0-1 建设十万级 QPS 实时风控中台；设计覆盖 80+ 种敏感数据类型的多形态数据安全引擎（Rust / Java / HTTP 服务形态），核心识别脱敏性能 5x+ 提升，实现网关/Web/SDK/AI 多场景统一复用。
+  - title: 企业安全与风控工程
+    details: 具备 WAF、实时风控、数据安全引擎的研发与落地经验。熟悉风险特征分析、策略控制、敏感数据识别与脱敏、黑灰产对抗等工程实践。CISSP（国际注册信息系统安全专家）。
 
-    - title: AI Gateway 与 LLM Security 实践
-      details: 设计 AI Gateway 统一代理层，适配 Dify / OpenAI / Ollama 等多模型体系。实现 Prompt 注入检测、请求级敏感数据阻断、SSE流式响应逐 chunk 内容审核与脱敏代答；构建三维路由与动态安全策略开关体系。完成 AI 防火墙开发，集成大模型防护与聊天聚合脱敏能力。
+  - title: AI Gateway 与 LLM Security
+    details: 多模型统一接入（Dify/OpenAI/Ollama）与安全代理层建设经验。实现 Prompt 注入检测、敏感数据阻断、SSE 流式逐 chunk 内容审核与脱敏代答，关注大模型应用基础设施安全。
 
-    - title: 高可靠系统工程与架构演进
-      details: 电信级高可靠软件研发背景，重视系统长期可维护性、可观测性与容错降级能力。在金融、政企等强合规场景下保障网关与安全系统持续稳定运行超 2 年。
-
-    - title: AI 辅助研发与工程效率
-      details: 熟练使用 Claude Code / Cursor 等 AI 编程工具，构建代码审查、E2E 测试与 Bug 修复流程自动化体系；
+  - title: 工程效率与系统演进
+    details: 具备复杂系统从 0 到 1 建设及跨语言架构迁移经验（C++ Nginx → Rust Pingora）。使用 Claude Code、WindSurf 等 AI 工具优化代码审查、测试与问题定位流程。国家发明专利持有人（1 项）。
 
 # 工作经历
 experience:
   - company: 闪捷信息科技有限公司
     role: 资深开发工程师
     period: 2022.04-至今
-    summary: 主导企业级API网关，AI网关与多形态数据安全引擎的架构设计与核心研发，基于 Rust/Pingora 构建高性能网关平台；完成数据识别引擎 Rust 化代际升级（核心性能 5x+），实现 AI 防火墙与新一代网关 Nexis 的技术储备与落地。
+    summary: 负责企业级 API 网关、AI 网关与多形态数据安全引擎的核心研发与架构设计，基于 Rust/Pingora 构建高性能网关平台；完成数据识别引擎 Rust 化代际升级（核心性能 5x+），实现 AI 防火墙与新一代网关 Nexis 的技术储备与落地。
     projects:
       - name: 企业级 AI 安全网关平台 (Rust/Pingora) — 核心开发 / 架构设计
         tech: [Rust, Pingora, Tokio, ZooKeeper, SSE, async trait, AI Gateway, Nginx, C++]
         highlights:
-          - 架构演进：主导从 C++ Nginx 模块到 Rust Pingora 异步网关的完整架构迁移，实现安全策略动态编排与 ZK 热更新。完成全链路 async trait 异步化改造，承担异步 proxy 层与安全策略引擎核心模块编码。
-          - AI 网关与安全防护：主导设计 AI 网关统一代理层，接入 Dify/OpenAI/Ollama 等多模型；实现 Prompt 注入检测、敏感数据阻断、SSE 流式逐 chunk 内容审核与脱敏代答；覆盖请求/响应头/响应体三阶段处理链，对接 r_data_service 实现 敏感数据实时防护。完成 AI 防火墙开发，集成大模型防护与聊天聚合脱敏能力。
+          - 架构迁移：负责从 C++ Nginx Module 向 Rust Pingora 网关的平滑迁移，设计全链路 async trait 异步代理层与安全策略动态编排引擎，基于 ZK 实现热更新。承担异步 proxy 层与安全策略引擎核心模块编码。
+          - AI 网关与安全防护：设计并实现 AI 网关统一代理层，接入 Dify/OpenAI/Ollama 等多模型；实现 Prompt 注入检测、敏感数据阻断、SSE 流式逐 chunk 内容审核与脱敏代答；覆盖请求/响应头/响应体三阶段处理链，对接 r_data_service 实现敏感数据实时防护。完成 AI 防火墙开发，集成大模型防护与聊天聚合脱敏能力。
           - 性能成果：基于 Pingora 开发新一代 Rust 网关 Nexis，较 Nginx + 外部服务架构 QPS 提升 138%，RT 降低 63%；纯代理模式 QPS 15w/s，全量安全规则下 10w+ QPS。
           - 业务落地：账号发现功能覆盖度从 70% 提升至 90%+；新增 DOC/PPT/EXCEL/TXT 文件脱敏支持；搭建 macOS→Linux 交叉编译与多环境自动部署流水线。
       - name: API数据安全网关
@@ -67,13 +62,13 @@ experience:
   - company: 玩物得志
     role: 安全专家 / 团队 Leader
     period: 2019.08-2022.03
-    summary: 从0到1搭建业务风控中台与文本反垃圾系统，主导企业安全治理与等保合规建设。
+    summary: 主导研发高并发业务风控引擎与文本反垃圾系统，负责企业安全治理与等保合规建设。
     projects:
-      - name: 业务风险控制平台从 0-1 建设
+      - name: 业务风控引擎研发
         tech: [Go, Risk Engine, Kafka, Redis, Device Fingerprint, Anti-fraud]
         highlights:
-          - 围绕注册、登录、支付、提现等核心业务链路，构建风险特征分析与规则判断体系，涵盖设备指纹、行为序列、人机识别、异常行为检测等能力。
-          - 主导 IM 反诈、反洗钱、业务违规行为治理等专项，通过实时风控与离线审计闭环，有效降低业务风险与损失。
+          - 围绕注册、登录、支付、提现等核心业务链路，设计风险特征分析与规则判断体系，涵盖设备指纹、行为序列、人机识别、异常行为检测等能力。
+          - 负责 IM 反诈、反洗钱、业务违规行为治理等专项，通过实时风控与离线审计闭环，有效降低业务风险与损失。
       - name: 高性能文本反垃圾系统 (自研)
         tech: [Go, DFA, Regex, Anti-spam, Performance Optimization]
         highlights:
@@ -94,7 +89,7 @@ experience:
         tech: [C++, epoll, kqueue, TCP, IM, Cross-platform SDK, Long Connection]
         highlights:
           - 独立开发 C++ 跨平台长连接 SDK，基于 epoll/kqueue 实现异步非阻塞 I/O，提供分包组包、状态机、自动重连、加密与网络诊断能力，后推广为全公司通用长连接基础组件，降低多端接入成本。
-          - IM2.0 重构：负责接入服务器、登录鉴权、会话管理、长链推送及 AppServer 模块从架构设计到 coding 到上线的全流程。克服业务逻辑复杂、向前兼容困难、无法灰度等挑战，保障了亿级消息规模下的高并发长连接稳定性。
+          - IM2.0 重构：负责接入服务器、登录鉴权、会话管理、长链推送及 AppServer 模块从设计到编码到上线全流程。在亿级消息并发下，解决连接状态一致性、内存精细化管理与向前兼容难题，保障高并发长连接稳定性。
       - name: 蘑菇街 WAF 网关 (Go/tcpstream) — 核心开发 / 架构设计
         tech: [Go, tcpstream, Reverse Proxy, WAF, easyjson, Regex Engine, TCP Long Connection]
         highlights:
@@ -132,16 +127,16 @@ experience:
         tech: [C, Linux Kernel, Filesystem, VRP, Memory Management, Debugging]
         highlights:
           - 负责虚拟文件管理（VFM）模块研发，保障文件系统在电信级严苛环境下的高稳定性。
-          - 阅读大量 Linux 内核与 C 源码，多次独立定位并解决内存泄漏、死锁、并发竞争等高级故障，受到团队认可。在此过程中大幅提升源码阅读与调试能力，建立对软件质量与工程化交付的深刻认识，该理念贯穿后续 15 年工程实践。
+          - 阅读大量 Linux 内核与 C 源码，多次独立定位并解决内存泄漏、死锁、并发竞争等高级故障，受到团队认可。在此过程中建立的高可靠软件工程理念，持续影响后续系统设计与编码实践。
 
 
 # 技术栈与证书
 tech_stack:
-  languages: Rust（3年，主力）, C/C++（10年+）, Go（约3年）, Python
-  systems: Pingora / Tokio, Nginx (C Module), TCP/IP, Docker / K8s
-  data: Redis, Kafka, ClickHouse, MySQL, Zookeeper
-  ai_llm: AI Gateway (Dify/OpenAI/Ollama), Prompt 注入防护, SSE/NDJSON 流式处理, Claude Code Agent 开发;
-  certifications: CISSP（国际注册信息系统安全专家）, 国家发明专利持有人（1项）
+  professional_certs: CISSP（国际注册信息系统安全专家）| 国家发明专利（1项）
+  languages: C/C++ > Rust > Golang > Python
+  systems_&_gateways: Linux 网络编程（epoll/kqueue）| Pingora / Tokio 异步网关 | Nginx C Module | TCP/IP 协议栈
+  data_&_infrastructure: Redis | Kafka | ClickHouse | ZooKeeper | LVS
+  ai_llm_security: AI Gateway 统一代理（Dify/OpenAI/Ollama）| SSE 流式内容审计 | Prompt 注入检测
   honors: 卫星导航定位科学技术个人一等奖
 
 # 教育背景

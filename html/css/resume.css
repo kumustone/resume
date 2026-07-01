@@ -98,7 +98,13 @@ body {
   letter-spacing: 0.3pt;
   line-height: 1.15;
   margin: 0;
-  padding: 0;
+}
+
+.job-target-line {
+  font-size: 10.5pt;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-top: 0.3em;
 }
 
 /* ---- Section 标题 ---- */

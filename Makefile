@@ -1,6 +1,5 @@
 # ============================================================
-# 简历构建入口 Makefile — 开发方向
-# 安全方向内容已抽离至 data/resume-security.yaml
+# 简历构建入口 Makefile
 # ============================================================
 
 # ---- 目录定义 ----
@@ -39,6 +38,9 @@ HTML = $(HTML_DIR)/output/resume.html
 RESUME_CLASS = latex/resume.cls
 STYLE_FILES  = latex/zh_CN-systemfonts.sty latex/linespacing_fix.sty latex/fontawesome.sty
 
+# ---- PDF 查看器 ----
+PDF_VIEWER = open -a wpsoffice
+
 # ---- 跨平台命令 ----
 ifeq ($(OS),Windows_NT)
   RM = cmd //C del //Q
@@ -51,20 +53,32 @@ endif
 # ============================================================
 # 默认目标
 # ============================================================
-.PHONY: all help clean
+.PHONY: all help clean view
 
 all: html pdf
+	@pkill -x wpsoffice 2>/dev/null || true
+	@sleep 0.5
+	@$(PDF_VIEWER) $(PDF)
+
+# ============================================================
+# 强制刷新 PDF（杀 WPS 进程后重新打开）
+# ============================================================
+view:
+	@pkill -x wpsoffice 2>/dev/null || true
+	@sleep 1
+	@$(PDF_VIEWER) $(PDF)
 
 # ============================================================
 # 帮助信息
 # ============================================================
 help:
-	@echo "简历构建系统 — 开发方向"
+	@echo "简历构建系统"
 	@echo ""
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@echo "  all          - 构建全部 (HTML + PDF)"
+	@echo "  all          - 构建全部 (HTML + PDF) 并用 WPS 打开"
+	@echo "  view         - 强制刷新：杀 WPS 进程后重新打开 PDF"
 	@echo "  latex        - 构建 LaTeX PDF (需要 XeLaTeX)"
 	@echo "  html         - 生成 HTML"
 	@echo "  pdf          - 生成 PDF (从 HTML, 依赖 html)"
