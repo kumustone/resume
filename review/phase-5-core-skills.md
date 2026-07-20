@@ -353,6 +353,143 @@ core_skills:
 - Resume B 采用 **Core Skills v4**。
 - Core Skills 优化到此为止，后续精力转向 Project Experience。
 
+---
+
+## Core Skills v5（最终版，仅微调）
+
+### 调整要点
+
+| 反馈 | 修改 |
+|------|------|
+| Resume A「技术栈」范围太大，用词不准确 | 改为「基础技术」 |
+| Resume B「低延迟」与「网络编程」语义重叠 | 删除「低延迟」，保留「网络编程」 |
+| Resume B「IO多路复用」与 epoll/kqueue 表达同一层概念 | 替换为「事件驱动」，层次更丰富 |
+
+---
+
+## Resume A — Application Security Engineer
+
+### Core Skills v5
+
+```yaml
+core_skills:
+  - title: 应用安全
+    details:
+      - AI安全
+      - API安全
+      - 数据安全
+      - 内容安全
+      - WAF
+
+  - title: 安全产品
+    details:
+      - AI网关
+      - 数据安全引擎
+      - 业务风控
+      - 反欺诈
+      - 反垃圾
+      - 访问控制
+
+  - title: 安全工程
+    details:
+      - SDL
+      - 代码审计
+      - 漏洞治理
+      - 安全治理
+      - 等保合规
+
+  - title: 编程语言
+    details:
+      - Rust
+      - Go
+      - C++
+
+  - title: 基础技术
+    details:
+      - Nginx
+      - Pingora
+      - Linux
+      - TCP/IP
+      - Kafka
+      - Redis
+```
+
+---
+
+## Resume B — Senior Backend Engineer
+
+### Core Skills v5
+
+```yaml
+core_skills:
+  - title: 后端开发
+    details:
+      - 网关
+      - 长连接
+      - IM系统
+      - 分布式系统
+      - 网络编程
+
+  - title: 网关与网络
+    details:
+      - Nginx
+      - Pingora
+      - 反向代理
+      - TCP/IP
+      - HTTP/HTTPS
+      - Linux
+
+  - title: 并发编程
+    details:
+      - epoll
+      - kqueue
+      - 异步
+      - 无锁
+      - 事件驱动
+
+  - title: 编程语言
+    details:
+      - Rust
+      - Go
+      - C++
+
+  - title: 中间件
+    details:
+      - Redis
+      - Kafka
+      - ZooKeeper
+      - MySQL
+      - ClickHouse
+```
+
+---
+
+## v5 修改说明
+
+| Resume | 修改 | 原因 |
+|--------|------|------|
+| A | 技术栈 → 基础技术 | 「技术栈」范围太宽；Linux、TCP/IP、Nginx 是底层能力，更准确。 |
+| B | 删除「低延迟」 | 「网络编程」覆盖更广，「低延迟」在项目经历中自然体现。 |
+| B | IO多路复用 → 事件驱动 | epoll、kqueue 本身即代表 IO 多路复用，换成「事件驱动」避免重复，层次更丰富。 |
+
+---
+
+## 最终版本概览
+
+| 模块 | 版本 | 评分 |
+|------|------|------|
+| Summary | v5 | 9.5/10 |
+| Core Skills | v5 | 9.5/10 |
+
+---
+
+## 确认结论
+
+- Resume A 采用 **Summary v5 + Core Skills v5**。
+- Resume B 采用 **Summary v5 + Core Skills v5**。
+- Summary 与 Core Skills 优化到此结束。
+- 后续所有精力投入 **Project Experience（项目经历）** — 这才是决定简历最终质量的部分。
+
 
 ---
 
