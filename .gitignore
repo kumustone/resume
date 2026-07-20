@@ -1,6 +1,10 @@
+# macOS
+.DS_Store
+
 # 构建输出
 output/
 html/output/
+pdf/
 
 # npm 依赖
 html/node_modules/
@@ -14,4 +18,4 @@ build/
 *.fls
 
 # YAML → LaTeX 生成的内容文件
-content/resume_gateway.tex
+content/

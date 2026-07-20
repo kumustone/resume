@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "YAML → HTML → PDF 简历生成器",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumustone/resume.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kumustone/resume/issues"
+  },
+  "homepage": "https://github.com/kumustone/resume#readme",
   "scripts": {
     "build": "node js/yaml-to-html.js && node js/generate-pdf.js",
     "html": "node js/yaml-to-html.js",
