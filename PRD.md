@@ -1,6 +1,6 @@
-# Resume Architecture Specification
+# Career Communication System Specification
 
-> 版本：v2.0  
+> 版本：v3.0  
 > 日期：2026-07-20  
 > 适用范围：`/Users/liubo/workspace/github/kumustone/resume`
 
@@ -12,46 +12,73 @@
 >
 > 简历的目的不是告诉招聘方你做过的一切，而是让他想面试你。
 
-任何新增内容都可以用这一条检验：如果它不能增强招聘方对候选人的**认知、兴趣或信任**，就应该删掉。
+> **Every modification must strengthen the candidate's professional identity.**
+>
+> 每一次修改都必须让招聘经理更确信：这就是他要找的人。
+
+任何新增内容都可以用这两条检验：
+
+1. 它是否增强了招聘方对候选人的**认知、兴趣或信任**？
+2. 它是否强化了候选人的**专业身份**（Security Resume → Enterprise Security Engineer；Backend Resume → Infrastructure Engineer）？
+
+如果任一答案为否，就应该删掉或重写。
 
 ---
 
 ## 一、Mission（最高目标）
 
-**Design a resume system, not resume documents.**
+**Design a Career Communication System.**
 
-设计一套简历系统，而不是几份简历文档。
+设计一套职业沟通系统，而不是几份简历文档。
 
-A resume is not an artifact.
-It is a **communication system** between candidate and hiring manager.
+本 Repository 维护的是 **Career Knowledge Base** —— 职业资料的 Single Source of Truth。所有面向不同渠道的输出都从这里生成：
 
-简历不是静态产物，而是候选人与招聘经理之间的沟通系统。后续所有决策都服务于这个系统的**沟通效率（Communication Efficiency）**：
+```
+Career Knowledge Base
+        │
+        ├── Resume A
+        ├── Resume B
+        ├── LinkedIn
+        ├── Self Introduction
+        ├── Interview Story
+        ├── Project Portfolio
+        ├── Tech Blog
+        └── Personal Website
+```
 
-- 为什么保留这句话？因为它提升了沟通效率。
-- 为什么删除这句话？因为它没有增加沟通效率。
-- 为什么调整顺序？因为它让招聘经理更快建立正确认知。
+简历只是这个系统中最重要、但绝不是唯一的 Output。
 
 ---
 
-## 二、Resume Product 定义
+## 二、Core Principle（核心决策原则）
 
-本系统最终输出两款 Resume Product，分别服务两个招聘市场：
+### 2.1 简历不是展示能力，而是降低招聘风险
 
-- **Resume A — Application Security Engineer**
-  - SDL
-  - Security Platform
-  - AI Security
-  - API Security
-  - Security Development
-- **Resume B — Senior Backend Engineer**
-  - Rust
-  - Go
-  - Gateway
-  - IM
-  - Distributed System
-  - Network
+招聘经理不是在购买技术，而是在降低团队风险。
 
-**核心约束**：两份简历不是完全不同的人，而是**同一个人的两个 Narrative（职业叙事）**。工作经历、时间线、项目事实完全一致；变化的是信息架构、强调角度与 ATS 关键词。
+每一句话都应该帮助招聘经理减少一种顾虑：
+
+| 招聘经理的顾虑 | 简历应该给出的信号 |
+|---------------|-------------------|
+| 担心不会落地 | 多个 0→1 项目、从设计到上线的完整闭环 |
+| 担心不会维护 | 长期负责核心系统、已稳定运行多年 |
+| 担心不会合作 | 团队 Leader、跨团队推进、客户现场支持 |
+| 担心只是写 Demo | 金融、政企、双11等真实生产环境 |
+| 担心只会一种语言 | Go / Rust / C++ 多语言工程实践 |
+| 担心年龄大、学习慢 | 持续学习 AI / Pingora / Rust 等新技术 |
+| 担心安全背景不够深 | CISSP、WAF、风控、数据安全、AI Security |
+| 担心工程能力退化 | 高性能网关、QPS/RT 量化指标 |
+
+### 2.2 修改方向检验
+
+每次修改后，问自己：
+
+> 这次修改，是否让招聘经理更确信这是他要找的人？
+
+- Security Resume：是否更像 **Enterprise Security Engineer**？
+- Backend Resume：是否更像 **Infrastructure Engineer**？
+
+如果答案是否定的，即使这句话是真实的、有技术含量的，也应该删掉或换个角度表达。
 
 ---
 
@@ -91,33 +118,79 @@ It is a **communication system** between candidate and hiring manager.
 
 目标：帮助招聘方在最短时间内建立对候选人的正确认知。
 
+### 3.5 Resume Deletion Principle
+
+> **Perfection is achieved not when there is nothing more to add, but when there is nothing left to remove.**
+
+如果一句话满足下面任何一项，删：
+
+- 不影响 Offer
+- 不影响 ATS
+- 不影响 Narrative
+- 不影响招聘经理决策
+- 不降低招聘风险
+- 不强化专业身份
+
+简历的信息预算是有限的。每一句话都必须有存在的理由。
+
 ---
 
-## 四、职业主线（Career Arc）
+## 四、Career Arc（职业价值演进主线）
 
-候选人的职业经历本质上不是按公司排列，而是按技术能力演进：
+候选人的职业经历本质上不是按公司排列，而是按**职业价值**演进：
 
 ```
-Linux
-  → Network Programming
-    → High Performance Infrastructure
-      → Gateway / Long Connection
-        → Distributed Systems
-          → Enterprise Security
-            → AI Security
+Reliable Software Engineering
+        ↓
+High Performance Infrastructure
+        ↓
+    Large Scale Backend
+        ↓
+    Enterprise Platform
+        ↓
+    Enterprise Security
+        ↓
+     AI Infrastructure
 ```
 
-这条主线更贴合真实经历：
+这是招聘经理能读懂的语言：
 
-- 蘑菇街 IM 属于 **Gateway / Long Connection / Infrastructure**，不强行归入 Distributed Systems。
-- 闪捷 Nexis、nginx_merry 属于 **Gateway + Enterprise Security + AI Security** 的交汇点。
-- 玩物得志风控属于 **Enterprise Security** 的横向扩展。
+| 阶段 | 含义 | 对应经历 |
+|------|------|---------|
+| Reliable Software Engineering | 电信级工程纪律、高可靠软件交付 | 华为 VFM 模块 |
+| High Performance Infrastructure | 高性能网络服务、长连接、协议解析 | 千方/中交兴路 CADN、蘑菇街 IM |
+| Large Scale Backend | 大规模后端系统、网关、分布式 | 蘑菇街 WAF、玩物得志风控 |
+| Enterprise Platform | 企业级平台建设、0→1 产品化 | 玩物得志安全治理、闪捷 nginx_merry |
+| Enterprise Security | 企业安全平台、风控、数据安全、合规 | 玩物得志风控/反垃圾、闪捷 r_data_service |
+| AI Infrastructure | AI 网关、AI 安全、新一代基础设施 | 闪捷 Nexis、AI 研究 |
 
 所有简历修改必须围绕这条主线展开，确保阅读者感受到一条清晰、连续、可解释的职业演进路径。
 
 ---
 
-## 五、为什么需要两个版本
+## 五、Resume Product 定义
+
+本系统最终输出两款 Resume Product，分别服务两个招聘市场：
+
+- **Resume A — Application Security Engineer**
+  - SDL
+  - Security Platform
+  - AI Security
+  - API Security
+  - Security Development
+- **Resume B — Senior Backend Engineer**
+  - Rust
+  - Go
+  - Gateway
+  - IM
+  - Distributed System
+  - Network
+
+**核心约束**：两份简历不是完全不同的人，而是**同一个人的两个 Narrative（职业叙事）**。工作经历、时间线、项目事实完全一致；变化的是信息架构、强调角度与 ATS 关键词。
+
+---
+
+## 六、为什么需要两个版本
 
 候选人的经历是一条连续演进路线，但不同岗位的招聘经理关注点不同：
 
@@ -130,7 +203,7 @@ Linux
 
 ---
 
-## 六、两个 Resume 的区别
+## 七、两个 Resume 的区别
 
 | 维度 | Resume A（Security） | Resume B（Backend） |
 |------|---------------------|---------------------|
@@ -145,7 +218,7 @@ Linux
 
 ---
 
-## 七、必须保持一致的内容
+## 八、必须保持一致的内容
 
 以下信息在两个 Resume 中必须完全一致，不得虚构、夸大或修改：
 
@@ -165,7 +238,119 @@ Linux
 
 ---
 
-## 八、每家公司如何组织
+## 九、Knowledge Base（知识库）
+
+### 9.1 知识流
+
+Career Knowledge Base 不是资料堆，而是有层次的知识流：
+
+```
+        Fact
+          ↓
+       Evidence
+          ↓
+        Story
+          ↓
+     Resume Bullet
+```
+
+- **Fact**：客观事实，如「QPS +138%」。
+- **Evidence**：事实的佐证，如 Benchmark 数据、客户反馈、专利证书。
+- **Story**：可复用的面试故事，如 STAR 结构的项目经历。
+- **Resume Bullet**：最终写入简历的一句话。
+
+Resume 只是最后一层，不是第二层。
+
+### 9.2 目录结构
+
+```
+resume/
+├── data/                  # 当前简历主数据（Source）
+├── materials/             # Career Knowledge Base
+│   ├── raw/               # 原材料
+│   │   ├── repos/         # 代码仓库
+│   │   ├── docs/          # 文档/PDF
+│   │   ├── slides/        # PPT/Keynote
+│   │   ├── screenshots/   # 截图/架构图
+│   │   └── notes/         # 零散笔记
+│   ├── facts/             # 确认的事实（Fact）
+│   ├── evidence/          # 佐证材料（Evidence）
+│   ├── stories/           # 面试故事（Story）
+│   ├── coarse/            # 粗料（按项目整理）
+│   └── fine/              # 细料（可直接用于简历）
+├── outputs/               # 输出产物
+│   ├── resume-security.*
+│   ├── resume-backend.*
+│   ├── linkedin.md
+│   └── self-intro.md
+├── prompts/               # Claude Code 提示词与系统指令
+├── scripts/               # 构建/生成脚本
+├── review/                # Review 记录与决策日志
+└── PRD.md                 # 本规范
+```
+
+### 9.3 当前物料分层
+
+| 层级 | 路径 | 说明 |
+|------|------|------|
+| 原材料（raw） | `materials/raw/` | 代码仓库、文档、PPT、截图、笔记等原始物料 |
+| 粗料（coarse） | `materials/coarse/` | 按项目/公司整理的事实草稿，回答 What / Contribution / Impact |
+| 细料（fine） | `materials/fine/` | 可直接用于简历的精炼事实单元与确认事实清单 |
+| 主数据 | `data/resume.yaml` | 当前简历统一数据源 |
+| 项目详情 | `materials/projects/*.md` | 各项目详细素材 |
+| 述职材料 | `materials/annual-reviews/*.md` | 年度/半年度述职 |
+| 历史简历 | `materials/history-resume/*` | 历史版本 PDF/MD/DOCX |
+| 构建产物 | `material/history-resume/*` | 近期 HTML/PDF 历史版本 |
+
+### 9.4 主项目与子项目/配套能力的呈现原则
+
+同一公司下，若存在多个相关仓库或子系统，简历中可采用两种组织方式：
+
+- **独立项目**：适合强调产品线广度或 Security Resume 中突出安全能力矩阵。
+- **并入主项目**：适合强调核心系统深度或 Backend Resume 中突出工程聚焦。
+
+例如闪捷：
+- 核心项目：Nexis、nginx_merry、r_data_service
+- 配套能力：secagent（节点管理）、AI-dataset（数据管理）、AI 研究（技术预研）、flint-ocr（OCR 识别）、file-inspector（文件检测）
+
+具体是否独立或并入，由 Resume Branch 的叙事需求决定，并在 Phase 3「整体目录」中明确。
+
+### 9.5 物料不足时的处理
+
+当发现以下情况时，必须暂停修改，向候选人确认：
+
+- 某个项目缺少可量化的 Impact。
+- 某段经历的技术栈或职责边界不清。
+- 某个数据（如 QPS、RT、成本降低比例）无法核对。
+- 不确定某个经历是否适合放入当前 Resume Branch。
+
+**不要猜测、不要脑补、不要虚构。**
+
+---
+
+## 十、Repository 设计原则
+
+本 Repository 采用类似软件工程的 Source / Build / Output 结构：
+
+| 目录 | 角色 | 说明 |
+|------|------|------|
+| `data/` | Source | 简历唯一数据源，人工维护 |
+| `materials/` | Knowledge Base | 职业知识库，持续积累 |
+| `outputs/` | Output | 面向不同渠道的最终产物 |
+| `prompts/` | Prompts | Claude Code 系统提示与任务模板 |
+| `scripts/` | Scripts | 构建、生成、检查脚本 |
+| `review/` | Review Log | Review 记录、决策日志、版本说明 |
+| `PRD.md` | Spec | 本规范 |
+
+**原则**：
+
+- `data/` 和 `materials/` 是 Source，不可由脚本自动生成后覆盖。
+- `outputs/` 是 Generated，可以从 Source 和 Knowledge Base 重新生成。
+- 所有修改必须有记录：要么更新 `data/`，要么更新 `materials/`，要么在 `review/` 留下决策说明。
+
+---
+
+## 十一、每家公司如何组织
 
 每家公司条目采用以下结构：
 
@@ -188,7 +373,7 @@ Linux
 
 ---
 
-## 九、每个项目如何组织
+## 十二、每个项目如何组织
 
 每个项目 Bullet 只回答三类问题：
 
@@ -204,7 +389,7 @@ Linux
 
 ---
 
-## 十、Information Density
+## 十三、Information Density
 
 高级工程师简历不是信息越多越好。原则是：
 
@@ -218,9 +403,9 @@ Linux
 
 ---
 
-## 十一、经历权重与核心开发者定位
+## 十四、经历权重与核心开发者定位
 
-### 11.1 核心开发者定位
+### 14.1 核心开发者定位
 
 在所有项目物料中，候选人均为**绝对的核心开发角色**。简历描述必须体现这一点：
 
@@ -228,7 +413,7 @@ Linux
 - 避免弱化表达，如「参与」「协助」「负责部分模块」等，除非事实确实如此。
 - 若某项目中候选人并非核心角色，则该项目不应作为重点出现。
 
-### 11.2 经历权重分配
+### 14.2 经历权重分配
 
 简历篇幅和细节密度应按工作经历的新近程度递减：
 
@@ -247,7 +432,7 @@ Linux
 
 ---
 
-## 十二、每份简历应该给人的第一印象
+## 十五、每份简历应该给人的第一印象
 
 ### Resume A（Security）
 
@@ -259,100 +444,71 @@ Linux
 
 ---
 
-## 十三、Knowledge Base（知识库 / 物料库）
+## 十六、Resume Reading Order
 
-### 13.1 原则
+不同角色的阅读路径不同。Claude 在设计简历时应确保关键信息在每个路径上都快速可见。
 
-简历内容 = 对 Knowledge Base 中事实的**选择性、有叙事角度的渲染（Render）**。
-
-```
-Knowledge Base
-      ↓
-  Resume A
-      ↓
-  Resume B
-      ↓
-   LinkedIn
-      ↓
- Self Introduction
-      ↓
- Interview Stories
-```
-
-Knowledge Base 是 **Single Source of Truth**。所有面向不同渠道的输出（简历、LinkedIn、自我介绍、面试故事、技术博客）都从这里生成，只是针对不同受众渲染出不同版本。
-
-### 13.2 目录结构
+### HR / 简历筛选系统（20–30 秒）
 
 ```
-materials/
-├── raw/              # 原材料
-│   ├── repos/        # 代码仓库
-│   ├── docs/         # 文档/PDF
-│   ├── slides/       # PPT/Keynote
-│   ├── screenshots/  # 截图/架构图
-│   └── notes/        # 零散笔记
-├── coarse/           # 粗料（按项目整理的事实草稿）
-└── fine/             # 细料（可直接用于简历的事实单元）
-    ├── facts.yaml
-    ├── resume-security-bullets.yaml
-    └── resume-backend-bullets.yaml
+Summary
+  ↓
+Core Skills
+  ↓
+Recent Company / Role
+  ↓
+ATS Keywords
 ```
 
-建议未来进一步扩展为：
+### Hiring Manager（2–5 分钟）
 
 ```
-materials/
-├── projects/         # 项目级事实
-├── companies/        # 公司级事实
-├── metrics/          # 量化指标库
-├── stories/          # 可复用的面试故事
-├── architecture/     # 架构图/技术决策
-├── failures/         # 失败案例与反思
-└── patents/          # 专利/荣誉
+Summary
+  ↓
+最近 1-2 个核心项目
+  ↓
+每家公司的一句话定位
+  ↓
+量化结果
+  ↓
+Core Skills（验证匹配度）
 ```
 
-### 13.3 物料分层
+### CEO / 高级管理者
 
-| 层级 | 路径 | 说明 |
-|------|------|------|
-| 原材料（raw） | `materials/raw/` | 代码仓库、文档、PPT、截图、笔记等原始物料 |
-| 粗料（coarse） | `materials/coarse/` | 按项目/公司整理的事实草稿，回答 What / Contribution / Impact |
-| 细料（fine） | `materials/fine/` | 可直接用于简历的精炼事实单元与确认事实清单 |
-| 主数据 | `data/resume.yaml` | 当前简历统一数据源 |
-| 项目详情 | `materials/projects/*.md` | 各项目详细素材 |
-| 述职材料 | `materials/annual-reviews/*.md` | 年度/半年度述职 |
-| 历史简历 | `materials/history-resume/*` | 历史版本 PDF/MD/DOCX |
-| 构建产物 | `material/history-resume/*` | 近期 HTML/PDF 历史版本 |
+```
+Summary
+  ↓
+最近项目影响力
+  ↓
+0→1 建设能力
+  ↓
+行业/客户影响力
+```
 
-### 13.4 主项目与子项目/配套能力的呈现原则
+### Technical Interviewer（面试中）
 
-同一公司下，若存在多个相关仓库或子系统，简历中可采用两种组织方式：
+```
+项目标题
+  ↓
+What / Contribution / Impact
+  ↓
+引发深入技术问题的钩子
+```
 
-- **独立项目**：适合强调产品线广度或 Security Resume 中突出安全能力矩阵。
-- **并入主项目**：适合强调核心系统深度或 Backend Resume 中突出工程聚焦。
+**设计原则**：
 
-例如闪捷：
-- 核心项目：Nexis、nginx_merry、r_data_service
-- 配套能力：secagent（节点管理）、AI-dataset（数据管理）、AI 研究（技术预研）、flint-ocr（OCR 识别）、file-inspector（文件检测）
-
-具体是否独立或并入，由 Resume Branch 的叙事需求决定，并在 Phase 3「整体目录」中明确。
-
-### 13.5 物料不足时的处理
-
-当发现以下情况时，必须暂停修改，向候选人确认：
-
-- 某个项目缺少可量化的 Impact。
-- 某段经历的技术栈或职责边界不清。
-- 某个数据（如 QPS、RT、成本降低比例）无法核对。
-- 不确定某个经历是否适合放入当前 Resume Branch。
-
-**不要猜测、不要脑补、不要虚构。**
+- 前 1/3 页面必须回答「他是谁」「他做什么」「他是否匹配这个岗位」。
+- 量化结果必须在快速扫描时可见。
+- 技术深度细节均匀分布，为面试预留提问点。
 
 ---
 
-## 十四、ATS Strategy
+## 十七、ATS Strategy
 
-### 14.1 目标岗位关键词矩阵
+ATS 是必要但不充分条件。简历首先要通过 ATS，但最终征服的是 Hiring Manager。
+
+### 17.1 目标岗位关键词矩阵
 
 #### Resume A（Application Security Engineer）
 
@@ -374,7 +530,7 @@ materials/
 | 基础设施 | Kafka、Redis、ZooKeeper、Docker、Kubernetes、ClickHouse、LVS |
 | 协议/网络 | TCP/IP、HTTP/HTTPS、WebSocket、SSE、NDJSON、epoll、Long Connection |
 
-### 14.2 关键词密度策略
+### 17.2 关键词密度策略
 
 关键词不应随机出现，应在关键位置均匀分布：
 
@@ -389,14 +545,14 @@ materials/
 
 ---
 
-## 十五、Resume Budget（信息预算）
+## 十八、Resume Budget（信息预算）
 
-### 15.1 总体篇幅
+### 18.1 总体篇幅
 
 - **Resume 长度**：2 页
 - **字数预算**：900–1200 词（中文约 1500–2000 字）
 
-### 15.2 篇幅分配
+### 18.2 篇幅分配
 
 | 模块 | 占比 | 说明 |
 |------|------|------|
@@ -404,7 +560,7 @@ materials/
 | 早期经历 | ~20% | 蘑菇街 + 千方/中交兴路 + 华为 |
 | 教育 / 其他 | ~10% | 学历、证书、专利等 |
 
-### 15.3 每家公司 Bullet 预算
+### 18.3 每家公司 Bullet 预算
 
 | 优先级 | 每家公司 Bullet 数量建议 |
 |--------|------------------------|
@@ -415,14 +571,14 @@ materials/
 
 ---
 
-## 十六、Narrative Consistency（叙事一致性）
+## 十九、Narrative Consistency（叙事一致性）
 
 每一份简历中的每一家公司、每一个项目，最终都必须服务于同一个 Narrative：
 
 - **Resume A**：所有内容共同证明候选人是 **Enterprise Security Engineer**。
 - **Resume B**：所有内容共同证明候选人是 **Infrastructure Engineer**。
 
-### 16.1 每家公司如何推进 Narrative
+### 19.1 每家公司如何推进 Narrative
 
 | 公司 | Resume A 叙事 | Resume B 叙事 |
 |------|---------------|---------------|
@@ -432,7 +588,7 @@ materials/
 | 玩物得志 | 业务风控、反垃圾、企业安全治理与合规 | 高并发风控引擎、高性能文本处理、从 0 到 1 平台建设 |
 | 闪捷 | AI 安全网关、API 安全、数据安全引擎 | Rust/Pingora 高性能网关、分布式安全基础设施、数据安全引擎 |
 
-### 16.2 检查方法
+### 19.2 检查方法
 
 每写完一个项目后，问自己：
 
@@ -442,7 +598,7 @@ materials/
 
 ---
 
-## 十七、输出与迭代流程
+## 二十、输出与迭代流程
 
 严禁一次性输出完整简历。按以下阶段推进，每阶段完成后等待确认：
 
@@ -462,7 +618,26 @@ materials/
 
 ---
 
-## 十八、Resume Review Checklist（输出前检查清单）
+## 二十一、When to Ask Instead of Writing
+
+以下情况出现时，**必须立即停止生成**，先向候选人提问，确认后再继续：
+
+- [ ] 缺少量化指标
+- [ ] Impact 无法验证
+- [ ] 技术栈冲突或描述不一致
+- [ ] 公司 / 项目 / 时间存在冲突
+- [ ] Narrative 出现断层（某段经历无法支撑当前 Resume Branch 的专业身份）
+- [ ] ATS 关键词与目标岗位冲突
+- [ ] Resume 超过信息预算
+- [ ] 两个 Resume Branch 出现事实不一致
+- [ ] 不确定某个项目是否独立呈现或并入主项目
+- [ ] 发现原材料与已有事实矛盾
+
+**原则**：不确定就停，不猜测、不脑补、不为了写而写。
+
+---
+
+## 二十二、Resume Review Checklist（输出前检查清单）
 
 每阶段输出前，必须逐项检查：
 
@@ -504,19 +679,20 @@ materials/
 - [ ] 最近 5-10 年经历是否占约 70%？
 - [ ] 每家公司 bullet 数量是否符合优先级预算？
 
-### 沟通效率
+### 沟通效率与风险降低
 
 - [ ] 每一句话是否提升了沟通效率？
 - [ ] 是否帮助招聘经理更快建立正确认知？
+- [ ] 是否降低了至少一种招聘风险？
+- [ ] 是否强化了候选人的专业身份？
 - [ ] 是否让招聘经理想面试这个候选人？
 
 ---
 
-## 十九、首席简历架构师职责
+## 二十三、首席职业叙事架构师职责
 
-> 请把自己当成这份简历的 **Chief Resume Architect**，而不是编辑器。
->
-> 你的职责不是修改句子，而是设计一款能够帮助候选人获得目标岗位 Offer 的产品。
+> 请把自己当成这位候选人的 **Chief Career Narrative Architect**，而不是编辑器。>
+> 你的职责不是修改句子，而是设计一套能够帮助候选人获得目标岗位 Offer 的职业沟通系统。
 >
 > 如果发现原有信息组织方式不能体现候选人的真实能力，请大胆重构信息架构。
 >
@@ -526,11 +702,12 @@ materials/
 > 3. 不增加不存在的内容；
 > 4. 工作经历保持时间倒序；
 > 5. 技术细节留给面试，简历重职责、贡献与结果；
-> 6. 同时维护 Security Resume 与 Backend Resume 两个分支，它们共享同一职业经历，但拥有不同的 Narrative、Summary、Core Skills、项目强调点与 ATS 关键词。
+> 6. 同时维护 Security Resume 与 Backend Resume 两个分支，它们共享同一职业经历，但拥有不同的 Narrative、Summary、Core Skills、项目强调点与 ATS 关键词；
+> 7. 不确定时先提问，不为了写而写。
 
 ---
 
-## 二十、版本记录
+## 二十四、版本记录
 
 | 版本 | 日期 | 说明 |
 |------|------|------|
@@ -538,3 +715,4 @@ materials/
 | v1.1 | 2026-07-20 | 增加经历权重与核心开发者定位；明确早期工作经历简写原则 |
 | v1.2 | 2026-07-20 | 补充物料分层体系（raw/coarse/fine）；增加主项目与子项目/配套能力的呈现原则；更新闪捷项目清单 |
 | v2.0 | 2026-07-20 | 全面升级：最高原则、Mission 升维、Design Philosophy、Knowledge Base、ATS Strategy、Resume Budget、Narrative Consistency、Resume Review Checklist、优化职业主线 |
+| v3.0 | 2026-07-20 | 升维为 Career Communication System：新增 Hiring Risk Reduction、Resume Reading Order、Resume Deletion Principle、Repository 设计原则、When to Ask Instead of Writing、Fact→Evidence→Story→Resume 知识流、职业价值演进主线 |
