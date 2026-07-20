@@ -88,7 +88,11 @@ projects:
         source: materials/projects/01-闪捷信息科技-nexis-ai-安全网关-rust-pingora.md
       - fact: 已实现 Prompt 注入检测、SSE/NDJSON 流式逐 chunk 内容审核与脱敏代答。
         source: materials/projects/01-闪捷信息科技-nexis-ai-安全网关-rust-pingora.md
+      - fact: 项目品牌名为 Nexis，可公开使用。
+        source: 用户确认
       - fact: "已持续稳定运行超 2 年" 不适用于 Nexis，仅适用于 nginx_merry。
+        source: 用户确认
+      - fact: 量化指标可以公开。
         source: 用户确认
 
   - name: nginx_merry — 高性能 C++ Nginx 安全网关模块
@@ -203,6 +207,65 @@ projects:
       - fact: 负责 VFM 模块研发，独立定位并解决内存泄漏、死锁、并发竞争等高级故障。
         source: materials/projects/11-华为技术有限-虚拟文件管理模块（vrpv8-电信级路由.md
 
+  - name: secagent — 分布式节点管理器
+    company: 闪捷信息科技有限公司
+    weight: P1-P2
+    tech: [Python, 多进程架构, systemd, 配置同步]
+    confirmed_facts:
+      - fact: 安全网关系统的分布式节点管理代理，实现配置同步、状态上报、日志清理和服务升级。
+        source: materials/coarse/12-闪捷信息科技-secagent-分布式节点管理器.md
+    missing:
+      - 部署节点规模
+      - 配置同步延迟
+
+  - name: AI-dataset — AI 数据集管理平台
+    company: 闪捷信息科技有限公司
+    weight: P2
+    tech: [TypeScript, Node.js, JSON, Web 管理端]
+    confirmed_facts:
+      - fact: 为 AI 安全能力建设提供数据集管理与标注平台。
+        source: materials/coarse/13-闪捷信息科技-ai-dataset-AI数据集管理平台.md
+    missing:
+      - 数据集规模与类别
+      - 对模型效果提升的量化数据
+
+  - name: AI 安全技术研究
+    company: 闪捷信息科技有限公司
+    weight: P2
+    tech: [AI 网关竞品分析, 架构设计, 原型验证]
+    confirmed_facts:
+      - fact: 完成 AI 网关市场竞品分析、PRD、架构设计与原型验证。
+        source: materials/coarse/14-闪捷信息科技-ai_research-AI安全技术研究.md
+    missing:
+      - 竞品覆盖数量
+      - 研究成果对 Nexis 架构选型的具体影响
+
+  - name: flint-ocr — OCR 文档处理基础设施
+    company: 闪捷信息科技有限公司
+    weight: P1-P2
+    tech: [Rust, PaddleOCR, LLM Vision, OpenAI Vision 协议, Docker]
+    confirmed_facts:
+      - fact: 本地 PaddleOCR 推理 120ms，较云端 GPT-4V 快 6 倍。
+        source: materials/coarse/15-闪捷信息科技-flint-ocr-OCR文档处理基础设施.md
+      - fact: 云端 LLM Vision 模式准确率 92%。
+        source: materials/coarse/15-闪捷信息科技-flint-ocr-OCR文档处理基础设施.md
+      - fact: 本地模式零成本起步。
+        source: materials/coarse/15-闪捷信息科技-flint-ocr-OCR文档处理基础设施.md
+    missing:
+      - 实际部署客户数
+      - 日均处理量
+
+  - name: file-inspector — 文件内容识别与敏感检测服务
+    company: 闪捷信息科技有限公司
+    weight: P1-P2
+    tech: [Go, 视觉模型, 文本分析, HTTP API, 多格式文件解析]
+    confirmed_facts:
+      - fact: 支持图片、PDF、Office 等多格式文件解析与敏感信息检测。
+        source: materials/coarse/16-闪捷信息科技-file-inspector-文件内容识别与敏感检测.md
+    missing:
+      - 检测准确率与处理延迟
+      - 实际部署规模
+
 narrative_angles:
   security:
     first_impression: 长期做企业安全平台的人。懂网络、懂网关、懂开发，安全做得比普通安全工程师更深。
@@ -226,9 +289,9 @@ narrative_angles:
       - 消息总线 / Kafka
 
 open_questions:
-  - question: Nexis 项目是否统一使用"Nexis"作为品牌名？
-    impact: 影响简历中项目名称表述
   - question: 玩物得志等保合规、蘑菇街信息安全治理是否有量化 Impact 可补充？
     impact: 影响安全 Resume 中治理类项目的厚度
+  - question: 闪捷 secagent / ai-dataset / ai_research / flint-ocr / file-inspector 是作为独立项目呈现，还是并入 Nexis / nginx_merry / r_data_service？
+    impact: 影响闪捷经历的目录结构与简历篇幅分配
   - question: 是否还有除已列出的代码仓库外的其他相关仓库？
     impact: 影响原材料完整性
