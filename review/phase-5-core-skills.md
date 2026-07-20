@@ -1,88 +1,151 @@
 # Phase 5 — Resume A/B Core Skills 设计
 
-## 设计原则
+## 重要 redesign 说明
 
-- 4–5 个能力域，每个能力域 2–3 行。
-- 每行包含 1–2 个 ATS 关键词。
-- 不写低价值工具（VIM / Git / CET-6 / Claude Code）。
-- Resume A 安全能力域前置，Resume B 系统研发能力域前置。
-- 避免与 Summary 逐字重复，但关键词可呼应。
+Core Skills v1 的问题：把 Core Skills 写成了「缩短版项目经历」，包含大量项目细节（Prompt Injection、SSE/NDJSON、亿级消息、10w+ QPS）和成果性描述（0→1、生产环境落地）。
+
+**Core Skills 的真正作用**：让技术总监在 5 秒内扫一眼，建立技术画像。
+
+因此 v2 完全推倒重做：
+
+- 只保留**技术域关键词和技术名词**，不写完整叙述句。
+- 每个能力域控制在 **4–8 个关键词**。
+- 项目成果、业务背景、性能数字、0→1 等全部移到 Project Experience。
+- Summary、Core Skills、Project Experience 三者职责严格分离，避免重复。
+- 优先服务国内技术总监阅读习惯，而非 ATS 堆砌。
 
 ---
 
 ## Resume A — Application Security Engineer
 
-### Core Skills v1
+### Core Skills v2
 
 ```yaml
 core_skills:
-  - title: 安全产品开发
+  - title: Application Security
     details:
-      - 企业级 AI 安全网关、API 安全网关开发，覆盖 Prompt Injection 检测、SSE/NDJSON 流式审核、WAF、访问控制与数据脱敏。
-      - 数据安全引擎设计，支持敏感数据识别、数据脱敏、零宽字符/SIM 水印、OCR/文件敏感检测与多形态服务化。
+      - AI Security
+      - API Security
+      - WAF
+      - Content Security
+      - Risk Control
+      - Data Security
+      - DLP
 
-  - title: 安全体系建设与运营
+  - title: Security Engineering
     details:
-      - 企业安全治理与等保合规建设，覆盖 SDL、DevSecOps、漏洞管理、HIDS、安全审计与风险运营闭环。
-      - 业务风控与内容安全运营，覆盖反欺诈、反洗钱、异常行为检测、设备指纹、文本反垃圾与策略编排。
+      - SDL
+      - Code Audit
+      - Vulnerability Management
+      - Security Governance
+      - Compliance
+      - HIDS
 
-  - title: 高性能安全基础设施
+  - title: Security Products
     details:
-      - 熟悉 Nginx/Pingora 高性能网关、Rust/Go/C++ 安全产品开发，具备 Kafka、Redis、ZooKeeper 工程经验。
-      - 主导多个 0→1 安全产品建设，具备金融、政务、互联网行业客户现场落地与规模化交付能力。
+      - AI Gateway
+      - Data Security Engine
+      - Anti-fraud
+      - Anti-spam
+      - Identity & Access
 
-  - title: 安全资质与标准
+  - title: Programming Languages
     details:
-      - 持有 CISSP，熟悉企业安全架构设计、安全合规要求与持续运营机制。
-      - 具备从网络层到应用层、从终端到数据的多层次安全防护设计经验。
+      - Rust
+      - Go
+      - C++
+
+  - title: Infrastructure
+    details:
+      - Nginx
+      - Pingora
+      - Linux
+      - TCP/IP
+      - Kafka
+      - Redis
 ```
 
 ### 设计说明
 
-| 能力域 | ATS 关键词 |
-|--------|-----------|
-| 安全产品开发 | AI Security、API Security、WAF、Prompt Injection、Content Moderation、Data Masking、Data Security Engine |
-| 安全体系建设与运营 | SDL、DevSecOps、MLPS、HIDS、Vulnerability Management、Risk Control、Anti-fraud、Anti-spam、Compliance |
-| 高性能安全基础设施 | Rust、Go、C++、Nginx、Pingora、Gateway、High Performance、0→1、Enterprise Security |
-| 安全资质与标准 | CISSP、Security Architecture、Compliance、Multi-layer Security |
+| 能力域 | 关键词 | 说明 |
+|--------|--------|------|
+| Application Security | AI Security, API Security, WAF, Content Security, Risk Control, Data Security, DLP | 安全能力域广度，覆盖 Resume A 的核心方向。 |
+| Security Engineering | SDL, Code Audit, Vulnerability Management, Security Governance, Compliance, HIDS | 安全工程与体系建设能力，区分于纯安全开发。 |
+| Security Products | AI Gateway, Data Security Engine, Anti-fraud, Anti-spam, Identity & Access | 产品形态，帮助建立"安全产品研发"人设。 |
+| Programming Languages | Rust, Go, C++ | 核心语言栈，不写"熟悉""具备"等废话。 |
+| Infrastructure | Nginx, Pingora, Linux, TCP/IP, Kafka, Redis | 技术基础设施，支撑安全产品的工程底座。 |
+
+### 删除说明
+
+- **删除 CISSP**：资质放到 Education / Certification 区域。
+- **删除 Prompt Injection / SSE / NDJSON / 零宽字符 / SIM 水印 / OCR**：项目实现细节，下放项目。
+- **删除 0→1 / 规模化落地 / 金融政务互联网**：项目成果与行业背景，下放项目。
 
 ---
 
 ## Resume B — Senior Backend Engineer
 
-### Core Skills v1
+### Core Skills v2
 
 ```yaml
 core_skills:
-  - title: 高性能网关
+  - title: Backend Development
     details:
-      - 基于 Rust/Pingora 的异步高性能网关开发，具备插件化架构、热更新与全链路 async 改造经验。
-      - 基于 Nginx C Module + C++ 动态库的高性能代理开发，熟悉请求生命周期处理与进程间通信优化。
+      - High Performance
+      - Gateway
+      - Long Connection
+      - IM System
+      - Distributed Systems
+      - Low Latency
 
-  - title: 长连接与 IM 基础设施
+  - title: Programming Languages
     details:
-      - C++ 跨平台长连接 SDK 开发，基于 epoll/kqueue 实现异步非阻塞 I/O，支撑亿级消息峰值。
-      - IM 系统全流程设计，覆盖接入服务器、登录鉴权、会话管理、长链推送与 AppServer 模块。
+      - Rust
+      - Go
+      - C++
+      - Linux
 
-  - title: 分布式系统
+  - title: Gateway & Networking
     details:
-      - 分布式接入平台设计，覆盖服务发现、一致性哈希、消息总线、负载均衡与无共享状态集群。
-      - 高并发实时决策系统开发，支撑 10w+ QPS，平均决策延迟 <50ms。
+      - Nginx
+      - Pingora
+      - Reverse Proxy
+      - TCP/IP
+      - HTTP/HTTPS
+      - WebSocket
 
-  - title: 系统编程与工程化
+  - title: Concurrency
     details:
-      - 熟悉 Rust / Go / C++ 系统编程，具备 JNI、多平台 SDK、交叉编译与多环境部署经验。
-      - 主导多个 0→1 系统建设，具备电信级高可靠系统开发背景与大规模生产环境运维能力。
+      - epoll
+      - kqueue
+      - Async
+      - Lock-free
+      - High Concurrency
+
+  - title: Middleware
+    details:
+      - Redis
+      - Kafka
+      - ZooKeeper
+      - MySQL
+      - ClickHouse
 ```
 
 ### 设计说明
 
-| 能力域 | ATS 关键词 |
-|--------|-----------|
-| 高性能网关 | High Performance Gateway、Rust、Pingora、Nginx、C++、Async、Hot Reload |
-| 长连接与 IM 基础设施 | Long Connection、IM、epoll、kqueue、Cross-platform SDK、Message Peak |
-| 分布式系统 | Distributed Systems、Service Discovery、Consistent Hashing、Message Bus、High Concurrency |
-| 系统编程与工程化 | Rust、Go、C++、JNI、SDK、System Programming、0→1、Telecom-grade |
+| 能力域 | 关键词 | 说明 |
+|--------|--------|------|
+| Backend Development | High Performance, Gateway, Long Connection, IM System, Distributed Systems, Low Latency | 核心后端技术画像，区别于 Resume A 的安全方向。 |
+| Programming Languages | Rust, Go, C++, Linux | 多语言系统编程能力。 |
+| Gateway & Networking | Nginx, Pingora, Reverse Proxy, TCP/IP, HTTP/HTTPS, WebSocket | 网关与网络协议栈。 |
+| Concurrency | epoll, kqueue, Async, Lock-free, High Concurrency | 并发与高性能编程。 |
+| Middleware | Redis, Kafka, ZooKeeper, MySQL, ClickHouse | 常用基础设施组件。 |
+
+### 删除说明
+
+- **删除 亿级消息峰值 / 10w+ QPS / <50ms**：项目成果数字，下放项目。
+- **删除 0→1 / 生产环境 / 电信级高可靠**：项目经验描述，下放项目。
+- **删除 Java SDK / JNI**：具体技术实现，下放项目。
 
 ---
 
@@ -90,37 +153,42 @@ core_skills:
 
 | 维度 | Resume A | Resume B |
 |------|---------|---------|
-| 第一项 | 安全产品开发 | 高性能网关 |
-| 第二项 | 安全体系建设与运营 | 长连接与 IM 基础设施 |
-| 第三项 | 高性能安全基础设施 | 分布式系统 |
-| 第四项 | 安全资质与标准 | 系统编程与工程化 |
-| 共同技术栈 | Rust / Go / C++、Nginx/Pingora | Rust / Go / C++、Nginx/Pingora |
-| 差异关键词 | WAF、DLP、SDL、HIDS、Risk、Compliance、CISSP | epoll、kqueue、IM、Distributed、Performance |
+| 第一项 | Application Security | Backend Development |
+| 第二项 | Security Engineering | Programming Languages |
+| 第三项 | Security Products | Gateway & Networking |
+| 第四项 | Programming Languages | Concurrency |
+| 第五项 | Infrastructure | Middleware |
+| 共同语言栈 | Rust, Go, C++ | Rust, Go, C++ |
+| 核心差异 | 安全域关键词 | 后端/网关/并发关键词 |
 
 ---
 
-## 与 Summary 的呼应
+## 与 Summary / Project Experience 的职责分离
 
-### Resume A
+| 模块 | 职责 | 当前 Core Skills 是否越界 |
+|------|------|--------------------------|
+| Summary | 建立技术人设 | 否 |
+| Core Skills | 建立技术画像（关键词扫描） | v1 越界，v2 已修正 |
+| Project Experience | 证明能力（What / Contribution / Impact） | Core Skills 不应承载 |
 
-- Summary 提到「企业安全平台建设与 AI 安全基础设施」→ Core Skills 展开为 AI/API 安全网关、数据安全、风控内容安全。
-- Summary 提到「金融、政务、互联网」→ Core Skills 第四项补充行业落地能力。
-- Summary 提到「持有 CISSP」→ Core Skills 数据安全与合规项呼应。
+---
 
-### Resume B
+## 设计原则总结
 
-- Summary 提到「高性能网络服务与分布式基础设施」→ Core Skills 展开为高性能网关、长连接 IM、分布式系统。
-- Summary 提到「QPS +138%、RT -63%」→ Core Skills 高性能网关项呼应。
-- Summary 提到「C++ / Go / Rust 多语言」→ Core Skills 系统编程项呼应。
+1. **名词 > 句子**：只写技术名词和领域词，不写"熟悉""具备""主导"等动词句。
+2. **4–8 个关键词/域**：方便 5 秒内扫完。
+3. **不重复项目内容**：项目细节、成果、数字全部下放 Project Experience。
+4. **不重复 Summary**：Summary 说"我是谁"，Core Skills 说"我掌握哪些技术域"。
+5. **国内阅读优先**：服务技术总监快速扫描，而非 ATS 关键词堆砌。
 
 ---
 
 ## 待确认问题
 
-1. Core Skills 是否需要加入「团队管理 / Team Lead」项？
-2. Resume A 是否需要单独的「安全合规」项（当前并入数据安全与合规）？
-3. Resume B 是否需要加入「性能优化 / Performance Tuning」独立项？
-4. 是否需要为每个能力域增加「年限」信号（如 5 年网关经验）？
-5. 两个 Branch 的 Core Skills 数量是否一致（当前都是 4 项）？
+1. Resume A 的 5 个能力域分类是否清晰？是否需要合并 Application Security 与 Security Products？
+2. Resume B 是否需要增加「Performance Optimization」或「System Design」独立域？
+3. 是否需要为某些关键词加简短说明（如 Pingora），还是保持纯名词？
+4. 两个 Branch 的能力域数量是否统一（当前都是 5 项）？
+5. 是否有遗漏的关键技术域？
 
-确认后进入 Phase 6：逐家公司/项目修改。
+确认后，用 v2 替换之前所有 Core Skills 引用，并继续项目经历优化。
