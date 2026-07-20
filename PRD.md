@@ -294,8 +294,9 @@ resume/
 | 层级 | 路径 | 说明 |
 |------|------|------|
 | 原材料（raw） | `materials/raw/` | 代码仓库、文档、PPT、截图、笔记等原始物料 |
+| 事实（facts） | `materials/facts/facts.yaml` | 已确认的客观事实清单 |
 | 粗料（coarse） | `materials/coarse/` | 按项目/公司整理的事实草稿，回答 What / Contribution / Impact |
-| 细料（fine） | `materials/fine/` | 可直接用于简历的精炼事实单元与确认事实清单 |
+| 细料（fine） | `materials/fine/` | 可直接用于简历的 bullet 单元 |
 | 主数据 | `data/resume.yaml` | 当前简历统一数据源 |
 | 项目详情 | `materials/projects/*.md` | 各项目详细素材 |
 | 述职材料 | `materials/annual-reviews/*.md` | 年度/半年度述职 |
