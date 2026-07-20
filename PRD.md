@@ -601,6 +601,25 @@ ATS 是必要但不充分条件。简历首先要通过 ATS，但最终征服的
 
 ## 二十、输出与迭代流程
 
+### 20.1 分支与文件策略
+
+Resume A（Security）与 Resume B（Backend）采用**一个 Git 分支、两个简历文件**的策略：
+
+- `data/resume-security.yaml` — Resume A 数据源
+- `data/resume-backend.yaml` — Resume B 数据源
+- `outputs/resume-security.*` — Resume A 输出产物
+- `outputs/resume-backend.*` — Resume B 输出产物
+
+两者共享 `materials/` Career Knowledge Base、共享 `scripts/` 与 `html/` 构建管道。
+
+**原因**：
+
+- Resume A/B 是同一职业经历的两种渲染，不是两个独立项目。
+- 事实层完全共享，避免跨分支同步成本。
+- 便于对比两个简历，确保事实一致。
+
+### 20.2 迭代阶段
+
 严禁一次性输出完整简历。按以下阶段推进，每阶段完成后等待确认：
 
 1. **Phase 1 — 现状分析**：分析当前 `data/resume.yaml` 的 Information Architecture 问题。
@@ -612,10 +631,8 @@ ATS 是必要但不充分条件。简历首先要通过 ATS，但最终征服的
 
 最终目标：
 
-- `data/resume-security.yaml` 或 `output/resume-security.pdf` — Resume A
-- `data/resume-backend.yaml` 或 `output/resume-backend.pdf` — Resume B
-
-（具体文件命名在 Phase 2 确定。）
+- `data/resume-security.yaml` → `outputs/resume-security.pdf` — Resume A
+- `data/resume-backend.yaml` → `outputs/resume-backend.pdf` — Resume B
 
 ---
 

@@ -9,7 +9,9 @@
 ```
 .
 ├── data/                    # 简历数据源（Source）
-│   └── resume.yaml          # 当前简历主数据
+│   ├── resume.yaml          # 当前默认简历（过渡中）
+│   ├── resume-security.yaml # Resume A — Application Security Engineer
+│   └── resume-backend.yaml  # Resume B — Senior Backend Engineer
 ├── materials/               # Career Knowledge Base
 │   ├── raw/                 # 原材料：代码仓库、文档、PPT、截图、笔记
 │   ├── facts/               # 确认的事实（Fact）
@@ -39,6 +41,14 @@
 ├── README.md
 └── LICENSE
 ```
+
+## 分支与文件策略
+
+Resume A（Security）与 Resume B（Backend）采用**一个 Git 分支、两个简历文件**的策略：
+
+- 共享 `materials/` Career Knowledge Base。
+- 共享 `scripts/`、`html/` 构建管道。
+- 两个简历的差异仅在叙事角度、项目强调点与 ATS 关键词，事实完全一致。
 
 ## 设计原则
 
