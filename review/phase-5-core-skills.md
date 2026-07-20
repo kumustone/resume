@@ -1,61 +1,63 @@
 # Phase 5 — Resume A/B Core Skills 设计
 
-## 重要 redesign 说明
+## 版本演进
 
-Core Skills v1 的问题：把 Core Skills 写成了「缩短版项目经历」，包含大量项目细节（Prompt Injection、SSE/NDJSON、亿级消息、10w+ QPS）和成果性描述（0→1、生产环境落地）。
+- v1：完整叙述句，项目细节过多 → **已废弃**
+- v2：关键词化，但分类标题偏欧美 → **已废弃**
+- **v3**：中文分类标题 + 行业习惯术语，国内技术总监阅读优先
 
-**Core Skills 的真正作用**：让技术总监在 5 秒内扫一眼，建立技术画像。
+---
 
-因此 v2 完全推倒重做：
+## 设计原则
 
-- 只保留**技术域关键词和技术名词**，不写完整叙述句。
-- 每个能力域控制在 **4–8 个关键词**。
-- 项目成果、业务背景、性能数字、0→1 等全部移到 Project Experience。
-- Summary、Core Skills、Project Experience 三者职责严格分离，避免重复。
-- 优先服务国内技术总监阅读习惯，而非 ATS 堆砌。
+1. **分类标题全部中文**：国内简历的阅读节奏。
+2. **技术术语遵循行业习惯**：中文概念 + 英文专业术语（如 TCP/IP、Nginx、Kafka 保留英文，领域词如 后端开发、并发编程 使用中文）。
+3. **纯关键词，无动词**：不写「熟悉」「具备」「掌握」「主导」「负责」。
+4. **每域 4–6 个关键词**：5 秒内扫完。
+5. **Snmary / Core Skills / Project Experience 严格分离**：不重复。
+6. **优先国内技术总监阅读习惯**，不刻意迎合 ATS。
 
 ---
 
 ## Resume A — Application Security Engineer
 
-### Core Skills v2
+### Core Skills v3
 
 ```yaml
 core_skills:
-  - title: Application Security
+  - title: 应用安全
     details:
-      - AI Security
-      - API Security
+      - AI安全
+      - API安全
       - WAF
-      - Content Security
-      - Risk Control
-      - Data Security
-      - DLP
+      - 内容安全
+      - 业务风控
+      - 数据安全
 
-  - title: Security Engineering
+  - title: 安全工程
     details:
       - SDL
-      - Code Audit
-      - Vulnerability Management
-      - Security Governance
-      - Compliance
+      - 代码审计
+      - 漏洞治理
+      - 安全治理
+      - 等保合规
       - HIDS
 
-  - title: Security Products
+  - title: 安全产品
     details:
-      - AI Gateway
-      - Data Security Engine
-      - Anti-fraud
-      - Anti-spam
-      - Identity & Access
+      - AI网关
+      - 数据安全引擎
+      - 反欺诈
+      - 反垃圾
+      - 访问控制
 
-  - title: Programming Languages
+  - title: 编程语言
     details:
       - Rust
       - Go
       - C++
 
-  - title: Infrastructure
+  - title: 基础组件
     details:
       - Nginx
       - Pingora
@@ -67,62 +69,64 @@ core_skills:
 
 ### 设计说明
 
-| 能力域 | 关键词 | 说明 |
-|--------|--------|------|
-| Application Security | AI Security, API Security, WAF, Content Security, Risk Control, Data Security, DLP | 安全能力域广度，覆盖 Resume A 的核心方向。 |
-| Security Engineering | SDL, Code Audit, Vulnerability Management, Security Governance, Compliance, HIDS | 安全工程与体系建设能力，区分于纯安全开发。 |
-| Security Products | AI Gateway, Data Security Engine, Anti-fraud, Anti-spam, Identity & Access | 产品形态，帮助建立"安全产品研发"人设。 |
-| Programming Languages | Rust, Go, C++ | 核心语言栈，不写"熟悉""具备"等废话。 |
-| Infrastructure | Nginx, Pingora, Linux, TCP/IP, Kafka, Redis | 技术基础设施，支撑安全产品的工程底座。 |
+| 分类 | 为什么这样分类 | 为什么保留这些关键词 | 是否还能精简 |
+|------|---------------|---------------------|-------------|
+| **应用安全** | 覆盖安全能力域广度，技术总监一眼看到能力覆盖范围。 | AI安全、API安全、WAF、内容安全、业务风控、数据安全是简历中实际覆盖的方向，有项目支撑。 | 6 个已是最小集合。DLP 与数据安全语义重叠，去掉。 |
+| **安全工程** | 区分安全开发与安全工程/治理能力，这是 Resume A 的核心差异化。 | SDL、代码审计、漏洞治理体现安全研发能力；安全治理、等保合规、HIDS 体现体系建设能力。 | 6 个已精选。去掉了 Compliance（用等保合规代替）、Security Governance（用安全治理代替）。 |
+| **安全产品** | 建立安全产品研发人设，与「应用安全」（能力域）区分：前者回答会什么，后者回答做过什么类型的产品。 | AI网关、数据安全引擎、反欺诈、反垃圾、访问控制对应闪捷和玩物得志的实际产品。 | 5 个，略少，但 AIDataset、OCR 等太细，不放。 |
+| **编程语言** | Core Skills 中唯一保持 3 个关键词的项，多反而不精。 | Rust、Go、C++ 是实际工程语言，不需要列出 Python。 | 已最精简。 |
+| **基础组件** | 支撑安全产品的技术底座，让技术总监感知到不是只会写脚本。 | Nginx、Pingora、Linux、TCP/IP、Kafka、Redis 覆盖网络、代理、操作系统、消息、缓存，足够。 | 可以考虑去掉 Redis 或 Kafka，但两者都体现分布式能力，暂保留。 |
 
 ### 删除说明
 
-- **删除 CISSP**：资质放到 Education / Certification 区域。
-- **删除 Prompt Injection / SSE / NDJSON / 零宽字符 / SIM 水印 / OCR**：项目实现细节，下放项目。
-- **删除 0→1 / 规模化落地 / 金融政务互联网**：项目成果与行业背景，下放项目。
+- 英文分类标题（Application Security → 应用安全）。
+- CISSP → 放在 Certification/Education 区域。
+- DLP → 与数据安全语义重叠。
+- 身份与访问（Identity & Access）→ 改为更具体的「访问控制」。
+- 所有动词前缀（熟悉、具备、掌握等）。
 
 ---
 
 ## Resume B — Senior Backend Engineer
 
-### Core Skills v2
+### Core Skills v3
 
 ```yaml
 core_skills:
-  - title: Backend Development
+  - title: 后端开发
     details:
-      - High Performance
-      - Gateway
-      - Long Connection
-      - IM System
-      - Distributed Systems
-      - Low Latency
+      - 高性能
+      - 网关
+      - 长连接
+      - IM系统
+      - 分布式系统
+      - 低延迟
 
-  - title: Programming Languages
+  - title: 编程语言
     details:
       - Rust
       - Go
       - C++
       - Linux
 
-  - title: Gateway & Networking
+  - title: 网关与网络
     details:
       - Nginx
       - Pingora
-      - Reverse Proxy
+      - 反向代理
       - TCP/IP
       - HTTP/HTTPS
       - WebSocket
 
-  - title: Concurrency
+  - title: 并发编程
     details:
       - epoll
       - kqueue
-      - Async
-      - Lock-free
-      - High Concurrency
+      - 异步
+      - 无锁
+      - 高并发
 
-  - title: Middleware
+  - title: 中间件
     details:
       - Redis
       - Kafka
@@ -133,62 +137,76 @@ core_skills:
 
 ### 设计说明
 
-| 能力域 | 关键词 | 说明 |
-|--------|--------|------|
-| Backend Development | High Performance, Gateway, Long Connection, IM System, Distributed Systems, Low Latency | 核心后端技术画像，区别于 Resume A 的安全方向。 |
-| Programming Languages | Rust, Go, C++, Linux | 多语言系统编程能力。 |
-| Gateway & Networking | Nginx, Pingora, Reverse Proxy, TCP/IP, HTTP/HTTPS, WebSocket | 网关与网络协议栈。 |
-| Concurrency | epoll, kqueue, Async, Lock-free, High Concurrency | 并发与高性能编程。 |
-| Middleware | Redis, Kafka, ZooKeeper, MySQL, ClickHouse | 常用基础设施组件。 |
+| 分类 | 为什么这样分类 | 为什么保留这些关键词 | 是否还能精简 |
+|------|---------------|---------------------|-------------|
+| **后端开发** | 核心能力域标题，覆盖六个后端技术画像关键词。 | 高性能、网关、长连接、IM系统、分布式系统、低延迟 — 每个词对应一个实际项目方向。 | 6 个，如果要去一个，考虑去掉 低延迟（在并发编程中隐含）。 |
+| **编程语言** | 多语言系统编程是 Backend 简历的核心信号。 | Rust、Go、C++ 三种工程语言，Linux 作为系统编程底座。 | 不精简。 |
+| **网关与网络** | Resume B 最核心的差异化能力域。 | Nginx、Pingora 是实际代理框架，反向代理、TCP/IP、HTTP/HTTPS、WebSocket 覆盖 L4–L7。 | 6 个已精简，去掉了 TLS（不是核心卖点）。 |
+| **并发编程** | 高性能后端的能力底座。 | epoll、kqueue 是具体 I/O 模型，异步、无锁、高并发是并发编程关键词。 | 5 个，略少，但可以了。 |
+| **中间件** | 常用基础设施，技术总监默认会看这一行。 | Redis、Kafka、ZooKeeper、MySQL、ClickHouse 是实际使用的组件，有项目支撑。 | 5 个，可以考虑去掉 ClickHouse（如果不足以成为亮点）。 |
 
 ### 删除说明
 
-- **删除 亿级消息峰值 / 10w+ QPS / <50ms**：项目成果数字，下放项目。
-- **删除 0→1 / 生产环境 / 电信级高可靠**：项目经验描述，下放项目。
-- **删除 Java SDK / JNI**：具体技术实现，下放项目。
+- 英文分类标题（Backend Development → 后端开发等）。
+- 所有项目成果数字（QPS、RT、亿级、10w+）。
+- 所有经验描述词（0→1、生产环境、电信级高可靠、团队管理）。
+- 具体技术实现词（Java SDK、JNI、OCR）。
 
 ---
 
-## Resume A/B Core Skills 对比
+## v3 与 v2 对比
+
+| 维度 | v2 | v3 |
+|------|----|----|
+| 分类标题 | Application Security、Programming Languages | 应用安全、编程语言 |
+| 阅读节奏 | 中英混合，偏欧美简历 | 纯中文标题，国内阅读自然 |
+| 领域词 | Backend Development、Concurrency | 后端开发、并发编程 |
+| 关键词形式 | 英文为主 | 中文概念 + 英文专业术语 |
+| 每域数量 | 4–8 个 | 4–6 个 |
+| 动词/前缀 | 无 | 无（保持） |
+| Resume A 域数 | 5 | 5（保持） |
+| Resume B 域数 | 5 | 5（保持） |
+
+---
+
+## A/B 区分度
 
 | 维度 | Resume A | Resume B |
 |------|---------|---------|
-| 第一项 | Application Security | Backend Development |
-| 第二项 | Security Engineering | Programming Languages |
-| 第三项 | Security Products | Gateway & Networking |
-| 第四项 | Programming Languages | Concurrency |
-| 第五项 | Infrastructure | Middleware |
-| 共同语言栈 | Rust, Go, C++ | Rust, Go, C++ |
-| 核心差异 | 安全域关键词 | 后端/网关/并发关键词 |
+| 第一项 | 应用安全 | 后端开发 |
+| 第二项 | 安全工程 | 编程语言 |
+| 第三项 | 安全产品 | 网关与网络 |
+| 第四项 | 编程语言 | 并发编程 |
+| 第五项 | 基础组件 | 中间件 |
+| 技术总监第一眼 | 安全人 | 后端人 |
 
 ---
 
 ## 与 Summary / Project Experience 的职责分离
 
-| 模块 | 职责 | 当前 Core Skills 是否越界 |
-|------|------|--------------------------|
-| Summary | 建立技术人设 | 否 |
-| Core Skills | 建立技术画像（关键词扫描） | v1 越界，v2 已修正 |
-| Project Experience | 证明能力（What / Contribution / Impact） | Core Skills 不应承载 |
+| 模块 | 职责 | 是否越界 |
+|------|------|---------|
+| Summary | 我是谁（技术人设） | ✅ 否 |
+| Core Skills | 我掌握哪些技术领域（技术画像） | ✅ 否 |
+| Project Experience | 我具体做过什么（能力证明） | ✅ Core Skills 不承载 |
 
 ---
 
-## 设计原则总结
+## 确认结论（v3）
 
-1. **名词 > 句子**：只写技术名词和领域词，不写"熟悉""具备""主导"等动词句。
-2. **4–8 个关键词/域**：方便 5 秒内扫完。
-3. **不重复项目内容**：项目细节、成果、数字全部下放 Project Experience。
-4. **不重复 Summary**：Summary 说"我是谁"，Core Skills 说"我掌握哪些技术域"。
-5. **国内阅读优先**：服务技术总监快速扫描，而非 ATS 关键词堆砌。
+- Resume A 采用 **Core Skills v3**。
+- Resume B 采用 **Core Skills v3**。
+- 后续所有引用 Core Skills 的位置统一用 v3。
+- 分类标题统一中文，技术术语遵循行业习惯。
 
 ---
 
 ## 待确认问题
 
-1. Resume A 的 5 个能力域分类是否清晰？是否需要合并 Application Security 与 Security Products？
-2. Resume B 是否需要增加「Performance Optimization」或「System Design」独立域？
-3. 是否需要为某些关键词加简短说明（如 Pingora），还是保持纯名词？
-4. 两个 Branch 的能力域数量是否统一（当前都是 5 项）？
-5. 是否有遗漏的关键技术域？
+1. Resume A 的「安全产品」和「应用安全」是否分类清晰？是否需要合并？
+2. Resume B 的「并发编程」域是否需要增加关键词？
+3. Resume A 的「基础组件」是否改为「基础设施」更自然？
+4. 是否需要为关键开源技术（Pingora）加括号解释？
+5. 是否有遗漏的重要关键词？
 
-确认后，用 v2 替换之前所有 Core Skills 引用，并继续项目经历优化。
+确认后，用 v5 Summary + v3 Core Skills 进入项目经历阶段。
