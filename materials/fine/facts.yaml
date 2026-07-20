@@ -1,0 +1,234 @@
+# 已确认事实（Fine Material）
+# 本文件只包含已确认、可直接用于简历的客观事实。
+# 所有事实应可追溯至 materials/coarse/ 或 materials/raw/。
+
+profile:
+  name: 刘波
+  location: 杭州
+  email: kumustone@gmail.com
+  phone: "18143431580"
+  education: 硕士（中国海洋大学 · 通信与信息系统）
+  tech: C++ / Rust / Go
+  experience_years: 10+
+
+career_arc:
+  # 职业主线，用于指导简历叙事
+  narrative: Linux → Network → High Performance → Gateway → Distributed System → Security → AI Security
+
+confirmed_global_facts:
+  - fact: 所有项目中，候选人均为绝对核心开发角色。
+    source: 用户确认
+  - fact: 工作年限为 10 年+。
+    source: 用户确认
+  - fact: 简历中不使用出生年份。
+    source: resume/CLAUDE.md
+
+companies:
+  - name: 闪捷信息科技有限公司
+    period: 2022.04-至今
+    role: 资深开发工程师 / 技术负责人
+    weight: P0
+    location: 杭州
+    one_sentence: 作为核心设计开发角色，参与 API 网关、API 审计、AI 网关产品的设计、开发与项目推广。
+    confirmed_facts:
+      - fact: 闪捷是乙方产品公司，产品销售给金融、政企客户。
+        source: 用户确认
+      - fact: 职位统一为「资深开发工程师 / 技术负责人」。
+        source: 用户确认
+
+  - name: 玩物得志
+    period: 2019.08-2022.03
+    role: 安全专家 / 团队 Leader
+    weight: P1
+    location: 杭州
+    one_sentence: 主导业务风控引擎与文本反垃圾系统，负责企业安全治理与等保合规建设。
+    confirmed_facts:
+      - fact: 风控核心代码已不在本地仓库，但涉及大量工作。
+        source: 用户确认
+
+  - name: 蘑菇街
+    period: 2015.05-2019.08
+    role: 资深开发工程师
+    weight: P2
+    location: 杭州
+    one_sentence: 核心人员，从事 IM 系统、网络安全、HIDS、WAF 开发维护，见证自研 WAF 从 0 到 1。
+    confirmed_facts: []
+
+  - name: 千方集团 / 中交兴路
+    period: 2009.10-2011.05；2012.04-2015.05
+    role: 开发工程师 → 开发经理 / 高级软件工程师
+    weight: P3
+    location: 北京
+    one_sentence: 主导 CADN 车联网平台架构与核心代码，支撑 500 万级车辆终端高并发长连接接入。
+    confirmed_facts:
+      - fact: 两段工作经历在简历中合并为一个项目呈现。
+        source: 用户确认
+
+  - name: 华为技术有限公司
+    period: 2011.05-2012.04
+    role: 开发工程师
+    weight: P3
+    location: 深圳/北京
+    one_sentence: 负责 VRPV8 电信级路由器虚拟文件管理模块，建立高可靠软件工程理念。
+    confirmed_facts:
+      - fact: 作为职业起点，简历中简要呈现。
+        source: resume/CLAUDE.md
+
+projects:
+  - name: Nexis — 企业级 AI 安全网关
+    company: 闪捷信息科技有限公司
+    weight: P0
+    tech: [Rust, Pingora, Tokio, ZooKeeper, SSE, NDJSON, AI Gateway]
+    confirmed_facts:
+      - fact: 基于 Cloudflare Pingora 自研企业级 AI 安全网关。
+        source: materials/projects/01-闪捷信息科技-nexis-ai-安全网关-rust-pingora.md
+      - fact: 较原 C++ Nginx 模块方案，QPS +138%（24,270 vs 10,189），RT -63%（32.70ms vs 88.31ms）。
+        source: materials/projects/01-闪捷信息科技-nexis-ai-安全网关-rust-pingora.md
+      - fact: 纯代理模式 QPS 15w/s，开启全量安全规则 QPS 10w+。
+        source: materials/projects/01-闪捷信息科技-nexis-ai-安全网关-rust-pingora.md
+      - fact: 已实现 Prompt 注入检测、SSE/NDJSON 流式逐 chunk 内容审核与脱敏代答。
+        source: materials/projects/01-闪捷信息科技-nexis-ai-安全网关-rust-pingora.md
+      - fact: "已持续稳定运行超 2 年" 不适用于 Nexis，仅适用于 nginx_merry。
+        source: 用户确认
+
+  - name: nginx_merry — 高性能 C++ Nginx 安全网关模块
+    company: 闪捷信息科技有限公司
+    weight: P0
+    tech: [C++, Nginx C Module, dlopen, ZooKeeper, Kafka, Redis, WAF]
+    confirmed_facts:
+      - fact: 作为 Nexis 的性能对比基线。
+        source: materials/projects/02-闪捷信息科技-nginx_merry-高性能-c++-nginx-安全网关.md
+      - fact: 在闪捷各客户项目中持续稳定运行超 2 年。
+        source: 用户确认
+      - fact: 闪捷是乙方产品公司，nginx_merry 随产品部署到多个客户现场。
+        source: 用户确认
+
+  - name: r_data_service — 多形态数据安全引擎
+    company: 闪捷信息科技有限公司
+    weight: P0
+    tech: [Rust, JNI, Regex, Trie, Watermark, Data Masking, Java SDK]
+    confirmed_facts:
+      - fact: 核心识别与脱敏能力性能提升 5x+。
+        source: 用户确认（覆盖 materials/projects/ 中原写 10x）
+      - fact: 支持 Rust 库、Java SDK、HTTP Server、Web 管理端四种服务形态。
+        source: materials/projects/03-闪捷信息科技-r_data_service-多形态数据安全引擎-rust.md
+
+  - name: 业务风险控制平台
+    company: 玩物得志
+    weight: P1
+    tech: [Go, Risk Engine, Kafka, Redis, Device Fingerprint]
+    confirmed_facts:
+      - fact: 从 0 到 1 搭建业务风控中台。
+        source: materials/projects/04-玩物得志-业务风险控制平台从-0-1-建设.md
+      - fact: 支撑 10w+ QPS 实时风险决策，平均决策延迟 < 50ms。
+        source: materials/projects/04-玩物得志-业务风险控制平台从-0-1-建设.md
+      - fact: IM 反诈规则命中率 85%+，年拦截欺诈金额 500w+。
+        source: materials/projects/04-玩物得志-业务风险控制平台从-0-1-建设.md
+
+  - name: 高性能文本反垃圾系统
+    company: 玩物得志
+    weight: P1
+    tech: [Go, DFA, Regex, Anti-spam]
+    confirmed_facts:
+      - fact: 单机吞吐量较第三方服务提升 3 倍。
+        source: materials/projects/05-玩物得志-高性能文本反垃圾系统-自研.md
+      - fact: 年度安全成本降低 60%。
+        source: materials/projects/05-玩物得志-高性能文本反垃圾系统-自研.md
+      - fact: 覆盖 IM、评论、社区、昵称、商品描述等 5+ 业务线。
+        source: materials/projects/05-玩物得志-高性能文本反垃圾系统-自研.md
+
+  - name: 企业级安全治理与等保合规
+    company: 玩物得志
+    weight: P1
+    tech: [Security Compliance, MLPS 2.0, Device Fingerprint]
+    confirmed_facts:
+      - fact: 主导完成等保三级测评。
+        source: materials/projects/06-玩物得志-企业级安全治理与等保合规.md
+    missing:
+      - 等保测评完成时间
+      - 漏洞收敛数量 / 安全事件下降率
+      - 设备指纹 / 客户端加固覆盖率
+
+  - name: 蘑菇街自研 IM（C++）
+    company: 蘑菇街
+    weight: P2
+    tech: [C++, epoll, kqueue, TCP, Cross-platform SDK]
+    confirmed_facts:
+      - fact: 独立开发 C++ 跨平台长连接 SDK，推广为全公司通用长连接基础组件。
+        source: materials/projects/07-蘑菇街-蘑菇街-自研-im-c++-—-核心.md
+      - fact: IM2.0 支撑亿级消息峰值，高并发下长连接可用性 99.9%。
+        source: 用户确认（峰值，99.9% 可用性）
+
+  - name: 蘑菇街 WAF 网关
+    company: 蘑菇街
+    weight: P2
+    tech: [Go, tcpstream, Reverse Proxy, WAF, easyjson]
+    confirmed_facts:
+      - fact: 单机峰值 QPS 20K+。
+        source: materials/projects/08-蘑菇街-蘑菇街-waf-网关-go-tcpst.md
+      - fact: 爬虫高峰期超时率从 10% 压至 0.01%。
+        source: materials/projects/08-蘑菇街-蘑菇街-waf-网关-go-tcpst.md
+      - fact: tcpstream 自研长连接库实现 <1ms 进程间通信延迟。
+        source: materials/projects/08-蘑菇街-蘑菇街-waf-网关-go-tcpst.md
+
+  - name: 企业级信息安全治理
+    company: 蘑菇街
+    weight: P2
+    tech: [Go, HIDS, iptables, Vulnerability Scanner]
+    confirmed_facts:
+      - fact: 研发自动化漏洞扫描平台、HIDS Agent 与服务端、动态 ACL 防火墙。
+        source: materials/projects/09-蘑菇街-企业级信息安全治理.md
+    missing:
+      - HIDS 覆盖率
+      - 漏洞扫描数量 / MTTR
+      - 主导 vs 参与的项目边界
+
+  - name: CADN 车联网分布式接入与消息分发平台
+    company: 千方集团 / 中交兴路
+    weight: P3
+    tech: [C++, epoll, TCP, GB/T 808, Redis, Oracle]
+    confirmed_facts:
+      - fact: 单进程并发从 5w 提升至 25w。
+        source: materials/projects/10-中交兴路-千方-CADN-车联网平台.md
+      - fact: 消息转发能力 7w/s。
+        source: materials/projects/10-中交兴路-千方-CADN-车联网平台.md
+      - fact: 两段工作经历合并为一个项目呈现。
+        source: 用户确认
+
+  - name: 虚拟文件管理模块（VRPV8 电信级路由器）
+    company: 华为技术有限公司
+    weight: P3
+    tech: [C, Linux Kernel, Filesystem, VRP]
+    confirmed_facts:
+      - fact: 负责 VFM 模块研发，独立定位并解决内存泄漏、死锁、并发竞争等高级故障。
+        source: materials/projects/11-华为技术有限-虚拟文件管理模块（vrpv8-电信级路由.md
+
+narrative_angles:
+  security:
+    first_impression: 长期做企业安全平台的人。懂网络、懂网关、懂开发，安全做得比普通安全工程师更深。
+    priority_skills:
+      - WAF / API 安全网关
+      - AI 安全网关 / Prompt Injection / SSE/NDJSON 流式审核
+      - 数据脱敏 / 数字水印 / 敏感数据识别
+      - 业务风控 / 反欺诈 / 异常行为检测
+      - 文本反垃圾 / DFA 引擎
+      - 等保合规 / 安全治理
+      - HIDS / 漏洞扫描 / 应急响应
+  backend:
+    first_impression: 长期做高性能基础设施的人。懂 Gateway、懂 IM、懂 Rust、懂分布式。安全只是工程背景。
+    priority_skills:
+      - 高性能网络服务 / TCP 长连接 / epoll
+      - 异步网关 / Rust / Pingora / Tokio
+      - Nginx C 模块 / C++ 动态库
+      - 分布式系统 / 服务发现 / 一致性哈希
+      - IM 系统 / 长连接 SDK / 跨平台
+      - JNI / Java SDK / 多平台动态库
+      - 消息总线 / Kafka
+
+open_questions:
+  - question: Nexis 项目是否统一使用"Nexis"作为品牌名？
+    impact: 影响简历中项目名称表述
+  - question: 玩物得志等保合规、蘑菇街信息安全治理是否有量化 Impact 可补充？
+    impact: 影响安全 Resume 中治理类项目的厚度
+  - question: 是否还有除已列出的代码仓库外的其他相关仓库？
+    impact: 影响原材料完整性
