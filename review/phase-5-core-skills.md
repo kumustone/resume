@@ -16,35 +16,35 @@
 
 ```yaml
 core_skills:
-  - title: AI / API 安全网关
+  - title: 安全产品开发
     details:
-      - 企业级 AI 安全网关设计，覆盖 Prompt Injection 检测、SSE/NDJSON 流式内容审核、AI 应答脱敏代答。
-      - API 安全网关开发，具备 WAF、访问控制、数据脱敏、数字水印、请求审计与风险追溯能力。
+      - 企业级 AI 安全网关、API 安全网关开发，覆盖 Prompt Injection 检测、SSE/NDJSON 流式审核、WAF、访问控制与数据脱敏。
+      - 数据安全引擎设计，支持敏感数据识别、数据脱敏、零宽字符/SIM 水印、OCR/文件敏感检测与多形态服务化。
 
-  - title: 数据安全与合规
+  - title: 安全体系建设与运营
     details:
-      - 数据安全引擎设计，支持敏感数据识别、数据脱敏、零宽字符/SIM 水印、OCR/文件敏感检测。
-      - 企业安全治理与等保合规建设，覆盖 SDL、DevSecOps、漏洞管理、HIDS、安全审计。
+      - 企业安全治理与等保合规建设，覆盖 SDL、DevSecOps、漏洞管理、HIDS、安全审计与风险运营闭环。
+      - 业务风控与内容安全运营，覆盖反欺诈、反洗钱、异常行为检测、设备指纹、文本反垃圾与策略编排。
 
-  - title: 业务风控与内容安全
+  - title: 高性能安全基础设施
     details:
-      - 实时业务风控引擎，覆盖反欺诈、反洗钱、异常行为检测、设备指纹与规则策略编排。
-      - 高性能文本反垃圾系统，基于 DFA/正则/自定义规则，覆盖 IM、评论、社区等多业务场景。
-
-  - title: 安全工程化基础
-    details:
-      - 熟悉 Rust / Go / C++ 安全产品开发，具备 Nginx/Pingora 网关、Kafka、Redis、ZooKeeper 工程经验。
+      - 熟悉 Nginx/Pingora 高性能网关、Rust/Go/C++ 安全产品开发，具备 Kafka、Redis、ZooKeeper 工程经验。
       - 主导多个 0→1 安全产品建设，具备金融、政务、互联网行业客户现场落地与规模化交付能力。
+
+  - title: 安全资质与标准
+    details:
+      - 持有 CISSP，熟悉企业安全架构设计、安全合规要求与持续运营机制。
+      - 具备从网络层到应用层、从终端到数据的多层次安全防护设计经验。
 ```
 
 ### 设计说明
 
 | 能力域 | ATS 关键词 |
 |--------|-----------|
-| AI / API 安全网关 | AI Security、API Security、WAF、Prompt Injection、Content Moderation、Data Masking |
-| 数据安全与合规 | Data Security、Data Masking、Watermark、DLP、SDL、DevSecOps、MLPS、HIDS |
-| 业务风控与内容安全 | Risk Control、Anti-fraud、Anti-spam、Anomaly Detection、Device Fingerprint |
-| 安全工程化基础 | Rust、Go、C++、Nginx、Pingora、0→1、Enterprise Security |
+| 安全产品开发 | AI Security、API Security、WAF、Prompt Injection、Content Moderation、Data Masking、Data Security Engine |
+| 安全体系建设与运营 | SDL、DevSecOps、MLPS、HIDS、Vulnerability Management、Risk Control、Anti-fraud、Anti-spam、Compliance |
+| 高性能安全基础设施 | Rust、Go、C++、Nginx、Pingora、Gateway、High Performance、0→1、Enterprise Security |
+| 安全资质与标准 | CISSP、Security Architecture、Compliance、Multi-layer Security |
 
 ---
 
@@ -90,12 +90,12 @@ core_skills:
 
 | 维度 | Resume A | Resume B |
 |------|---------|---------|
-| 第一项 | AI / API 安全网关 | 高性能网关 |
-| 第二项 | 数据安全与合规 | 长连接与 IM 基础设施 |
-| 第三项 | 业务风控与内容安全 | 分布式系统 |
-| 第四项 | 安全工程化基础 | 系统编程与工程化 |
+| 第一项 | 安全产品开发 | 高性能网关 |
+| 第二项 | 安全体系建设与运营 | 长连接与 IM 基础设施 |
+| 第三项 | 高性能安全基础设施 | 分布式系统 |
+| 第四项 | 安全资质与标准 | 系统编程与工程化 |
 | 共同技术栈 | Rust / Go / C++、Nginx/Pingora | Rust / Go / C++、Nginx/Pingora |
-| 差异关键词 | WAF、DLP、SDL、HIDS、Risk、Compliance | epoll、kqueue、IM、Distributed、Performance |
+| 差异关键词 | WAF、DLP、SDL、HIDS、Risk、Compliance、CISSP | epoll、kqueue、IM、Distributed、Performance |
 
 ---
 

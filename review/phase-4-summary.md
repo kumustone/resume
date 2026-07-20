@@ -21,18 +21,18 @@
 ### Summary v3（根据反馈再次优化：纲领性、言简意赅）
 
 ```text
-专注企业安全平台建设与 AI 安全基础设施，覆盖 AI 安全网关、API 安全网关、数据安全引擎、业务风控与内容安全。具备从 0 到 1 设计并落地安全产品的完整经验，服务金融、政务、互联网等行业。持有 CISSP，在高速网关、数据安全、等保合规与规模化安全运营等方向有持续实践。
+专注企业安全产品开发与安全体系建设运营，覆盖 AI 安全网关、API 安全网关、数据安全引擎、业务风控、内容安全与企业安全治理。具备从 0 到 1 设计并落地安全产品的完整经验，也具备等保合规、SDL、安全审计与规模化安全运营能力。服务金融、政务、互联网等行业，持有 CISSP，在高速网关、数据安全与风险防控等方向有持续实践。
 ```
 
 ### 设计说明
 
 | 句子 | 功能 | ATS 关键词 / 能力信号 |
 |------|------|----------------------|
-| 第一句 | 建立身份：15 年 + 企业安全平台 + AI 安全基础设施 | Application Security、AI Security、Enterprise Security |
-| 第二句 | 核心产品矩阵与行业覆盖 | WAF、Data Security、Gateway、金融、政务 |
-| 第三句 | 安全能力域广度 | AI Content Safety、Data Masking、Sensitive Data Recognition、Risk Control、Anti-spam、Compliance |
-| 第四句 | 0→1 建设与产品化能力 | 0→1、Security Platform、规模化落地 |
-| 第五句 | 资质与职业主线 | CISSP、Telecom-grade、AI Security Infrastructure |
+| 第一句 | 建立身份：企业安全产品开发 + 安全体系建设运营 | Application Security、Security Platform、Security Development、Security Operations |
+| 第二句 | 安全能力域覆盖 | AI Security、API Security、Data Security、Risk Control、Content Security、Security Governance |
+| 第三句 | 0→1 落地与行业覆盖 | 0→1、金融、政务、互联网、CISSP |
+
+**注**：v3 已去掉「15 年系统研发经验」「职业主线」「内部项目名 Nexis/nginx_merry」等表述。
 
 ### 替代版本（更简洁）
 
@@ -60,10 +60,11 @@
 
 | 句子 | 功能 | ATS 关键词 / 能力信号 |
 |------|------|----------------------|
-| 第一句 | 建立身份：15 年 + 高性能网络服务 + 分布式基础设施 | Senior Backend、Infrastructure、High Performance、Distributed Systems |
-| 第二句 | 核心产品矩阵与性能成果 | Rust、Pingora、Nginx、Gateway、QPS、Latency、Data Service Engine |
-| 第三句 | 多语言能力与工程领导力 | C++、Go、Rust、0→1、Production、Team Lead |
-| 第四句 | 职业主线 | Telecom-grade、Gateway、Distributed Backend、AI Infrastructure |
+| 第一句 | 建立身份：高性能网络服务 + 分布式基础设施 | Senior Backend、Infrastructure、High Performance、Distributed Systems |
+| 第二句 | 多语言能力与工程领导力 | Rust、Go、C++、0→1、Production、Team Lead |
+| 第三句 | 能力域覆盖 | Gateway、IM、Real-time Decision、Distributed Access、Telecom-grade |
+
+**注**：v3 已去掉「15 年系统研发经验」「职业主线」「具体技术实现与数字（Rust/Pingora、QPS +138%）」等表述，这些细节下放到项目层级。
 
 ### 替代版本（更突出 Gateway）
 
@@ -77,9 +78,9 @@
 
 | 维度 | Resume A Summary | Resume B Summary |
 |------|------------------|------------------|
-| 第一句话核心 | 企业安全平台建设与 AI 安全基础设施 | 高性能网络服务与分布式基础设施 |
-| 覆盖范围 | AI 安全网关、API 安全网关、数据安全、风控、内容安全 | 高性能网关、长连接 IM、数据服务引擎 |
-| 能力信号 | 0→1 安全产品、金融/政务/互联网、CISSP | 多语言工程化、0→1 系统、团队技术管理 |
+| 第一句话核心 | 企业安全产品开发与安全体系建设运营 | 高性能网络服务与分布式基础设施 |
+| 覆盖范围 | AI 安全网关、API 安全网关、数据安全、风控、内容安全、安全治理 | 高性能网关、长连接 IM、数据服务引擎 |
+| 能力信号 | 安全开发 + 安全体系建设/运营、0→1、金融/政务/互联网、CISSP | 多语言工程化、0→1 系统、团队技术管理 |
 | 细节程度 | 纲领性，无具体技术实现 / 数字 | 纲领性，无具体技术实现 / 数字 |
 | 内部项目名 | 不出现 | 不出现 |
 | 年限表述 | 不出现 | 不出现 |
@@ -93,6 +94,7 @@
 3. **去掉「职业主线从……演进至……」**：v2/v3 已删除。
 4. **开源项目不提**：Core Skills 与 Summary 均不提。
 5. **Summary 应纲领性、言简意赅**：v3 将 Resume B 中具体技术实现（Rust/Pingora、Nginx C Module、QPS +138%）下放到项目层级，Summary 只保留能力域概括。
+6. **Resume A 需同时面向安全开发与安全运营/体系建设**：v3 将第一句话从「企业安全平台建设与 AI 安全基础设施」调整为「企业安全产品开发与安全体系建设运营」，并补充「等保合规、SDL、安全审计与规模化安全运营能力」。
 
 ---
 
