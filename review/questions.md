@@ -21,3 +21,26 @@
 ## 时间
 
 2026-07-20
+
+---
+
+## Phase 2 → Phase 3 用户确认
+
+| # | 问题 | 回答 |
+|---|------|------|
+| 1 | 闪捷 secagent / AI-dataset / AI 研究如何呈现？ | **Resume A 单独一句话展开；Resume B 可以不提。** |
+| 2 | 玩物得志企业级安全治理在 Resume B 中是否保留？ | **提一句。** |
+| 3 | 蘑菇街企业级信息安全治理在 Resume A 中几个 bullet？ | **1 个 bullet。** |
+| 4 | flint-ocr / file-inspector 合并位置？ | **放在 r_data_service 之下。** |
+| 5 | 15 年工作经历简历页数？ | 用户询问，待下文回答。 |
+
+## 决策影响
+
+1. **Resume A 闪捷项目结构**：
+   - Nexis（重点）
+   - nginx_merry（重点）
+   - r_data_service（重点，下方合并提及 flint-ocr / file-inspector 的 OCR/文件敏感检测能力）
+   - secagent / AI-dataset / AI 研究：各自用一句话作为独立 Item 简要提及。
+2. **Resume B 玩物得志**：企业级安全治理保留 1 个 bullet。
+3. **Resume A 蘑菇街**：企业级信息安全治理 1 个 bullet。
+4. **页数问题**：用户询问 1 页 vs 2 页，需要给出建议。
