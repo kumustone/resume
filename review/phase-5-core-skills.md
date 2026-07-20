@@ -201,6 +201,161 @@ core_skills:
 
 ---
 
+## Core Skills v4（根据国内技术总监反馈优化）
+
+### 调整要点
+
+| 反馈 | 修改 |
+|------|------|
+| Resume A「业务风控」不属于应用安全域 | 从「应用安全」移至「安全产品」 |
+| Resume A「HIDS」在安全工程中层次不匹配（方法论 vs 产品） | 删除 |
+| Resume A「基础组件」命名不准确 | 改名为「技术栈」 |
+| Resume B「高性能」与「低延迟」表达相似 | 替换为「网络编程」，覆盖更广 |
+| Resume B「高并发」是结果不是技术 | 替换为「IO多路复用」 |
+| Resume B「Linux」放在编程语言不合适 | 移至「网关与网络」 |
+| 排序应体现最大竞争力 | 重新排序能力域 |
+
+---
+
+## Resume A — Application Security Engineer
+
+### Core Skills v4
+
+```yaml
+core_skills:
+  - title: 应用安全
+    details:
+      - AI安全
+      - API安全
+      - WAF
+      - 内容安全
+      - 数据安全
+
+  - title: 安全产品
+    details:
+      - AI网关
+      - 数据安全引擎
+      - 业务风控
+      - 反欺诈
+      - 反垃圾
+      - 访问控制
+
+  - title: 安全工程
+    details:
+      - SDL
+      - 代码审计
+      - 漏洞治理
+      - 安全治理
+      - 等保合规
+
+  - title: 编程语言
+    details:
+      - Rust
+      - Go
+      - C++
+
+  - title: 技术栈
+    details:
+      - Nginx
+      - Pingora
+      - Linux
+      - TCP/IP
+      - Kafka
+      - Redis
+```
+
+### 修改说明
+
+| 修改 | 说明 |
+|------|------|
+| 业务风控 移至安全产品 | 业务风控是产品形态，不是应用安全领域。安全产品回答「你做过什么类型的产品」。 |
+| 删除 HIDS | HIDS 是具体产品，与 SDL、代码审计、漏洞治理等安全方法论不在同一层次。如必须保留，可改为「主机安全」。 |
+| 基础组件 → 技术栈 | Linux、TCP/IP、Pingora 不是「组件」，改为「技术栈」更自然。 |
+| 重新排序 | 应用安全（能力域）→ 安全产品（产品形态）→ 安全工程（工程方法）→ 编程语言 → 技术栈。从业务到技术，阅读更流畅。 |
+
+---
+
+## Resume B — Senior Backend Engineer
+
+### Core Skills v4
+
+```yaml
+core_skills:
+  - title: 后端开发
+    details:
+      - 网关
+      - 长连接
+      - IM系统
+      - 分布式系统
+      - 网络编程
+      - 低延迟
+
+  - title: 网关与网络
+    details:
+      - Nginx
+      - Pingora
+      - 反向代理
+      - TCP/IP
+      - HTTP/HTTPS
+      - Linux
+
+  - title: 并发编程
+    details:
+      - epoll
+      - kqueue
+      - 异步
+      - 无锁
+      - IO多路复用
+
+  - title: 编程语言
+    details:
+      - Rust
+      - Go
+      - C++
+
+  - title: 中间件
+    details:
+      - Redis
+      - Kafka
+      - ZooKeeper
+      - MySQL
+      - ClickHouse
+```
+
+### 修改说明
+
+| 修改 | 说明 |
+|------|------|
+| 高性能 → 网络编程 | 「高性能」与「低延迟」语义重叠。改为「网络编程」扩大覆盖面，体现从 TCP 到应用层的完整能力。 |
+| 高并发 → IO多路复用 | 「高并发」是结果不是技术。改为「IO多路复用」更加具体、技术化，国内工程师更接受。 |
+| Linux 移至「网关与网络」 | Linux 不是编程语言，放在「网关与网络」作为基础平台更自然。 |
+| 重新排序 | 后端开发（能力域）→ 网关与网络（核心竞争力）→ 并发编程（技术底座）→ 编程语言 → 中间件。突出网关是最大竞争力。 |
+
+---
+
+## v4 与 v3 对比
+
+| 维度 | v3 | v4 |
+|------|----|----|
+| Resume A 业务风控 | 在应用安全 | 移至安全产品 |
+| Resume A HIDS | 在安全工程 | 删除 |
+| Resume A 基础组件/技术栈 | 基础组件 | 技术栈 |
+| Resume B 高性能 | 在后端开发 | 替换为 网络编程 |
+| Resume B 高并发 | 在并发编程 | 替换为 IO多路复用 |
+| Resume B Linux | 在编程语言 | 移至网关与网络 |
+| 排序逻辑 | 按类型 | 按竞争力权重 |
+
+---
+
+## 确认结论（v4）
+
+- Resume A 采用 **Core Skills v4**。
+- Resume B 采用 **Core Skills v4**。
+- Core Skills 优化到此为止，后续精力转向 Project Experience。
+
+
+---
+
 ## 待确认问题
 
 1. Resume A 的「安全产品」和「应用安全」是否分类清晰？是否需要合并？
