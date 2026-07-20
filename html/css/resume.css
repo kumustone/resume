@@ -39,7 +39,7 @@ body {
   font-size: 10.5pt;
   font-weight: 400;
   line-height: 1.4;
-  color: #1a1a1a;
+  color: #000;
   background: white;
 }
 
@@ -100,13 +100,6 @@ body {
   margin: 0;
 }
 
-.job-target-line {
-  font-size: 10.5pt;
-  font-weight: 400;
-  color: #1a1a1a;
-  margin-top: 0.3em;
-}
-
 /* ---- Section 标题 ---- */
 .resume-section {
   margin-bottom: 0.6em;
@@ -150,8 +143,8 @@ body {
 .skill-list li,
 .tech-list li,
 .highlight-list li {
-  margin-bottom: 0.3em;
-  line-height: 1.4;
+  margin-bottom: 0.15em;
+  line-height: 1.35;
   text-align: justify;
   text-justify: inter-ideograph;
 }
@@ -192,7 +185,7 @@ body {
   font-size: 10.5pt;
   font-weight: 400;
   line-height: 1.4;
-  color: #333;
+  color: #000;
   margin-bottom: 0.3em;
   text-align: justify;
   text-justify: inter-ideograph;

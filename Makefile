@@ -53,7 +53,7 @@ endif
 # ============================================================
 # 默认目标
 # ============================================================
-.PHONY: all help clean view
+.PHONY: all help clean view backup
 
 all: html pdf
 	@pkill -x wpsoffice 2>/dev/null || true
@@ -69,6 +69,19 @@ view:
 	@$(PDF_VIEWER) $(PDF)
 
 # ============================================================
+# 备份当前编译产物到 history-resume（带时间戳）
+# ============================================================
+HISTORY_DIR = material/history-resume
+TIMESTAMP := $(shell date +%Y%m%d_%H%M%S)
+
+backup:
+	@mkdir -p $(HISTORY_DIR)
+	@cp $(PDF) $(HISTORY_DIR)/resume_$(TIMESTAMP).pdf
+	@cp $(HTML) $(HISTORY_DIR)/resume_$(TIMESTAMP).html
+	@cp $(HTML_DIR)/output/resume-copyable.html $(HISTORY_DIR)/resume-copyable_$(TIMESTAMP).html
+	@echo "  ✓ Backed up: resume_$(TIMESTAMP).pdf, resume_$(TIMESTAMP).html, resume-copyable_$(TIMESTAMP).html"
+
+# ============================================================
 # 帮助信息
 # ============================================================
 help:
@@ -79,8 +92,9 @@ help:
 	@echo "Targets:"
 	@echo "  all          - 构建全部 (HTML + PDF) 并用 WPS 打开"
 	@echo "  view         - 强制刷新：杀 WPS 进程后重新打开 PDF"
+	@echo "  backup       - 备份当前 PDF/HTML 到 history-resume（带时间戳）"
 	@echo "  latex        - 构建 LaTeX PDF (需要 XeLaTeX)"
-	@echo "  html         - 生成 HTML"
+	@echo "  html         - 生成 HTML (打印版 + 可复制版)"
 	@echo "  pdf          - 生成 PDF (从 HTML, 依赖 html)"
 	@echo "  yaml-latex   - 从 YAML 生成 LaTeX 内容文件"
 	@echo "  yaml-html    - 从 YAML 生成 HTML 文件"
@@ -89,10 +103,11 @@ help:
 	@echo "  clean-html   - 清理 HTML/PDF 构建产物"
 	@echo ""
 	@echo "Outputs:"
-	@echo "  $(DIST_DIR)/resume.pdf       - PDF (Playwright)"
-	@echo "  $(DIST_DIR)/resume_latex.pdf - PDF (XeLaTeX)"
-	@echo "  $(HTML_DIR)/output/resume.html - HTML 版本"
-	@echo "  $(CONTENT_DIR)/resume.tex    - LaTeX 内容文件"
+	@echo "  $(DIST_DIR)/resume.pdf              - PDF (Playwright)"
+	@echo "  $(DIST_DIR)/resume_latex.pdf        - PDF (XeLaTeX)"
+	@echo "  $(HTML_DIR)/output/resume.html      - HTML 打印版（内联 CSS，用于转 PDF）"
+	@echo "  $(HTML_DIR)/output/resume-copyable.html - HTML 可复制版（极简样式，方便粘贴到外部系统）"
+	@echo "  $(CONTENT_DIR)/resume.tex           - LaTeX 内容文件"
 
 # ============================================================
 # 目录创建

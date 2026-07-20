@@ -37,8 +37,7 @@
         {{#summary_has_title}}
         <p class="summary-title-line"><strong>{{summary_title_line}}</strong></p>
         {{/summary_has_title}}
-        <p>{{summary_body}}</p>
-        <p class="job-target-line"><strong>求职意向：</strong>{{job_target}}</p>
+        <p>{{{summary_body}}}</p>
       </div>
     </section>
 
@@ -77,19 +76,6 @@
         {{/projects}}
       </div>
       {{/experiences}}
-    </section>
-
-    <!-- 技术栈 & 证书 -->
-    <section class="resume-section">
-      <h2>技术栈 &amp; 证书</h2>
-      <ul class="tech-list">
-        <li><strong>专业资质</strong>：<strong>{{professional_certs}}</strong></li>
-        <li><strong>编程语言</strong>：<strong>{{languages}}</strong></li>
-        <li><strong>系统 &amp; 网关</strong>：{{systems_gateways}}</li>
-        <li><strong>数据 &amp; 基础设施</strong>：{{data_infrastructure}}</li>
-        <li><strong>AI / LLM 安全</strong>：{{ai_llm_security}}</li>
-        <li><strong>荣誉奖励</strong>：{{honors}}</li>
-      </ul>
     </section>
 
     <!-- 教育背景 -->

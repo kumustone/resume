@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>刘波 - 简历</title>
+  <style>
+@charset "UTF-8";
+
+/* ============================================================
+   简历打印样式 — 中文经典排版
+   字体：正文 宋体(Adobe Song Std) / 标题 黑体(Adobe Heiti Std) / 简介 楷体(Adobe Kaiti Std)
+   字号：20pt(姓名) → 13pt(section) → 12pt(公司) → 11pt(项目) → 10.5pt(正文) → 9.5pt(页眉)
+   行高：正文 1.4 / 列表 1.4 / 标题 1.15–1.25
+   间距：list-item 0.3em / experience-item 0.6em / section 0.6em
+   边距：Playwright page.pdf() 控制（top:0.50in, right:0.65in, bottom:0.50in, left:0.65in）
+   ============================================================ */
+
+/* ---- 页面设置 ---- */
+@page {
+  size: A4;
+}
+
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  .resume-page {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* ---- 基础重置 ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---- 全局 ---- */
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 10.5pt;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #000;
+  background: white;
+}
+
+/* ---- 简历页面容器 ---- */
+.resume-page {
+  width: 100%;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 0;
+  background: white;
+}
+
+/* ---- 页眉：个人信息 ---- */
+.resume-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.3em;
+}
+
+.header-info {
+  flex: 1;
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+
+.header-info .info-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.15em;
+}
+
+.header-info .icon {
+  font-family: "FontAwesome", sans-serif;
+  display: inline-block;
+  width: 1.4em;
+  text-align: center;
+  color: #555;
+}
+
+.header-info .sep {
+  margin: 0 0.5em;
+  color: #999;
+}
+
+.header-name {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.header-name h1 {
+  font-size: 20pt;
+  font-weight: 600;
+  letter-spacing: 0.3pt;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* ---- Section 标题 ---- */
+.resume-section {
+  margin-bottom: 0.6em;
+}
+
+.resume-section h2 {
+  font-size: 13pt;
+  font-weight: 600;
+  border-bottom: 1pt solid #000;
+  padding-bottom: 2pt;
+  margin-bottom: 0.5em;
+  margin-top: 0.3em;
+  line-height: 1.25;
+}
+
+/* ---- 个人简介 — 楷体，区分正文 ---- */
+.summary-content p {
+  font-family: "Adobe Kaiti Std", "Adobe Kaiti Std R", "Adobe 楷体 Std", "STKaiti", "Kaiti SC", serif;
+  font-size: 10.5pt;
+  font-weight: 400;
+  font-synthesis: none;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  hyphens: auto;
+  margin-bottom: 0.3em;
+}
+
+.summary-title-line {
+  margin-bottom: 0.3em;
+}
+
+/* ---- 核心能力 / 技术栈 / 项目亮点 列表 ---- */
+.skill-list,
+.tech-list,
+.highlight-list {
+  list-style: disc;
+  padding-left: 1.5pc;
+  margin: 0;
+}
+
+.skill-list li,
+.tech-list li,
+.highlight-list li {
+  margin-bottom: 0.15em;
+  line-height: 1.35;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+/* ---- 工作经验 ---- */
+.experience-item {
+  margin-bottom: 0.6em;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.25em;
+  font-size: 12pt;
+  font-weight: 600;
+}
+
+.exp-company {
+  flex: 1;
+  font-weight: 600;
+}
+
+.exp-role {
+  flex: 1;
+  text-align: center;
+  font-weight: 400;
+}
+
+.exp-period {
+  flex: 1;
+  text-align: right;
+  font-weight: 400;
+}
+
+/* ---- 公司工作概要 ---- */
+.exp-summary {
+  font-size: 10.5pt;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #000;
+  margin-bottom: 0.3em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+/* ---- 项目子标题 ---- */
+.project {
+  margin-bottom: 0.3em;
+}
+
+.project-name {
+  font-size: 11pt;
+  font-weight: 600;
+  margin: 0.25em 0 0.1em 0;
+  line-height: 1.35;
+}
+
+/* ---- 教育背景表格 ---- */
+.edu-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5pt;
+}
+
+.edu-table td {
+  padding: 0.1em 0.5em;
+  text-align: left;
+}
+
+.edu-table td:nth-child(1) { width: 25%; }
+.edu-table td:nth-child(2) { width: 30%; }
+.edu-table td:nth-child(3) { width: 15%; }
+.edu-table td:nth-child(4) { width: 30%; text-align: right; }
+
+/* ---- 打印优化 ---- */
+@media print {
+  .resume-section h2,
+  .exp-header,
+  .project-name {
+    break-after: avoid;
+  }
+
+  .highlight-list li {
+    break-inside: avoid;
+  }
+}
+
+/* ---- 安全方向特殊调整（更紧凑） ---- */
+body.security .resume-section {
+  margin-bottom: 0.4em;
+}
+
+body.security .resume-section h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.35em;
+}
+
+body.security .skill-list li,
+body.security .tech-list li,
+body.security .highlight-list li {
+  line-height: 1.35;
+}
+
+</style>
+</head>
+<body>
+  <div class="resume-page">
+    <!-- 页眉：个人信息 -->
+    <header class="resume-header">
+      <div class="header-info">
+        <div class="info-row">
+          <span class="icon">&#xf0e0;</span>
+          <span>kumustone@gmail.com</span>
+          <span class="sep">|</span>
+          <span class="icon">&#xf095;</span>
+          <span>18143431580</span>
+        </div>
+        <div class="info-row">
+          <span class="icon">&#xf19d;</span>
+          <span>硕士（中国海洋大学 · 通信与信息系统）</span>
+          <span class="sep">|</span>
+          <span>1985.8</span>
+        </div>
+      </div>
+      <div class="header-name">
+        <h1>刘波</h1>
+      </div>
+    </header>
+
+    <!-- 个人简介 -->
+    <section class="resume-section">
+      <h2>个人简介</h2>
+      <div class="summary-content">
+        <p>热爱技术, 积极乐观, 自我驱动力强, 乐于挑战新事物；10+年Linux Server开发经验，精通Tcp/Http网关设计、开发；具备电商风控、甲方安全、乙方安全、IM、网络通讯、高性能系统等领域的工作经验；<br>求职意向： 资深开发工程师，架构师。</p>
+      </div>
+    </section>
+
+    <!-- 核心能力 -->
+    <section class="resume-section">
+      <h2>核心能力</h2>
+      <ul class="skill-list">
+        <li><strong>编程语言</strong>：C++(10年+) &gt; Rust(3年) &gt; Golang(3年) &gt; Python</li>
+        <li><strong>基础设施</strong>：Redis &#x2F; Kafka &#x2F; Zookeeper &#x2F; MySQL &#x2F; Nginx &#x2F; ClickHouse &#x2F; LVS &#x2F; Docker &#x2F; Epoll</li>
+        <li><strong>工程域</strong>：深入理解 TCP 长连接、高性能网关、网络协议栈，曾独立设计并编写过高性能网络 SDK 库，具备几十款 GPS 通信协议解析的底层实战经验；具备分布式集群、高并发系统、高性能网关及微服务&#x2F;RPC 架构从 0 到 1 的完整搭建与平滑演进能力</li>
+        <li><strong>业务域</strong>：安全领域：兼具甲乙方安全防护经验，多款安全产品的自研经验，具备复杂场景下的黑灰产对抗实战经验；主导并参与过整套 IM 系统的设计开发（涵盖网关层、逻辑层、存储层），具备双11大促级的海量长连接保障经验；独立完成多个0-1项目，设计、开发、运维落地，敏捷开发，多个项目管理，团队管理经验</li>
+        <li><strong>工具与效率</strong>：Claude code &#x2F; windsurf,  VIM , Git. 个人知识管理管理系统；CET-6，具备熟练的英文技术文档阅读能力及前沿技术资料检索调研能力</li>
+      </ul>
+    </section>
+
+    <!-- 工作经验 -->
+    <section class="resume-section">
+      <h2>工作经验</h2>
+      <div class="experience-item">
+        <div class="exp-header">
+          <span class="exp-company"><strong>闪捷信息科技有限公司</strong></span>
+          <span class="exp-role"><strong>资深开发工程师</strong></span>
+          <span class="exp-period"><strong>2022.04-至今</strong></span>
+        </div>
+        <p class="exp-summary">作为核心设计开发角色， 参与公司API网关、API审计、AI网关的产品的设计、开发、项目推广、客户现场支持等工作。</p>
+        <div class="project">
+          <h4 class="project-name">AI 安全网关平台 (Rust&#x2F;Pingora) — 核心开发 &#x2F; 架构设计</h4>
+          <ul class="highlight-list">
+            <li><strong>主要功能</strong>： 支持3种代理模式（AI应用代理， 大模性透明代理，大模型网关），比如Dify的代理，支持账号发现，知识库权限管理，AI应答数据脱敏，代答，Prompt安全检测等功能。</li>
+            <li>个人主要负责 竞品调研，产品设计，基于Cloudflare Pingora的AI网关功能开发。</li>
+          </ul>
+        </div>
+        <div class="project">
+          <h4 class="project-name">API网关</h4>
+          <ul class="highlight-list">
+            <li><strong>主要功能</strong>： 基于Nginx二开API网关，主要功能包括多实例代理、账户发现、访问控制、脱敏水印、日志采集等功能。主要难点在于，面对客户端现场各种版本，各种技术栈的前后端的实现，无感代理，账号发现成功率，敏感数据识别等。</li>
+            <li>使用 Nginx C Module + C++ 动态库（libmerry.so）分离架构。从网络层（黑白名单、访问控制、风险防护）到应用层（数据脱敏、7种水印、内容替换、AI 内容检查），再到审计层（账号发现、日志采集、Kafka → ClickHouse分析），实现请求全生命周期的安全防护与审计追溯。</li>
+            <li><strong>项目重构</strong>： 从Nginx修改为基于Cloudflare的pingora，较 Nginx + 外部服务架构 QPS 提升138%，RT 降低 63%；纯代理模式 QPS 15w/s，全量安全规则下 10w+ QPS。</li>
+          </ul>
+        </div>
+        <div class="project">
+          <h4 class="project-name">r_data_service 多形态数据安全引擎 (Rust) — 核心开发 &#x2F; 架构设计</h4>
+          <ul class="highlight-list">
+            <li>多 crate 架构设计，拆分为无状态引擎层 + 有状态编排层，支撑 Rust 库、Java SDK、HTTP Server、Web 管理端四种服务形态。设计 Segment→Recognize→Mask 三阶段流水线，内置 80+ 种敏感数据类型识别、20+ 种脱敏算法、零宽字符/SIM 双模式水印。承担识别与脱敏核心模块编码。</li>
+            <li>完成核心引擎 Rust 化代际升级，核心识别与脱敏能力性能提升 5x+，整体链路吞吐 1x+ 以上；显著提升对复杂数据场景（多标签、半结构化/非结构化数据）的覆盖能力。核心能力实现多场景统一复用（网关/Web/HttpParse/离线 SDK/AI 大模型网关），减少重复建设与维护成本。</li>
+            <li>Java SDK 强类型 API 替代 TLV 字符串协议，兼容多平台动态库自动加载（macOS ARM64 / Linux x86_64 / ARM64）。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="experience-item">
+        <div class="exp-header">
+          <span class="exp-company"><strong>玩物得志</strong></span>
+          <span class="exp-role"><strong>安全专家 &#x2F; 团队 Leader</strong></span>
+          <span class="exp-period"><strong>2019.08-2022.03</strong></span>
+        </div>
+        <p class="exp-summary">主导研发高并发业务风控引擎与文本反垃圾系统，负责企业安全治理与等保合规建设。</p>
+        <div class="project">
+          <h4 class="project-name">业务风控引擎研发</h4>
+          <ul class="highlight-list">
+            <li>围绕注册、登录、支付、提现等核心业务链路，设计风险特征分析与规则判断体系，涵盖设备指纹、行为序列、人机识别、异常行为检测等能力。</li>
+            <li>负责 IM 反诈、反洗钱、业务违规行为治理等专项，通过实时风控与离线审计闭环，有效降低业务风险与损失。</li>
+          </ul>
+        </div>
+        <div class="project">
+          <h4 class="project-name">高性能文本反垃圾系统 (自研)</h4>
+          <ul class="highlight-list">
+            <li>设计并实现基于 DFA、正则与自定义规则的检测引擎，通过多级缓存与规则预编译提升性能，单机吞吐量提升 3 倍。</li>
+            <li>核心场景替代商业服务，年度安全成本降低 60%；对接多家第三方风控能力，实现可插拔式接入与策略编排。</li>
+          </ul>
+        </div>
+        <div class="project">
+          <h4 class="project-name">企业级安全治理与等保合规</h4>
+          <ul class="highlight-list">
+            <li><strong>合规建设</strong>：主导完成等保三级测评，构建关键链路审计体系，收敛风险暴露面，建立常态化漏洞治理机制。</li>
+            <li><strong>安全工程化</strong>：落地设备指纹、接口防护、客户端加固等基础安全能力，从架构层面降低爬虫、注入等安全风险。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="experience-item">
+        <div class="exp-header">
+          <span class="exp-company"><strong>蘑菇街</strong></span>
+          <span class="exp-role"><strong>资深开发工程师</strong></span>
+          <span class="exp-period"><strong>2015.05-2019.08</strong></span>
+        </div>
+        <p class="exp-summary">作为核心人员，主要从事 IM 系统，网络安全，HIDS，WAF 等开发维护工作；见证并参与了自研 WAF从 0-1，以及整个 mogu 安全逐步建成一个完备的安全体系的过程；在安全部负责和参与的项目较多，摘要如下</p>
+        <div class="project">
+          <h4 class="project-name">蘑菇街 自研 IM (C++) — 核心开发</h4>
+          <ul class="highlight-list">
+            <li>独立开发 C++ 跨平台长连接 SDK，基于 epoll/kqueue 实现异步非阻塞 I/O，提供分包组包、状态机、自动重连、加密与网络诊断能力，后推广为全公司通用长连接基础组件，降低多端接入成本。</li>
+            <li><strong>IM2.0 重构</strong>：负责接入服务器、登录鉴权、会话管理、长链推送及 AppServer 模块从设计到编码到上线全流程。在亿级消息并发下，解决连接状态一致性、内存精细化管理与向前兼容难题，保障高并发长连接稳定性。</li>
+          </ul>
+        </div>
+        <div class="project">
+          <h4 class="project-name">蘑菇街 WAF 网关 (Go&#x2F;tcpstream) — 核心开发 &#x2F; 架构设计</h4>
+          <ul class="highlight-list">
+            <li><strong>设计 waf-gate（极简 HTTP 反向代理）+ waf-server（检测引擎）进程分离架构，通过自研 tcpstream 长连接库通信。稳定性优先</strong>：waf-server 崩溃/超时（20ms）自动 bypass，服务不可用时全流量透传。使用 easyjson 零分配序列化 + 正则预编译 + 多 Server 轮询，单机峰值 QPS 20K+，爬虫高峰期超时率从 10% 压至 0.01%。</li>
+            <li>设计 JSON 配置驱动的多字段组合规则引擎，支持 Host/Referer/URL/User-Agent/Content-Type 正则匹配 + IP 黑白名单，规则文件叠加热加载，兼顾攻防响应速度与运营灵活性。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="experience-item">
+        <div class="exp-header">
+          <span class="exp-company"><strong>千方集团 &#x2F; 中交兴路</strong></span>
+          <span class="exp-role"><strong>开发工程师 → 开发经理 &#x2F; 高级软件工程师</strong></span>
+          <span class="exp-period"><strong>2009.10-2011.05；2012.04-2015.05</strong></span>
+        </div>
+        <p class="exp-summary">两次加入集团车联网业务线，主导 CADN 接入平台架构与核心代码，支撑 500 万级车辆终端高并发长连接接入。</p>
+        <div class="project">
+          <h4 class="project-name">高并发接入模块</h4>
+          <ul class="highlight-list">
+            <li>基于 epoll 研发高并发接入模块，支撑海量 TCP 长连接，深度解析 GPS 808/809 国标协议。</li>
+          </ul>
+        </div>
+        <div class="project">
+          <h4 class="project-name">CADN 核心服务研发</h4>
+          <ul class="highlight-list">
+            <li>主导平台集群化演进，实现服务自发现、负载均衡与连接自调度；车机上线异常从 1 例/周降至 <1 例/3 月。</li>
+            <li>自研 epoll 异步网络库与一致性哈希 Redis 客户端，单进程并发 5w→25w，消息转发 7w/s。</li>
+            <li>设计 GB/T 808 协议解析层与分布式消息总线，实现终端协议到内部统一协议的转换与订阅分发。</li>
+            <li>拥有 1 项国家发明专利（事件驱动模型数据透传服务）。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="experience-item">
+        <div class="exp-header">
+          <span class="exp-company"><strong>华为技术有限公司</strong></span>
+          <span class="exp-role"><strong>开发工程师</strong></span>
+          <span class="exp-period"><strong>2011.05-2012.04</strong></span>
+        </div>
+        <p class="exp-summary">负责华为 VRPV8 电信级路由器虚拟文件管理模块研发，深入 Linux 内核与 C 语言底层，在此建立的高可靠软件工程理念贯穿工程实践。</p>
+        <div class="project">
+          <h4 class="project-name">虚拟文件管理模块（VRPV8 电信级路由器）</h4>
+          <ul class="highlight-list">
+            <li>负责虚拟文件管理（VFM）模块研发，保障文件系统在电信级严苛环境下的高稳定性。</li>
+            <li>阅读大量 Linux 内核与 C 源码，多次独立定位并解决内存泄漏、死锁、并发竞争等高级故障，受到团队认可。在此过程中建立的高可靠软件工程理念，持续影响后续系统设计与编码实践。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="resume-section">
+      <h2>教育背景</h2>
+      <table class="edu-table">
+        <tr>
+          <td><strong>中国海洋大学</strong></td>
+          <td><em>通信与信息系统</em></td>
+          <td><em>硕士</em></td>
+          <td><em>2007.9 - 2010.6</em></td>
+        </tr>
+        <tr>
+          <td><strong>怀化学院</strong></td>
+          <td><em>电子信息科学与技术</em></td>
+          <td><em>本科</em></td>
+          <td><em>2003.9 - 2007.6</em></td>
+        </tr>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
