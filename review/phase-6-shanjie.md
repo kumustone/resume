@@ -89,13 +89,13 @@ experience:
 
 ---
 
-## 待确认问题
+## 已确认
 
-1. 闪捷项目数量与分配是否合理？（当前 3 个项目，secagent 并入 nginx_merry，AI 预研并入 Nexis）
-2. Resume A 中 secagent 放在 nginx_merry 下是否合适？
-3. Resume B 是否需要也提及 secagent（作为 nginx_merry 的分布式节点管理服务）？
-4. Resume B 中是否需要保留 r_data_service 的「OCR/文件解析」一句话？
-5. 技术栈列表是否需要调整？
-6. 是否有需要删除或补充的 bullet？
+1. ✅ secagent 放在 nginx_merry 下合适。
+2. ✅ Resume B 不需要提及 secagent。
+3. ✅ Resume B 中 r_data_service 的「OCR/文件解析」保留。
+4. ⏸️ 暂停进入下一阶段，等待用户下一步指令。
 
-确认后，将闪捷部分写入正式 YAML 文件，并继续下一家公司（玩物得志）。
+## 待写入正式 YAML
+
+确认后，将闪捷部分写入 `data/resume-security.yaml` 与 `data/resume-backend.yaml`。
